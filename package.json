@@ -10,7 +10,7 @@
     "dev": "tsx apps/reference-server/src/index.js",
     "start": "node apps/reference-server/src/index.js",
     "typecheck": "tsc --noEmit",
-    "test": "npm run typecheck && vitest run && node tests/reference-server.smoke.mjs",
+    "test": "npm run typecheck && vitest run && node tests/reference-server.smoke.mjs && node tests/demo.smoke.mjs",
     "check:private-imports": "node scripts/check-private-imports.mjs"
   },
   "dependencies": {

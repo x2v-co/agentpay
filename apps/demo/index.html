@@ -1,53 +1,370 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AgentPay Control Room · toolkit.fun</title>
-<meta name="description" content="A cinematic replay of an agent discovering, authorizing and settling its own model purchase on Monad.">
-<style>
-:root{--ap-ink:#07111f;--ap-cyan:#53e7d5;--ap-blue:#5e8dff;--ap-amber:#ffbe5c;--ap-muted:#8fa5bd;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}*{box-sizing:border-box}html,body{margin:0;font-family:Inter,ui-sans-serif,system-ui,sans-serif}button{font:inherit;cursor:pointer}a{text-decoration:none}
-body{background:var(--ap-ink);color:#eef7ff;overflow-x:hidden}.agentpay-shell{min-height:100vh;background:radial-gradient(circle at 76% 12%,#193b5c 0,#07111f 40%,#030811 100%)}
-.ap-nav{height:64px;border-bottom:1px solid rgba(143,165,189,.18);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:relative;z-index:2}.ap-brand{font:700 18px var(--mono);letter-spacing:.02em}.ap-brand span{color:var(--ap-cyan)}.ap-nav a{color:#c7d9ed;font-size:13px}.ap-wrap{width:min(1220px,90vw);margin:0 auto;padding:58px 0 80px}.ap-kicker{color:var(--ap-cyan);font:600 11px var(--mono);letter-spacing:.22em;text-transform:uppercase}.ap-title{font:600 clamp(38px,6vw,84px);line-height:.98;max-width:850px;margin:14px 0 18px;letter-spacing:-.03em}.ap-title em{color:var(--ap-cyan);font-style:normal}.ap-lede{color:#b3c6d9;max-width:680px;font-size:17px;line-height:1.6;margin:0}.ap-toolbar{display:flex;gap:10px;align-items:center;margin:28px 0 42px;flex-wrap:wrap}.ap-btn{border:1px solid rgba(143,165,189,.35);background:rgba(13,28,46,.72);color:#eaf4ff;border-radius:7px;padding:10px 16px;font-weight:600}.ap-btn.primary{background:var(--ap-cyan);border-color:var(--ap-cyan);color:#06211f}.ap-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}.ap-status{font:12px var(--mono);color:var(--ap-muted);margin-left:4px}.ap-stage{position:relative;border:1px solid rgba(143,165,189,.28);border-radius:12px;overflow:hidden;background:rgba(5,16,29,.78);box-shadow:0 26px 90px rgba(0,0,0,.35)}.ap-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(83,231,213,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(83,231,213,.06) 1px,transparent 1px);background-size:40px 40px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent)}.ap-acts{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid rgba(143,165,189,.2)}.ap-act{padding:18px 22px;border-right:1px solid rgba(143,165,189,.2);color:#7991a9;font:600 11px var(--mono);letter-spacing:.16em}.ap-act:last-child{border-right:0}.ap-act.active{color:#f3fbff;background:rgba(83,231,213,.08)}.ap-act b{display:block;font-size:18px;letter-spacing:0;color:inherit;margin-top:7px}.ap-main{display:grid;grid-template-columns:1.1fr .9fr;min-height:450px}.ap-visual{padding:36px 34px;position:relative;border-right:1px solid rgba(143,165,189,.2)}.ap-copy{position:relative;z-index:1;max-width:560px}.ap-copy h2{font-size:clamp(27px,3.2vw,46px);line-height:1.04;margin:0 0 14px}.ap-copy p{color:#a9bfd3;line-height:1.6;margin:0}.ap-orbit{height:220px;position:relative;margin-top:24px}.ap-node{position:absolute;width:108px;height:108px;border:1px solid rgba(83,231,213,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font:600 11px var(--mono);color:#d9fffa;background:rgba(14,48,59,.8);box-shadow:0 0 30px rgba(83,231,213,.16);transition:transform .5s,background .5s}.ap-node.agent{left:0;top:45px}.ap-node.market{left:calc(50% - 54px);top:0;border-color:rgba(94,141,255,.75);background:rgba(24,42,91,.8)}.ap-node.chain{right:0;top:45px;border-color:rgba(255,190,92,.75);background:rgba(72,49,20,.8)}.ap-orbit:before,.ap-orbit:after{content:"";position:absolute;top:99px;height:1px;width:38%;background:linear-gradient(90deg,var(--ap-cyan),var(--ap-blue));opacity:.6}.ap-orbit:before{left:11%}.ap-orbit:after{right:11%;background:linear-gradient(90deg,var(--ap-blue),var(--ap-amber))}.ap-node.pulse{animation:apPulse 1.2s ease-in-out infinite}.ap-proof{padding:30px 24px;background:rgba(2,9,17,.46)}.ap-proof h3{font:600 12px var(--mono);letter-spacing:.12em;color:var(--ap-muted);margin:0 0 18px}.ap-log{display:flex;flex-direction:column;gap:11px}.ap-log-row{display:flex;justify-content:space-between;gap:14px;font:12px var(--mono);border-bottom:1px solid rgba(143,165,189,.13);padding-bottom:11px}.ap-log-row span:first-child{color:#7892aa}.ap-log-row span:last-child{text-align:right;color:#e8f5ff;word-break:break-word}.ap-log-row .ok{color:var(--ap-cyan)}.ap-log-row .warn{color:var(--ap-amber)}.ap-timeline{display:flex;gap:5px;padding:18px 22px;border-top:1px solid rgba(143,165,189,.2);overflow:auto}.ap-step{min-width:125px;padding:9px 10px;border-left:2px solid #31465b;color:#7189a0;font:11px var(--mono)}.ap-step.done{border-color:var(--ap-cyan);color:#d9fffa}.ap-step.current{border-color:var(--ap-amber);color:#fff0d0}.ap-footer{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:20px;color:#7189a0;font-size:12px}.ap-footer a{color:var(--ap-cyan)}@keyframes apPulse{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(83,231,213,.12)}50%{transform:scale(1.08);box-shadow:0 0 42px rgba(83,231,213,.4)}}
-@media(max-width:760px){.ap-wrap{padding-top:36px}.ap-main{grid-template-columns:1fr}.ap-visual{border-right:0;border-bottom:1px solid rgba(143,165,189,.2);padding:28px 22px}.ap-proof{padding:24px 22px}.ap-node{width:82px;height:82px;font-size:10px}.ap-node.market{left:calc(50% - 41px)}.ap-orbit:before{left:10%;width:34%}.ap-orbit:after{right:10%;width:34%}.ap-title{font-size:45px}.ap-act{padding:14px 10px;letter-spacing:.08em}.ap-act b{font-size:15px;overflow-wrap:anywhere;word-break:break-word}.ap-footer{align-items:flex-start;flex-direction:column}}
-@media(prefers-reduced-motion:reduce){.ap-node.pulse{animation:none}.ap-node{transition:none}}
-</style>
-</head>
-<body>
-<div class="agentpay-shell" id="agentpay-demo">
-  <nav class="ap-nav"><div class="ap-brand">toolkit<span>.fun</span> / AgentPay</div><div><a href="https://github.com/x2v-co/agentpay" target="_blank" rel="noopener">Source</a> &nbsp;·&nbsp; <a href="https://aiplans.dev" target="_blank" rel="noopener">aiplans.dev discovery</a></div></nav>
-  <main class="ap-wrap">
-    <div class="ap-kicker">Monad Metropolis / Consumer Products &amp; Payments</div>
-    <h1 class="ap-title">An agent that can <em>buy its own intelligence.</em></h1>
-    <p class="ap-lede">Watch a bounded goal wallet turn intent into a machine-fulfilled model call: discover, authorize, execute, settle on Monad, and keep working.</p>
-    <div class="ap-toolbar"><button class="ap-btn primary" id="ap-play" type="button">Play demo</button><button class="ap-btn" id="ap-step" type="button">Step</button><button class="ap-btn" id="ap-replay" type="button">Replay</button><span class="ap-status" id="ap-status">RECORDED FIXTURE / SAFE TO REPLAY</span></div>
-    <section class="ap-stage">
-      <div class="ap-grid"></div>
-      <div class="ap-acts"><div class="ap-act active" data-act="decide">ACT I <b>DECIDE</b></div><div class="ap-act" data-act="settle">ACT II <b>AUTHORIZE / SETTLE</b></div><div class="ap-act" data-act="continue">ACT III <b>CONTINUE WORK</b></div></div>
-      <div class="ap-main"><div class="ap-visual"><div class="ap-copy"><h2 id="ap-head">The agent compares the market before it spends.</h2><p id="ap-sub">aiplans.dev supplies canonical model metadata. toolkit.fun filters human checkout, checks the owner policy, and selects the cheapest machine route.</p></div><div class="ap-orbit"><div class="ap-node agent" id="ap-agent">AGENT<br>GOAL</div><div class="ap-node market" id="ap-market">aiplans.dev<br>+ toolkit.fun</div><div class="ap-node chain" id="ap-chain">MONAD<br>SETTLEMENT</div></div></div><aside class="ap-proof"><h3>LIVE EVIDENCE STREAM</h3><div class="ap-log" id="ap-log"><div class="ap-log-row"><span>offer</span><span class="ok">machine / GLM-4.7-Flash</span></div><div class="ap-log-row"><span>policy cap</span><span>0.10 USDC</span></div><div class="ap-log-row"><span>fulfillment</span><span class="warn">human checkout rejected</span></div><div class="ap-log-row"><span>network</span><span>eip155:10143</span></div><div class="ap-log-row"><span>receipt</span><span id="ap-receipt">awaiting authorization</span></div></div></aside></div>
-      <div class="ap-timeline" id="ap-timeline"><div class="ap-step done">01 / discover</div><div class="ap-step">02 / reserve</div><div class="ap-step">03 / permit2</div><div class="ap-step">04 / execute</div><div class="ap-step">05 / settle</div><div class="ap-step">06 / receipt</div></div>
-    </section>
-    <div class="ap-footer"><span>Demo uses a deterministic local fixture. Live mode uses the same AgentPay SDK + x402 route.</span><span><a href="https://staging.toolkit.fun/api/agentpay/v1/discovery" target="_blank" rel="noopener">Open discovery JSON</a> &nbsp;·&nbsp; <a href="https://toolkit.fun" target="_blank" rel="noopener">toolkit.fun</a> &nbsp;·&nbsp; <a href="https://aiplans.dev" target="_blank" rel="noopener">aiplans.dev</a></span></div>
-  </main>
-</div>
-<script>
-(() => {
-  const acts = [...document.querySelectorAll('.ap-act')]; const steps = [...document.querySelectorAll('.ap-step')];
-  const head = document.getElementById('ap-head'); const sub = document.getElementById('ap-sub'); const status = document.getElementById('ap-status'); const receipt = document.getElementById('ap-receipt');
-  const agent = document.getElementById('ap-agent'); const market = document.getElementById('ap-market'); const chain = document.getElementById('ap-chain'); let cursor = 0; let timer = null;
-  const frames = [
-    ['The agent compares the market before it spends.', 'aiplans.dev supplies canonical model metadata. toolkit.fun filters human checkout, checks the owner policy, and selects the cheapest machine route.', 'DECIDE', 0],
-    ['One request. One bounded authorization.', 'The goal wallet signs a reservation intent. Permit2 caps the maximum at 0.10 USDC and binds payer, model, digest, and deadline.', 'AUTHORIZE / SETTLE', 2],
-    ['Payment becomes proof, then the agent keeps working.', 'Provider usage is reconciled against the actual charge. Monad confirms the transaction and the delivery receipt unlocks the next task.', 'CONTINUE WORK', 5],
-  ];
-  function render(i) { const [h,s,label,step] = frames[i]; head.textContent=h; sub.textContent=s; acts.forEach((a,n)=>a.classList.toggle('active',n===i)); steps.forEach((x,n)=>x.classList.toggle('done',n<=step)); steps.forEach((x,n)=>x.classList.toggle('current',n===step)); agent.classList.toggle('pulse',i===0); market.classList.toggle('pulse',i===1); chain.classList.toggle('pulse',i===2); receipt.textContent=i===0?'awaiting authorization':i===1?'tx pending / provider executed':'paid · usage receipt v2'; status.textContent=i===0?'RECORDED FIXTURE / SAFE TO REPLAY':i===1?'AUTHORIZATION VERIFIED / UPTO PAYMENT':'CHAIN CONFIRMED / RECEIPT DURABLE'; cursor=i; }
-  function play() { clearInterval(timer); timer=setInterval(()=>{ render((cursor+1)%frames.length); },2600); document.getElementById('ap-play').textContent='Pause demo'; }
-  document.getElementById('ap-play').onclick=()=>{ if(timer){clearInterval(timer);timer=null;document.getElementById('ap-play').textContent='Play demo';}else play(); };
-  document.getElementById('ap-step').onclick=()=>{clearInterval(timer);timer=null;document.getElementById('ap-play').textContent='Play demo';render((cursor+1)%frames.length);};
-  document.getElementById('ap-replay').onclick=()=>{clearInterval(timer);timer=null;document.getElementById('ap-play').textContent='Play demo';render(0);};
-  acts.forEach((a,n)=>a.onclick=()=>{clearInterval(timer);timer=null;document.getElementById('ap-play').textContent='Play demo';render(n);});
-  render(0);
-})();
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AgentPay Control Room | toolkit.fun</title>
+    <meta
+      name="description"
+      content="A visual replay of an autonomous agent buying model capacity and settling only actual usage on Monad."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="nav">
+        <a
+          class="brand"
+          href="https://toolkit.fun"
+          target="_blank"
+          rel="noopener"
+          >toolkit<i>.fun</i> / AgentPay</a
+        >
+        <div class="nav-links">
+          <a
+            href="https://github.com/x2v-co/agentpay"
+            target="_blank"
+            rel="noopener"
+            >Open source</a
+          ><a href="https://aiplans.dev" target="_blank" rel="noopener"
+            >aiplans.dev</a
+          ><a href="https://monad.xyz" target="_blank" rel="noopener">Monad</a>
+        </div>
+      </nav>
+      <main class="wrap">
+        <header class="hero">
+          <div>
+            <div class="eyebrow">Monad Metropolis / agent commerce</div>
+            <h1>Let the agent <em>close the loop.</em></h1>
+            <p class="lede">
+              AgentPay turns a model request into a bounded purchase: compare
+              machine offers, reserve a budget, execute the API, and settle only
+              what the provider actually used.
+            </p>
+          </div>
+          <div class="hero-aside">
+            <div class="live-pill">CONTROL ROOM READY</div>
+            <small
+              >DEMO MODE / RECORDED RECEIPT<br />NETWORK / EIP-155:10143</small
+            >
+          </div>
+        </header>
+
+        <div class="controls">
+          <button class="btn primary" id="run" type="button">
+            Run sequence <span class="key">SPACE</span>
+          </button>
+          <button class="btn" id="next" type="button">
+            Next frame <span class="key">N</span>
+          </button>
+          <button class="btn" id="reset" type="button">Reset</button>
+          <span class="run-state" id="run-state" aria-live="polite"
+            >STANDING BY / READY TO PROVE</span
+          >
+        </div>
+
+        <section class="control-room" aria-label="AgentPay transaction replay">
+          <div class="room-bar">
+            <strong>TRANSACTION REPLAY / PURCHASE AP-7F3C</strong
+            ><span class="network">MONAD TESTNET / USDC / X402 UPTO</span>
+          </div>
+          <div class="room-grid">
+            <div class="network-pane">
+              <div class="network-head">
+                <div>
+                  <h2 id="frame-title">
+                    The agent starts with a goal, not a checkout page.
+                  </h2>
+                  <p id="frame-copy">
+                    It reads canonical model metadata and filters for a
+                    machine-fulfillable route.
+                  </p>
+                </div>
+                <span class="frame-badge" id="frame-badge"
+                  >FRAME 01 / DISCOVER</span
+                >
+              </div>
+              <div class="canvas" id="canvas">
+                <svg
+                  class="routes"
+                  viewBox="0 0 1000 610"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    id="route-discover"
+                    class="route active"
+                    d="M125 300 C245 300 220 140 360 140 C450 140 425 300 510 300"
+                  />
+                  <path
+                    id="route-reserve"
+                    class="route"
+                    d="M510 300 C430 390 390 480 360 455"
+                  />
+                  <path
+                    id="route-authorize"
+                    class="route"
+                    d="M360 455 C500 455 560 300 720 140"
+                  />
+                  <path
+                    id="route-settle"
+                    class="route chain"
+                    d="M720 140 C820 210 750 410 850 455"
+                  />
+                  <path
+                    id="route-receipt"
+                    class="route"
+                    d="M850 455 C760 520 670 300 510 300"
+                  />
+                  <circle
+                    class="packet core"
+                    id="packet-a"
+                    r="5"
+                    cx="0"
+                    cy="0"
+                  />
+                  <circle
+                    class="packet blue"
+                    id="packet-b"
+                    r="4"
+                    cx="0"
+                    cy="0"
+                  />
+                  <circle
+                    class="packet amber"
+                    id="packet-c"
+                    r="4"
+                    cx="0"
+                    cy="0"
+                  />
+                </svg>
+                <div class="node agent active" data-node="agent">
+                  <span class="tag">01</span>
+                  <h3>AGENT GOAL</h3>
+                  <p>Need a model call<br />under policy</p>
+                </div>
+                <div class="node market" data-node="market">
+                  <span class="tag">02</span>
+                  <h3>MARKET</h3>
+                  <p>aiplans.dev<br />+ toolkit.fun</p>
+                </div>
+                <div class="node policy" data-node="policy">
+                  <span class="tag">03</span>
+                  <h3>POLICY WALLET</h3>
+                  <p>owner-signed<br />spend boundary</p>
+                  <span class="amount">0.10 USDC</span>
+                </div>
+                <div class="node provider" data-node="provider">
+                  <span class="tag">04</span>
+                  <h3>API PROVIDER</h3>
+                  <p>GLM-4.7-Flash<br />machine route</p>
+                </div>
+                <div class="node chain" data-node="chain">
+                  <span class="tag">05</span>
+                  <h3>MONAD</h3>
+                  <p>Permit2 / upto<br />actual settlement</p>
+                  <span class="amount" id="chain-amount">0.037 USDC</span>
+                </div>
+                <div class="node receipt" data-node="receipt">
+                  <span class="tag">06</span>
+                  <h3>RECEIPT</h3>
+                  <p>proof returns<br />to the agent</p>
+                </div>
+                <span class="signal s1">model metadata</span
+                ><span class="signal s2">quote / digest</span
+                ><span class="signal s3">reservation</span
+                ><span class="signal s4">provider call</span
+                ><span class="signal s5">chain evidence</span>
+              </div>
+            </div>
+            <aside class="evidence">
+              <div class="evidence-head">
+                <h2>Evidence stream</h2>
+                <p>Every visible event maps to a protocol transition.</p>
+              </div>
+              <div class="event-list" id="event-list">
+                <div class="event visible active">
+                  <div></div>
+                  <div>
+                    <time>00:00.00</time><strong>Goal received</strong
+                    ><span>agent requests model capacity</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:00.42</time><strong>Offer selected</strong
+                    ><span>human checkout rejected</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:00.77</time><strong>Policy reserved</strong
+                    ><span>ceiling bound to request digest</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:01.11</time><strong>Provider executed</strong
+                    ><span>usage metered at 1,480 tokens</span>
+                  </div>
+                </div>
+                <div class="event warn">
+                  <div></div>
+                  <div>
+                    <time>00:01.44</time><strong>Settlement matched</strong
+                    ><span>actual charge below authorization</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:01.81</time><strong>Receipt unlocked</strong
+                    ><span>agent can continue its task</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ledger">
+                <div class="ledger-title">Spend ledger</div>
+                <div class="ledger-row">
+                  <span>authorized ceiling</span
+                  ><span class="amber">0.100 USDC</span>
+                </div>
+                <div class="ledger-row">
+                  <span>actual settlement</span
+                  ><span class="mint" id="ledger-actual">0.037 USDC</span>
+                </div>
+                <div class="ledger-row">
+                  <span>returned to wallet</span
+                  ><span class="mint" id="ledger-returned">0.063 USDC</span>
+                </div>
+              </div>
+              <div class="proof-mini">
+                <label>proof id</label
+                ><code id="proof-id">waiting-for-receipt</code>
+              </div>
+            </aside>
+          </div>
+          <div class="timeline" id="timeline">
+            <button class="phase active" type="button">
+              <small>01</small><strong>DISCOVER</strong></button
+            ><button class="phase" type="button">
+              <small>02</small><strong>RESERVE</strong></button
+            ><button class="phase" type="button">
+              <small>03</small><strong>AUTHORIZE</strong></button
+            ><button class="phase" type="button">
+              <small>04</small><strong>EXECUTE</strong></button
+            ><button class="phase" type="button">
+              <small>05</small><strong>SETTLE</strong></button
+            ><button class="phase" type="button">
+              <small>06</small><strong>RECEIPT</strong>
+            </button>
+          </div>
+        </section>
+
+        <div class="below">
+          <section class="module">
+            <div class="module-head">
+              <div>
+                <h2>Policy lab</h2>
+                <p class="module-intro">
+                  Move the meter to test the promise: the wallet authorizes a
+                  ceiling, while the provider is paid for actual usage.
+                </p>
+              </div>
+              <span class="ceiling">CEILING / 0.100 USDC</span>
+            </div>
+            <div class="meter">
+              <div>
+                <div class="meter-track">
+                  <div class="actual-bar" id="actual-bar"></div>
+                  <div class="actual-dot" id="actual-dot"></div>
+                </div>
+                <div class="meter-labels">
+                  <span>0.000</span><strong>actual usage</strong
+                  ><span>0.100</span>
+                </div>
+                <input
+                  id="usage"
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="37"
+                  aria-label="Actual usage percentage"
+                />
+              </div>
+              <div class="charge">
+                <strong id="charge">0.037</strong><span>USDC actual charge</span
+                ><span class="under" id="under"
+                  >63% returned to policy wallet</span
+                >
+              </div>
+            </div>
+          </section>
+          <section class="module">
+            <div class="module-head">
+              <div>
+                <h2>Proof explorer</h2>
+                <p class="module-intro">
+                  A receipt is useful only when a human can recover the same
+                  evidence.
+                </p>
+              </div>
+            </div>
+            <div class="receipt">
+              <div class="receipt-list">
+                <div class="receipt-line">
+                  <span>transaction</span
+                  ><b id="tx-hash">pending / recorded fixture</b>
+                </div>
+                <div class="receipt-line">
+                  <span>model result</span
+                  ><b class="good">GLM-4.7-Flash delivered</b>
+                </div>
+                <div class="receipt-line">
+                  <span>status</span
+                  ><b class="good" id="receipt-status">awaiting settlement</b>
+                </div>
+              </div>
+              <div class="receipt-actions">
+                <a
+                  class="link-btn"
+                  href="https://github.com/x2v-co/agentpay"
+                  target="_blank"
+                  rel="noopener"
+                  >source</a
+                ><a
+                  class="link-btn"
+                  href="https://aiplans.dev"
+                  target="_blank"
+                  rel="noopener"
+                  >market</a
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+        <footer class="foot">
+          <span
+            >Open reference implementation / Apache-2.0 / deterministic
+            replay</span
+          ><span
+            ><a
+              href="https://staging.toolkit.fun/api/agentpay/v1/discovery"
+              target="_blank"
+              rel="noopener"
+              >discovery JSON</a
+            >
+            &nbsp;·&nbsp;
+            <a href="https://toolkit.fun" target="_blank" rel="noopener"
+              >toolkit.fun</a
+            ></span
+          >
+        </footer>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
 </html>
