@@ -711,7 +711,7 @@ input:focus-visible,
   left: 0;
   top: -2px;
   height: 4px;
-  width: 37%;
+  width: 0.4%;
   background: var(--mint);
   box-shadow: 0 0 14px rgba(87, 232, 206, 0.75);
   transition: width 0.35s ease;
@@ -719,7 +719,7 @@ input:focus-visible,
 .actual-dot {
   position: absolute;
   top: -7px;
-  left: 37%;
+  left: 0.4%;
   width: 14px;
   height: 14px;
   border: 3px solid var(--mint);

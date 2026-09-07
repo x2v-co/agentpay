@@ -187,17 +187,15 @@
     if (event.key.toLowerCase() === "n") byId("next").click();
   });
   byId("usage").addEventListener("input", (event) => {
-    const percent = Number(event.target.value);
-    const actual = (percent / 1000).toFixed(3);
-    const returned = (0.1 - Number(actual)).toFixed(3);
-    byId("actual-bar").style.width = `${percent}%`;
-    byId("actual-dot").style.left = `${percent}%`;
+    const atomic = Number(event.target.value);
+    const percent = atomic / 1000;
+    const actual = (atomic / 1_000_000).toFixed(6);
+    const unused = ((100_000 - atomic) / 1_000_000).toFixed(6);
+    const visiblePercent = Math.max(percent, 0.4);
+    byId("actual-bar").style.width = `${visiblePercent}%`;
+    byId("actual-dot").style.left = `${visiblePercent}%`;
     byId("charge").textContent = actual;
-    byId("under").textContent =
-      `${Math.max(0, 100 - percent)}% returned to policy wallet`;
-    byId("ledger-actual").textContent = `${actual} USDC`;
-    byId("ledger-returned").textContent = `${returned} USDC`;
-    byId("chain-amount").textContent = `${actual} USDC`;
+    byId("under").textContent = `${unused} USDC remains under ceiling`;
   });
   render(0, false);
 })();

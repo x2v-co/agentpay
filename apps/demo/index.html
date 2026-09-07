@@ -268,10 +268,10 @@
           <section class="module">
             <div class="module-head">
               <div>
-                <h2>Policy lab</h2>
+                <h2>What-if policy lab</h2>
                 <p class="module-intro">
-                  Move the meter to test the promise: the wallet authorizes a
-                  ceiling, while the provider is paid for actual usage.
+                  Model another settlement under the same ceiling without
+                  changing the verified receipt above.
                 </p>
               </div>
               <span class="ceiling">CEILING / 0.100 USDC</span>
@@ -290,15 +290,16 @@
                   id="usage"
                   type="range"
                   min="1"
-                  max="100"
-                  value="37"
-                  aria-label="Actual usage percentage"
+                  max="100000"
+                  value="1"
+                  aria-label="Hypothetical settlement in atomic USDC"
                 />
               </div>
               <div class="charge">
-                <strong id="charge">0.037</strong><span>USDC actual charge</span
+                <strong id="charge">0.000001</strong
+                ><span>USDC hypothetical charge</span
                 ><span class="under" id="under"
-                  >63% returned to policy wallet</span
+                  >0.099999 USDC remains under ceiling</span
                 >
               </div>
             </div>
