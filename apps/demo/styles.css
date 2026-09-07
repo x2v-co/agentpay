@@ -717,6 +717,7 @@ input:focus-visible,
 .canvas[data-experience="market"] .experience-overlay,
 .canvas[data-experience="api"] .experience-overlay {
   opacity: 1;
+  pointer-events: auto;
   transform: translateY(0) scale(1);
 }
 .market-browser,
@@ -776,6 +777,14 @@ input:focus-visible,
   color: #a9bdd0;
   font: 9px var(--mono);
 }
+.browser-chrome a {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--mint);
+  font: 700 8px var(--mono);
+  letter-spacing: 0.08em;
+}
 .browser-chrome small,
 .request-spec > small,
 .console-head small,
@@ -784,10 +793,102 @@ input:focus-visible,
   font: 8px var(--mono);
   letter-spacing: 0.12em;
 }
+.source-capture {
+  position: absolute;
+  inset: 44px 0 0;
+  margin: 0;
+  overflow: hidden;
+  background: #f4f6f9;
+}
+.source-capture:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 62%, rgba(4, 10, 17, 0.56));
+  pointer-events: none;
+}
+.source-capture img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.01);
+}
+.source-capture figcaption {
+  position: absolute;
+  z-index: 2;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 14px;
+  color: #fff;
+  font: 8px var(--mono);
+  text-shadow: 0 1px 4px #000;
+}
+.source-capture figcaption span {
+  color: var(--mint);
+  letter-spacing: 0.1em;
+}
+.source-capture figcaption strong {
+  font-weight: 500;
+}
+.scan-reticle,
+.route-beacon {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  border: 1px solid rgba(87, 232, 206, 0.75);
+  color: #07211d;
+  background: rgba(229, 255, 250, 0.92);
+  box-shadow: 0 0 24px rgba(87, 232, 206, 0.3);
+  font: 700 8px var(--mono);
+  letter-spacing: 0.08em;
+}
+.scan-reticle {
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+}
+.route-beacon {
+  left: 16%;
+  top: 52%;
+}
+.scan-reticle i,
+.route-beacon i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #0f9f8a;
+  box-shadow: 0 0 9px #0f9f8a;
+  animation: blink 1s ease-in-out infinite;
+}
 .catalog-body {
+  position: absolute;
+  z-index: 4;
+  inset: 44px 0 0;
   height: calc(100% - 44px);
   display: grid;
   grid-template-columns: 170px minmax(0, 1fr);
+  background: rgba(6, 14, 23, 0.985);
+}
+.agent-lens,
+.provisioning-layer,
+.source-capture {
+  transition:
+    opacity 0.45s ease,
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.agent-lens,
+.provisioning-layer {
+  opacity: 0;
+  transform: translateX(34px);
 }
 .request-spec {
   padding: 20px 17px;
@@ -951,8 +1052,19 @@ input:focus-visible,
 }
 .api-console {
   border-color: rgba(168, 140, 255, 0.52);
-  padding: 16px 18px;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48), 0 0 35px rgba(168, 140, 255, 0.1);
+}
+.toolkit-chrome {
+  position: relative;
+  z-index: 7;
+  border-bottom-color: rgba(168, 140, 255, 0.3);
+}
+.provisioning-layer {
+  position: absolute;
+  z-index: 5;
+  inset: 44px 0 0;
+  padding: 16px 18px;
+  background: rgba(6, 14, 23, 0.99);
 }
 .console-head {
   min-height: 48px;
@@ -1102,6 +1214,40 @@ input:focus-visible,
   right: 18px;
   bottom: 6px;
   color: var(--violet);
+}
+.capture-disclosure {
+  position: absolute;
+  z-index: 8;
+  right: 14px;
+  bottom: 5px;
+  color: var(--blue);
+  font: 7px var(--mono);
+  letter-spacing: 0.08em;
+}
+.experience-overlay[data-state="scanning"] .aiplans-capture {
+  animation: market-camera 5.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.experience-overlay[data-state="scanning"] .agent-lens {
+  animation: decision-reveal 5.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.experience-overlay[data-state="selected"] .aiplans-capture {
+  opacity: 0.16;
+  transform: scale(1.06);
+}
+.experience-overlay[data-state="selected"] .agent-lens,
+.experience-overlay[data-state="delivered"] .provisioning-layer {
+  opacity: 1;
+  transform: translateX(0);
+}
+.experience-overlay[data-state="configuring"] .toolkit-capture {
+  animation: toolkit-camera 5.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.experience-overlay[data-state="configuring"] .provisioning-layer {
+  animation: provision-reveal 5.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.experience-overlay[data-state="delivered"] .toolkit-capture {
+  opacity: 0.12;
+  transform: scale(1.06);
 }
 .evidence {
   min-width: 0;
@@ -1265,6 +1411,11 @@ input:focus-visible,
   height: 2px;
   background: var(--mint);
   box-shadow: 0 0 14px var(--mint);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.timeline.is-playing .phase.active:after {
+  animation: phase-progress var(--scene-duration, 3s) linear forwards;
 }
 .phase.done {
   color: #a9d8d1;
@@ -1509,6 +1660,66 @@ input:focus-visible,
     transform: translateX(0);
   }
 }
+@keyframes market-camera {
+  0%,
+  32% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  48%,
+  100% {
+    opacity: 0.12;
+    transform: scale(1.08);
+  }
+}
+@keyframes decision-reveal {
+  0%,
+  34% {
+    opacity: 0;
+    transform: translateX(42px);
+    clip-path: inset(0 0 0 92%);
+  }
+  52%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes toolkit-camera {
+  0%,
+  36% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  54%,
+  100% {
+    opacity: 0.12;
+    transform: scale(1.07);
+  }
+}
+@keyframes provision-reveal {
+  0%,
+  38% {
+    opacity: 0;
+    transform: translateX(46px);
+    clip-path: inset(0 0 0 94%);
+  }
+  58%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes phase-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
 @media (max-width: 1020px) {
   .agent-story {
     grid-template-columns: 190px minmax(220px, 1fr) minmax(260px, 1.2fr);
@@ -1617,12 +1828,31 @@ input:focus-visible,
     height: min(420px, calc(100% - 152px));
   }
   .browser-chrome {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 9px;
     padding: 0 10px;
   }
   .browser-chrome > small {
     display: none;
+  }
+  .browser-chrome a {
+    font-size: 7px;
+  }
+  .source-capture img {
+    width: auto;
+    min-width: 100%;
+    object-position: left top;
+  }
+  .source-capture figcaption {
+    align-items: start;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .scan-reticle {
+    left: 62%;
+  }
+  .route-beacon {
+    left: 11%;
   }
   .catalog-body {
     grid-template-columns: 1fr;
@@ -1660,6 +1890,9 @@ input:focus-visible,
     display: none;
   }
   .api-console {
+    padding: 0;
+  }
+  .provisioning-layer {
     padding: 12px;
   }
   .console-head {

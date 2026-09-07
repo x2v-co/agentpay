@@ -16,7 +16,7 @@ npm run dev
 
 Open `http://127.0.0.1:4021/agentpay/`.
 
-The demo follows `KITE-07`, an autonomous maintainer that predicts it cannot finish its current coding job with the tokens it has left. It checkpoints its work, rejects a human-only checkout, discovers and buys machine-accessible capacity, pays through AgentPay, then resumes the same job. The `DISCOVER` and `RESERVE` scenes open a demo aiplans.dev comparison view; `AUTHORIZE` and `REFUEL` switch to Toolkit API provisioning, showing the selected offer route, delegated credential, Permit2 ceiling, and delivered result. The payment scenes replay verified testnet evidence without rebroadcasting the transaction on every run; the coding job and embedded product views are illustrative narrative around that evidence.
+The demo follows `KITE-07`, an autonomous maintainer that predicts it cannot finish its current coding job with the tokens it has left. It checkpoints its work, rejects a human-only checkout, discovers and buys machine-accessible capacity, pays through AgentPay, then resumes the same job. The roughly 33-second story gives its two product moments extra room: `DISCOVER` first shows a September 2026 capture of the real aiplans.dev API Pricing page before revealing AgentPay's illustrative offer-normalization layer; `AUTHORIZE` first shows the real Toolkit API/MCP surface before revealing route, delegated credential, Permit2 ceiling, and request configuration. Both captures include links to the live products. The payment scenes replay verified testnet evidence without rebroadcasting the transaction on every run; the coding job and decision/provisioning overlays are illustrative narrative around that evidence.
 
 ## Verified testnet evidence
 

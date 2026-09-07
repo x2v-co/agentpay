@@ -216,17 +216,35 @@ agent: inspecting payment state...</pre>
                   <section
                     class="market-browser"
                     id="market-browser"
-                    aria-label="Demo aiplans catalog"
+                    aria-label="aiplans.dev market discovery and AgentPay decision layer"
                     aria-hidden="true"
                   >
                     <div class="browser-chrome">
                       <span class="browser-dots"><i></i><i></i><i></i></span>
-                      <code>aiplans.dev/compare?model=glm-4.7-flash</code>
-                      <small>DEMO CATALOG VIEW</small>
+                      <code>aiplans.dev/en/api-pricing</code>
+                      <a
+                        href="https://aiplans.dev/en/api-pricing"
+                        target="_blank"
+                        rel="noopener"
+                        >OPEN LIVE ↗</a
+                      >
                     </div>
-                    <div class="catalog-body">
+                    <figure class="source-capture aiplans-capture">
+                      <img
+                        src="./assets/aiplans-api-pricing.png"
+                        alt="aiplans.dev API Pricing Comparison page showing model, channel, provider, and China-access filters"
+                      />
+                      <figcaption>
+                        <span>LIVE SITE CAPTURE / SEP 2026</span>
+                        <strong>333 models · 476 API channels · 21 providers</strong>
+                      </figcaption>
+                      <div class="scan-reticle" aria-hidden="true">
+                        <i></i><span>READING MARKET CATALOG</span>
+                      </div>
+                    </figure>
+                    <div class="catalog-body agent-lens">
                       <aside class="request-spec">
-                        <small>AGENT REQUIREMENT</small>
+                        <small>AGENTPAY DECISION LAYER</small>
                         <strong>Finish job #418</strong>
                         <dl>
                           <div><dt>Need</dt><dd>2,300 tokens</dd></div>
@@ -237,7 +255,8 @@ agent: inspecting payment state...</pre>
                       </aside>
                       <div class="offer-results">
                         <div class="result-head">
-                          <span>3 plans found</span><b>AGENT-COMPATIBLE FIRST</b>
+                          <span>Offers normalized from catalog + merchant route</span
+                          ><b>AGENT-COMPATIBLE FIRST</b>
                         </div>
                         <article class="offer rejected">
                           <span class="offer-logo">Z</span>
@@ -273,57 +292,87 @@ agent: inspecting payment state...</pre>
                         </div>
                       </div>
                     </div>
+                    <small class="capture-disclosure"
+                      >REAL AIPLANS PAGE + ILLUSTRATIVE AGENT DECISION OVERLAY</small
+                    >
                   </section>
 
                   <section
                     class="api-console"
                     id="api-console"
-                    aria-label="Demo Toolkit API provisioning"
+                    aria-label="toolkit.fun API page and AgentPay provisioning layer"
                     aria-hidden="true"
                   >
-                    <div class="console-head">
-                      <div>
-                        <small>toolkit.fun / AGENT API SETUP</small>
-                        <strong>Provision machine capacity</strong>
-                      </div>
-                      <span id="api-stage-status">CONFIGURING</span>
+                    <div class="browser-chrome toolkit-chrome">
+                      <span class="browser-dots"><i></i><i></i><i></i></span>
+                      <code>toolkit.fun/app#api</code>
+                      <a
+                        href="https://toolkit.fun/app#api"
+                        target="_blank"
+                        rel="noopener"
+                        >OPEN LIVE ↗</a
+                      >
                     </div>
-                    <div class="console-grid">
-                      <div class="api-config">
-                        <div class="config-row">
-                          <span>endpoint</span><code>/api/agentpay/v1/models/zhipu/GLM-4.7-Flash/invoke</code>
-                        </div>
-                        <div class="config-row">
-                          <span>model</span><code>zhipu/GLM-4.7-Flash</code>
-                        </div>
-                        <div class="config-row">
-                          <span>authorization</span><code>Permit2 / upto</code>
-                        </div>
-                        <div class="config-row">
-                          <span>maximum</span><code>0.100000 USDC</code>
-                        </div>
-                        <div class="config-row">
-                          <span>credential</span><code>delegated / no copied key</code>
-                        </div>
+                    <figure class="source-capture toolkit-capture">
+                      <img
+                        src="./assets/toolkit-api.png"
+                        alt="toolkit.fun application with the API and MCP distribution section selected"
+                      />
+                      <figcaption>
+                        <span>LIVE SITE CAPTURE / SEP 2026</span>
+                        <strong>API / MCP distribution surface</strong>
+                      </figcaption>
+                      <div class="route-beacon" aria-hidden="true">
+                        <i></i><span>MACHINE ROUTE FOUND</span>
                       </div>
-                      <pre class="request-code"><span>POST</span> selectedOffer.route
+                    </figure>
+                    <div class="provisioning-layer">
+                      <div class="console-head">
+                        <div>
+                          <small>toolkit.fun / AGENT API SETUP</small>
+                          <strong>Provision machine capacity</strong>
+                        </div>
+                        <span id="api-stage-status">CONFIGURING</span>
+                      </div>
+                      <div class="console-grid">
+                        <div class="api-config">
+                          <div class="config-row">
+                            <span>endpoint</span><code>/api/agentpay/v1/models/zhipu/GLM-4.7-Flash/invoke</code>
+                          </div>
+                          <div class="config-row">
+                            <span>model</span><code>zhipu/GLM-4.7-Flash</code>
+                          </div>
+                          <div class="config-row">
+                            <span>authorization</span><code>Permit2 / upto</code>
+                          </div>
+                          <div class="config-row">
+                            <span>maximum</span><code>0.100000 USDC</code>
+                          </div>
+                          <div class="config-row">
+                            <span>credential</span><code>delegated / no copied key</code>
+                          </div>
+                        </div>
+                        <pre class="request-code"><span>POST</span> selectedOffer.route
 {
   "prompt": "resume job #418",
   "outputCap": 2300
 }</pre>
+                      </div>
+                      <div class="api-pipeline">
+                        <span>DISCOVERY<i></i></span>
+                        <span>POLICY<i></i></span>
+                        <span>PERMIT2<i></i></span>
+                        <span>API READY<i></i></span>
+                      </div>
+                      <div class="api-result">
+                        <span>200 OK</span>
+                        <strong>Model result attached to job #418</strong>
+                        <code>usage metered / checkpoint recoverable</code>
+                      </div>
                     </div>
-                    <div class="api-pipeline">
-                      <span>DISCOVERY<i></i></span>
-                      <span>POLICY<i></i></span>
-                      <span>PERMIT2<i></i></span>
-                      <span>API READY<i></i></span>
-                    </div>
-                    <div class="api-result">
-                      <span>200 OK</span>
-                      <strong>Model result attached to job #418</strong>
-                      <code>usage metered / checkpoint recoverable</code>
-                    </div>
-                    <small class="demo-disclosure">DEMO PROVISIONING VIEW</small>
+                    <small class="demo-disclosure"
+                      >REAL TOOLKIT PAGE + ILLUSTRATIVE PROVISIONING OVERLAY</small
+                    >
                   </section>
                 </div>
               </div>

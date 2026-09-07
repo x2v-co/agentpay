@@ -1,6 +1,7 @@
 (() => {
   const frames = [
     {
+      duration: 2600,
       title: "Kite-07 is already working when the story begins.",
       copy: "One failing checkout retry test still blocks job #418.",
       badge: "SCENE 01 / WORK",
@@ -23,6 +24,7 @@
       experienceState: "idle",
     },
     {
+      duration: 3000,
       title: "The agent predicts it will run out before the fix is safe.",
       copy: "It checkpoints the job instead of producing a half-finished patch.",
       badge: "SCENE 02 / LOW TOKEN",
@@ -45,8 +47,9 @@
       experienceState: "idle",
     },
     {
+      duration: 5500,
       title: "Kite-07 shops for capacity it can buy by itself.",
-      copy: "aiplans.dev exposes the market; human checkout is rejected and Toolkit's machine route wins.",
+      copy: "The real aiplans.dev catalog becomes a machine-readable market; AgentPay then filters for autonomous checkout.",
       badge: "SCENE 03 / DISCOVER",
       state: "SHOPPING / HUMAN PLAN REJECTED / MACHINE API SELECTED",
       node: "market",
@@ -67,6 +70,7 @@
       experienceState: "scanning",
     },
     {
+      duration: 3800,
       title: "The owner policy turns money into a narrow permission.",
       copy: "The reservation binds this model, merchant, request digest, and a 0.100000 USDC ceiling.",
       badge: "SCENE 04 / RESERVE",
@@ -89,8 +93,9 @@
       experienceState: "selected",
     },
     {
+      duration: 5200,
       title: "Permit2 authorizes a ceiling, never a blank cheque.",
-      copy: "Kite-07 signs the bounded route and Toolkit executes the Zhipu model request.",
+      copy: "The real Toolkit API surface opens; AgentPay configures its machine route and a bounded model request.",
       badge: "SCENE 05 / AUTHORIZE",
       state: "PERMIT2 VERIFIED / PROVIDER EXECUTING",
       node: "provider",
@@ -111,6 +116,7 @@
       experienceState: "configuring",
     },
     {
+      duration: 3800,
       title: "The purchased result returns to the exact pause point.",
       copy: "Capacity is restored before settlement finalizes; the original job never loses its place.",
       badge: "SCENE 06 / REFUEL",
@@ -133,6 +139,7 @@
       experienceState: "delivered",
     },
     {
+      duration: 4200,
       title: "Monad charges only what the agent actually consumed.",
       copy: "The verified transfer is 0.000001 USDC; the other 0.099999 remains unused.",
       badge: "SCENE 07 / SETTLE",
@@ -155,6 +162,7 @@
       experienceState: "idle",
     },
     {
+      duration: 4500,
       title: "Kite-07 resumes the same job and finishes the work.",
       copy: "The patch continues from retry.ts:87, the final test passes, and the proof travels with the result.",
       badge: "SCENE 08 / RESUME",
@@ -183,6 +191,7 @@
   const events = [...document.querySelectorAll(".event")];
   let cursor = 0;
   let timer = null;
+  let playing = false;
   const activeAnimations = new WeakMap();
 
   function animatePacket(pathId, color, delay = 0) {
@@ -250,6 +259,8 @@
     byId("story-core").dataset.tone = frame.tone;
     byId("canvas").dataset.experience = frame.experience;
     const experienceOverlay = byId("experience-overlay");
+    experienceOverlay.dataset.state = "idle";
+    if (animate) void experienceOverlay.offsetWidth;
     experienceOverlay.dataset.state = frame.experienceState;
     experienceOverlay.setAttribute(
       "aria-hidden",
@@ -265,6 +276,10 @@
     );
     byId("api-stage-status").textContent =
       frame.experienceState === "delivered" ? "CAPACITY READY" : "CONFIGURING";
+    byId("timeline").style.setProperty(
+      "--scene-duration",
+      `${frame.duration}ms`,
+    );
     byId("agent-status").textContent = frame.agentStatus;
     byId("fuel-count").textContent = frame.fuelCount;
     byId("fuel-forecast").textContent = frame.forecast;
@@ -297,25 +312,36 @@
 
   function stop() {
     if (timer) {
-      window.clearInterval(timer);
+      window.clearTimeout(timer);
       timer = null;
     }
+    playing = false;
+    byId("timeline").classList.remove("is-playing");
     byId("run").innerHTML = 'Run agent story <span class="key">SPACE</span>';
   }
-  function play() {
-    stop();
-    byId("run").innerHTML = 'Pause story <span class="key">SPACE</span>';
-    timer = window.setInterval(() => {
+  function scheduleNext() {
+    const timeline = byId("timeline");
+    timeline.classList.remove("is-playing");
+    void timeline.offsetWidth;
+    timeline.classList.add("is-playing");
+    timer = window.setTimeout(() => {
       if (cursor === frames.length - 1) {
         stop();
         return;
       }
       render(cursor + 1);
-      if (cursor === frames.length - 1) stop();
-    }, 1900);
+      scheduleNext();
+    }, frames[cursor].duration);
+  }
+  function play() {
+    stop();
+    playing = true;
+    byId("run").innerHTML = 'Pause story <span class="key">SPACE</span>';
+    render(cursor);
+    scheduleNext();
   }
   byId("run").addEventListener("click", () => {
-    if (timer) stop();
+    if (playing) stop();
     else {
       if (cursor === frames.length - 1) render(0, false);
       play();
