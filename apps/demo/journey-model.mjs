@@ -4,7 +4,7 @@ export const TRACE = Object.freeze({
   proof: 'https://staging.toolkit.fun/api/agentpay/v1/proofs/proof_97ae4853f5eb26ee',
   tx: 'https://testnet.monadexplorer.com/tx/0xc1b583605f251c6141597bbe896406491e9ab08b0e57f3d32eaeca43cf263ed2',
 });
-export const STEPS = ['hire', 'work', 'market', 'connect', 'delivery'];
+export const STEPS = ['hire', 'work', 'market', 'connect', 'delivery', 'overview'];
 export function freshState() {
   return { version: 1, step: 'hire', budget: 5000000, mode: 'auto', hired: false,
     checkpoint: false, approved: false, denied: false, paymentDone: false, tested: false, accepted: false, runId: null };
@@ -22,7 +22,8 @@ export function accessibleStep(step, s) {
   if (!s.checkpoint) return 'work';
   if (step === 'market') return step;
   if (decision(s) !== 'allowed') return 'market';
-  if (step === 'delivery' && !s.paymentDone) return 'connect';
+  if (['delivery', 'overview'].includes(step) && !s.paymentDone) return 'connect';
+  if (step === 'overview' && (!s.tested || !s.accepted)) return 'delivery';
   return step;
 }
 export function restoreState(raw) {

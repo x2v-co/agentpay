@@ -27,6 +27,17 @@ describe('interactive commission', () => {
     expect(runCheckoutTests(false).map((t:{pass:boolean})=>t.pass)).toEqual([true,true,false]);
     expect(runCheckoutTests(true).every((t:{pass:boolean})=>t.pass)).toBe(true);
   });
+  it('unlocks the overview only after verified acceptance and restores its route', () => {
+    expect(accessibleStep('overview', freshState())).toBe('hire');
+    const s = {...freshState(), hired:true, checkpoint:true};
+    expect(accessibleStep('overview', s)).toBe('connect');
+    expect(accessibleStep('overview', {...s, paymentDone:true})).toBe('delivery');
+    expect(accessibleStep('overview', {...s, paymentDone:true, accepted:true})).toBe('delivery');
+    const accepted = {...s, paymentDone:true, tested:true, accepted:true, step:'overview'};
+    expect(restoreState(JSON.stringify(accepted)).step).toBe('overview');
+    expect(accessibleStep('overview', {...accepted, budget:10000})).toBe('market');
+    expect(accessibleStep('overview', {...accepted, mode:'ask', approved:false})).toBe('market');
+  });
   it('downloads runnable code with the same retry semantics', async () => {
     const fixture = await import(/* @vite-ignore */ `data:text/javascript;base64,${Buffer.from(FIX_SOURCE).toString('base64')}`);
     const checkout=fixture.createCheckout();
