@@ -6,8 +6,9 @@
     <title>AgentPay Control Room | toolkit.fun</title>
     <meta
       name="description"
-      content="A visual replay of an autonomous agent buying model capacity and settling only actual usage on Monad."
+      content="A working agent checkpoints its job, buys model capacity, pays actual usage on Monad, and resumes autonomously."
     />
+    <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -35,11 +36,12 @@
         <header class="hero">
           <div>
             <div class="eyebrow">Monad Metropolis / agent commerce</div>
-            <h1>Let the agent <em>close the loop.</em></h1>
+            <h1>AgentPay</h1>
+            <p class="hero-thesis">A working agent that can buy its next breath.</p>
             <p class="lede">
-              AgentPay turns a model request into a bounded purchase: compare
-              machine offers, reserve a budget, execute the API, and settle only
-              what the provider actually used.
+              Kite-07 is halfway through a job when its inference fuel runs low.
+              Watch it pause safely, shop for model capacity, pay on Monad, and
+              return to the same task without asking a human to check out.
             </p>
           </div>
           <div class="hero-aside">
@@ -52,36 +54,63 @@
 
         <div class="controls">
           <button class="btn primary" id="run" type="button">
-            Run sequence <span class="key">SPACE</span>
+            Run agent story <span class="key">SPACE</span>
           </button>
           <button class="btn" id="next" type="button">
-            Next frame <span class="key">N</span>
+            Next scene <span class="key">N</span>
           </button>
           <button class="btn" id="reset" type="button">Reset</button>
           <span class="run-state" id="run-state" aria-live="polite"
-            >STANDING BY / READY TO PROVE</span
+            >WORKING / CHECKOUT RETRY TEST 2 OF 3</span
           >
         </div>
 
-        <section class="control-room" aria-label="AgentPay transaction replay">
+        <section class="control-room" aria-label="AgentPay working agent story">
           <div class="room-bar">
-            <strong>TRANSACTION REPLAY / 627C4D7A</strong
-            ><span class="network">MONAD TESTNET / USDC / X402 UPTO</span>
+            <strong>STORY RUN / KITE-07 / JOB #418</strong
+            ><span class="network">VERIFIED PAYMENT / MONAD TESTNET</span>
+          </div>
+          <div class="agent-story" id="agent-story" data-tone="working">
+            <div class="agent-identity">
+              <span class="agent-mark">K7</span>
+              <div>
+                <small>AUTONOMOUS MAINTAINER</small>
+                <strong>KITE-07</strong>
+                <span id="agent-status">WORKING</span>
+              </div>
+            </div>
+            <div class="fuel-panel">
+              <div class="story-label">
+                <span>INFERENCE FUEL</span><b id="fuel-count">140 tokens left</b>
+              </div>
+              <div class="fuel-track"><i id="fuel-bar"></i></div>
+              <span class="fuel-forecast" id="fuel-forecast"
+                >needs 2,300 tokens to finish</span
+              >
+            </div>
+            <div class="mission-panel">
+              <div class="story-label"><span>ACTIVE JOB</span><b>#418</b></div>
+              <strong id="mission-title">Fix checkout retry loop</strong>
+              <span id="mission-progress">2 / 3 tests passing</span>
+            </div>
+            <pre class="runtime-log" id="runtime-log" aria-live="polite">$ npm test checkout-retry
+FAIL retry preserves idempotency
+agent: inspecting payment state...</pre>
           </div>
           <div class="room-grid">
             <div class="network-pane">
               <div class="network-head">
                 <div>
                   <h2 id="frame-title">
-                    The agent starts with a goal, not a checkout page.
+                    Kite-07 is already working when the story begins.
                   </h2>
                   <p id="frame-copy">
-                    It reads canonical model metadata and filters for a
-                    machine-fulfillable route.
+                    The job is real to the agent: one failing test still blocks
+                    delivery.
                   </p>
                 </div>
                 <span class="frame-badge" id="frame-badge"
-                  >FRAME 01 / DISCOVER</span
+                  >SCENE 01 / WORK</span
                 >
               </div>
               <div class="canvas" id="canvas">
@@ -91,11 +120,9 @@
                   preserveAspectRatio="none"
                   aria-hidden="true"
                 >
-                  <path
-                    id="route-discover"
-                    class="route active"
-                    d="M125 300 C245 300 220 140 360 140 C450 140 425 300 510 300"
-                  />
+                  <path id="route-work" class="route active" d="M125 300 C260 250 390 280 510 300" />
+                  <path id="route-alert" class="route" d="M510 300 C390 350 250 350 125 300" />
+                  <path id="route-discover" class="route" d="M125 300 C245 300 220 140 360 140 C450 140 425 300 510 300" />
                   <path
                     id="route-reserve"
                     class="route"
@@ -112,9 +139,14 @@
                     d="M720 140 C820 210 750 410 850 455"
                   />
                   <path
-                    id="route-receipt"
+                    id="route-refuel"
                     class="route"
-                    d="M850 455 C760 520 670 300 510 300"
+                    d="M720 140 C650 235 590 260 510 300"
+                  />
+                  <path
+                    id="route-resume"
+                    class="route"
+                    d="M850 455 C760 520 650 325 510 300 C360 275 245 280 125 300"
                   />
                   <circle
                     class="packet core"
@@ -140,8 +172,8 @@
                 </svg>
                 <div class="node agent active" data-node="agent">
                   <span class="tag">01</span>
-                  <h3>AGENT GOAL</h3>
-                  <p>Need a model call<br />under policy</p>
+                  <h3>KITE-07</h3>
+                  <p>checkout retry<br />job in progress</p>
                 </div>
                 <div class="node market" data-node="market">
                   <span class="tag">02</span>
@@ -165,10 +197,10 @@
                   <p>Permit2 / upto<br />actual settlement</p>
                   <span class="amount" id="chain-amount">0.000001 USDC</span>
                 </div>
-                <div class="node receipt" data-node="receipt">
-                  <span class="tag">06</span>
-                  <h3>RECEIPT</h3>
-                  <p>proof returns<br />to the agent</p>
+                <div class="story-core" id="story-core" data-tone="working">
+                  <small id="beat-kicker">JOB #418</small>
+                  <strong id="beat-metric">2 / 3</strong>
+                  <span id="beat-label">tests passing</span>
                 </div>
                 <span class="signal s1">model metadata</span
                 ><span class="signal s2">quote / digest</span
@@ -187,42 +219,56 @@
                   <div></div>
                   <div>
                     <time>00:00.00</time><strong>Goal received</strong
-                    ><span>agent requests model capacity</span>
+                    ><span>checkout retry patch in progress</span>
+                  </div>
+                </div>
+                <div class="event warn">
+                  <div></div>
+                  <div>
+                    <time>00:00.42</time><strong>Fuel forecast failed</strong
+                    ><span>140 available / 2,300 required</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:00.42</time><strong>Offer selected</strong
-                    ><span>human checkout rejected</span>
+                    <time>00:00.77</time><strong>Machine offer selected</strong
+                    ><span>human checkout plan rejected</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:00.77</time><strong>Policy reserved</strong
+                    <time>00:01.11</time><strong>Budget reserved</strong
                     ><span>ceiling bound to request digest</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:01.11</time><strong>Provider executed</strong
-                    ><span>Zhipu usage metered before settlement</span>
-                  </div>
-                </div>
-                <div class="event warn">
-                  <div></div>
-                  <div>
-                    <time>00:01.44</time><strong>Settlement matched</strong
-                    ><span>actual charge below authorization</span>
+                    <time>00:01.44</time><strong>Permit2 authorized</strong
+                    ><span>0.100000 USDC maximum</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:01.81</time><strong>Receipt unlocked</strong
-                    ><span>agent can continue its task</span>
+                    <time>00:01.81</time><strong>Capacity restored</strong
+                    ><span>Zhipu result returns to checkpoint</span>
+                  </div>
+                </div>
+                <div class="event warn">
+                  <div></div>
+                  <div>
+                    <time>00:02.18</time><strong>Settlement matched</strong
+                    ><span>1 atomic USDC paid on Monad</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:02.55</time><strong>Job resumed</strong
+                    ><span>checkpoint restored / tests pass</span>
                   </div>
                 </div>
               </div>
@@ -249,17 +295,21 @@
           </div>
           <div class="timeline" id="timeline">
             <button class="phase active" type="button">
-              <small>01</small><strong>DISCOVER</strong></button
+              <small>01</small><strong>WORK</strong></button
             ><button class="phase" type="button">
-              <small>02</small><strong>RESERVE</strong></button
+              <small>02</small><strong>LOW TOKEN</strong></button
             ><button class="phase" type="button">
-              <small>03</small><strong>AUTHORIZE</strong></button
+              <small>03</small><strong>DISCOVER</strong></button
             ><button class="phase" type="button">
-              <small>04</small><strong>EXECUTE</strong></button
+              <small>04</small><strong>RESERVE</strong></button
             ><button class="phase" type="button">
-              <small>05</small><strong>SETTLE</strong></button
+              <small>05</small><strong>AUTHORIZE</strong></button
             ><button class="phase" type="button">
-              <small>06</small><strong>RECEIPT</strong>
+              <small>06</small><strong>REFUEL</strong></button
+            ><button class="phase" type="button">
+              <small>07</small><strong>SETTLE</strong></button
+            ><button class="phase" type="button">
+              <small>08</small><strong>RESUME</strong>
             </button>
           </div>
         </section>

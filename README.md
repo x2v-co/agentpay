@@ -16,7 +16,7 @@ npm run dev
 
 Open `http://127.0.0.1:4021/agentpay/`.
 
-The default is a deterministic replay of a verified real testnet run. It exercises the same reservation, execution, settlement state machine, and receipt route without rebroadcasting the transaction on every replay.
+The demo follows `KITE-07`, an autonomous maintainer that predicts it cannot finish its current coding job with the tokens it has left. It checkpoints its work, rejects a human-only checkout, discovers and buys machine-accessible capacity, pays through AgentPay, then resumes the same job. The payment scenes replay verified testnet evidence without rebroadcasting the transaction on every run; the coding job is an illustrative narrative around that evidence.
 
 ## Verified testnet evidence
 

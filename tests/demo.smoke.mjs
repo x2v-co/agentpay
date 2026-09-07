@@ -15,25 +15,30 @@ execFileSync(process.execPath, [
 
 assert.equal(
   (html.match(/class="phase/g) || []).length,
-  6,
-  "demo must expose all six purchase phases",
+  8,
+  "demo must expose all eight working-agent scenes",
 );
 for (const phase of [
+  "WORK",
+  "LOW TOKEN",
   "DISCOVER",
   "RESERVE",
   "AUTHORIZE",
-  "EXECUTE",
+  "REFUEL",
   "SETTLE",
-  "RECEIPT",
+  "RESUME",
 ]) {
   assert.match(html, new RegExp(`>${phase}<`), `missing ${phase} phase`);
 }
 for (const route of [
+  "route-work",
+  "route-alert",
   "route-discover",
   "route-reserve",
   "route-authorize",
+  "route-refuel",
   "route-settle",
-  "route-receipt",
+  "route-resume",
 ]) {
   assert.match(html, new RegExp(`id="${route}"`), `missing animated ${route}`);
 }
@@ -41,12 +46,27 @@ assert.doesNotMatch(html, /cdn\.jsdelivr\.net/);
 assert.match(html, /id="usage"/);
 assert.match(html, /type="range"/);
 assert.match(html, /id="proof-id"/);
+for (const storyElement of [
+  "agent-story",
+  "agent-status",
+  "fuel-bar",
+  "fuel-count",
+  "fuel-forecast",
+  "mission-progress",
+  "runtime-log",
+  "story-core",
+]) {
+  assert.match(html, new RegExp(`id="${storyElement}"`), `missing ${storyElement}`);
+}
 assert.match(html, /actual settlement/i);
 assert.match(html, /https:\/\/aiplans\.dev/);
 assert.match(html, /https:\/\/toolkit\.fun/);
 assert.match(script, /requestAnimationFrame/);
 assert.match(script, /getPointAtLength/);
 assert.match(script, /SETTLEMENT MATCHED/);
+assert.match(script, /3 \/ 3 tests passing/);
+assert.match(script, /checkpoint saved at retry\.ts:87/);
+assert.match(script, /if \(cursor === frames\.length - 1\) stop\(\)/);
 assert.match(css, /@media\s*\(max-width:\s*700px\)/);
 assert.match(css, /prefers-reduced-motion:\s*reduce/);
 
