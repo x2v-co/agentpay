@@ -789,6 +789,16 @@ input:focus-visible,
 .receipt-line b.good {
   color: var(--mint);
 }
+.proof-link {
+  min-width: 0;
+  color: var(--mint);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+.proof-link:hover {
+  color: var(--copy);
+}
 .receipt-actions {
   display: flex;
   flex-direction: column;

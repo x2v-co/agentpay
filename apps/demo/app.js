@@ -31,16 +31,16 @@
       title: "The provider executes while the agent keeps control.",
       copy: "Zhipu returns the model result and usage. The payment is still only a ceiling.",
       badge: "FRAME 04 / EXECUTE",
-      state: "GLM-4.7-FLASH EXECUTED / 1,480 TOKENS",
+      state: "GLM-4.7-FLASH EXECUTED / USAGE METERED",
       node: "provider",
       route: "route-authorize",
       event: 3,
     },
     {
       title: "Monad settles the number that was actually used.",
-      copy: "The 0.037 USDC charge is matched against chain evidence. The remainder stays with the wallet.",
+      copy: "The 0.000001 USDC charge is matched against chain evidence. The unused authorization stays with the wallet.",
       badge: "FRAME 05 / SETTLE",
-      state: "SETTLEMENT MATCHED / ACTUAL USAGE 0.037 USDC",
+      state: "SETTLEMENT MATCHED / ACTUAL USAGE 0.000001 USDC",
       node: "chain",
       route: "route-settle",
       event: 4,
@@ -131,7 +131,7 @@
           ? "chain evidence pending receipt"
           : "awaiting settlement";
     byId("proof-id").textContent =
-      cursor === 5 ? "proof_ap_7f3c_019" : "waiting-for-receipt";
+      cursor === 5 ? "proof_97ae4853f5eb26ee" : "waiting-for-receipt";
     if (animate)
       animatePacket(
         frame.route,

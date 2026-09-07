@@ -16,7 +16,17 @@ npm run dev
 
 Open `http://127.0.0.1:4021/agentpay/`.
 
-The default is a clearly labelled deterministic recorded mode. It exercises the same reservation, execution, settlement state machine, and receipt route without broadcasting a transaction.
+The default is a deterministic replay of a verified real testnet run. It exercises the same reservation, execution, settlement state machine, and receipt route without rebroadcasting the transaction on every replay.
+
+## Verified testnet evidence
+
+On September 7, 2026, the reference flow discovered `zhipu/GLM-4.7-Flash` through aiplans.dev, reserved a `0.100000 USDC` ceiling, executed the provider request, and settled `0.000001 USDC` on Monad Testnet.
+
+- [Monad transaction](https://testnet.monadexplorer.com/tx/0xc1b583605f251c6141597bbe896406491e9ab08b0e57f3d32eaeca43cf263ed2)
+- [Redacted public proof](https://staging.toolkit.fun/api/agentpay/v1/proofs/proof_97ae4853f5eb26ee)
+- Purchase ID: `627c4d7a-765e-40b9-9b2f-f45474a4f6ff`
+
+The chain receipt contains a USDC `Transfer` of exactly `1` atomic unit from the Agent wallet to the configured Toolkit merchant. The proof exposes no prompt, model output, credential, or private key.
 
 ## Agent loop
 

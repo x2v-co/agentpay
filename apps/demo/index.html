@@ -43,9 +43,9 @@
             </p>
           </div>
           <div class="hero-aside">
-            <div class="live-pill">CONTROL ROOM READY</div>
+            <div class="live-pill">REAL RUN VERIFIED</div>
             <small
-              >DEMO MODE / RECORDED RECEIPT<br />NETWORK / EIP-155:10143</small
+              >DEMO MODE / VERIFIED TESTNET REPLAY<br />NETWORK / EIP-155:10143</small
             >
           </div>
         </header>
@@ -65,7 +65,7 @@
 
         <section class="control-room" aria-label="AgentPay transaction replay">
           <div class="room-bar">
-            <strong>TRANSACTION REPLAY / PURCHASE AP-7F3C</strong
+            <strong>TRANSACTION REPLAY / 627C4D7A</strong
             ><span class="network">MONAD TESTNET / USDC / X402 UPTO</span>
           </div>
           <div class="room-grid">
@@ -163,7 +163,7 @@
                   <span class="tag">05</span>
                   <h3>MONAD</h3>
                   <p>Permit2 / upto<br />actual settlement</p>
-                  <span class="amount" id="chain-amount">0.037 USDC</span>
+                  <span class="amount" id="chain-amount">0.000001 USDC</span>
                 </div>
                 <div class="node receipt" data-node="receipt">
                   <span class="tag">06</span>
@@ -208,7 +208,7 @@
                   <div></div>
                   <div>
                     <time>00:01.11</time><strong>Provider executed</strong
-                    ><span>usage metered at 1,480 tokens</span>
+                    ><span>Zhipu usage metered before settlement</span>
                   </div>
                 </div>
                 <div class="event warn">
@@ -234,11 +234,11 @@
                 </div>
                 <div class="ledger-row">
                   <span>actual settlement</span
-                  ><span class="mint" id="ledger-actual">0.037 USDC</span>
+                  ><span class="mint" id="ledger-actual">0.000001 USDC</span>
                 </div>
                 <div class="ledger-row">
                   <span>returned to wallet</span
-                  ><span class="mint" id="ledger-returned">0.063 USDC</span>
+                  ><span class="mint" id="ledger-returned">0.099999 USDC</span>
                 </div>
               </div>
               <div class="proof-mini">
@@ -317,7 +317,14 @@
               <div class="receipt-list">
                 <div class="receipt-line">
                   <span>transaction</span
-                  ><b id="tx-hash">pending / recorded fixture</b>
+                  ><a
+                    class="proof-link"
+                    id="tx-hash"
+                    href="https://testnet.monadexplorer.com/tx/0xc1b583605f251c6141597bbe896406491e9ab08b0e57f3d32eaeca43cf263ed2"
+                    target="_blank"
+                    rel="noopener"
+                    >0xc1b583...263ed2</a
+                  >
                 </div>
                 <div class="receipt-line">
                   <span>model result</span
@@ -337,10 +344,16 @@
                   >source</a
                 ><a
                   class="link-btn"
-                  href="https://aiplans.dev"
+                  href="https://testnet.monadexplorer.com/tx/0xc1b583605f251c6141597bbe896406491e9ab08b0e57f3d32eaeca43cf263ed2"
                   target="_blank"
                   rel="noopener"
-                  >market</a
+                  >transaction</a
+                ><a
+                  class="link-btn"
+                  href="https://staging.toolkit.fun/api/agentpay/v1/proofs/proof_97ae4853f5eb26ee"
+                  target="_blank"
+                  rel="noopener"
+                  >public proof</a
                 >
               </div>
             </div>
@@ -348,7 +361,7 @@
         </div>
         <footer class="foot">
           <span
-            >Open reference implementation / Apache-2.0 / deterministic
+            >Open reference implementation / Apache-2.0 / verified testnet
             replay</span
           ><span
             ><a
