@@ -94,6 +94,8 @@ for (const inventedValue of ["140 tokens", "2,300 tokens", "CNY 49", "outputCap\
   assert.doesNotMatch(script, new RegExp(inventedValue), `invented value remains: ${inventedValue}`);
 }
 assert.doesNotMatch(html, /hypothetical/i);
+assert.doesNotMatch(html, /returned to wallet/i);
+assert.match(html, /unused under ceiling/i);
 assert.match(html, /https:\/\/aiplans\.dev\/en\/models\/glm-4\.7-flash/);
 for (const timestamp of ["00:00.00", "00:02.60", "00:05.60", "00:11.10", "00:14.90", "00:20.10", "00:23.90", "00:28.10"]) {
   assert.ok(html.includes(timestamp), `missing real scene timestamp: ${timestamp}`);
