@@ -16,7 +16,11 @@ npm run dev
 
 Open `http://127.0.0.1:4021/agentpay/`.
 
-The demo follows `KITE-07`, an autonomous maintainer that predicts it cannot finish its current coding job with the tokens it has left. It checkpoints its work, rejects a human-only checkout, discovers and buys machine-accessible capacity, pays through AgentPay, then resumes the same job. The roughly 33-second story gives its two product moments extra room: `DISCOVER` first shows a September 2026 capture of the real aiplans.dev API Pricing page before revealing AgentPay's illustrative offer-normalization layer; `AUTHORIZE` first shows the real Toolkit API/MCP surface before revealing route, delegated credential, Permit2 ceiling, and request configuration. Both captures include links to the live products. The payment scenes replay verified testnet evidence without rebroadcasting the transaction on every run; the coding job and decision/provisioning overlays are illustrative narrative around that evidence.
+The entry demo is a five-scene interactive commission: hire KITE-07 to fix a duplicate-charge teaching fixture, choose a spending ceiling and autonomy policy, execute the failing baseline, inspect model channels on aiplans.dev, follow the recorded Toolkit purchase, then run acceptance tests and download the runnable fix. Hash URLs (`#hire`, `#work`, `#market`, `#connect`, `#delivery`) preserve browser navigation; local storage restores the commission. A budget below the offer's required 0.100000 USDC authorization ceiling blocks procurement even though the recorded final charge is smaller. The manual mode waits for approval; declining preserves the checkpoint. Counterfactual buttons let judges explore both branches after delivery.
+
+The investigation, capacity trigger, and repair are scripted. Tests execute in the browser against the local fixture, including a genuinely failing duplicate-charge case. The fixture is synchronous and process-local, not production payment code. The historical provider output did not generate this fixture. Changing the commission controls the simulation and never generates a new model call, transaction, or receipt. The evidence panel always identifies the September 7 trace as historical.
+
+The original animated control room remains available at `replay.html`. Both experiences retain September 2026 captures of the real aiplans.dev and Toolkit pages, with links to open the products and verify pricing and payment evidence.
 
 ## Verified testnet evidence
 

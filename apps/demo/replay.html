@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AgentPay | Historical payment replay</title>
+    <meta
+      name="description"
+      content="A working agent checkpoints its job, buys model capacity, pays actual usage on Monad, and resumes autonomously."
+    />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="nav">
+        <a
+          class="brand"
+          href="https://toolkit.fun"
+          target="_blank"
+          rel="noopener"
+          >toolkit<i>.fun</i> / AgentPay</a
+        >
+        <div class="nav-links">
+          <a
+            href="https://github.com/x2v-co/agentpay"
+            target="_blank"
+            rel="noopener"
+            >Open source</a
+          ><a href="https://aiplans.dev" target="_blank" rel="noopener"
+            >aiplans.dev</a
+          ><a href="https://monad.xyz" target="_blank" rel="noopener">Monad</a>
+        </div>
+      </nav>
+      <main class="wrap">
+        <header class="hero">
+          <div>
+            <div class="eyebrow">Monad Metropolis / agent commerce</div>
+            <h1>AgentPay</h1>
+            <p class="hero-thesis">A working agent that can buy its next breath.</p>
+            <p class="lede">
+              Kite-07 is halfway through a job when its inference fuel runs low.
+              Watch it pause safely, shop for model capacity, pay on Monad, and
+              return to the same task without asking a human to check out.
+            </p>
+          </div>
+          <div class="hero-aside">
+            <div class="live-pill">REAL RUN VERIFIED</div>
+            <small
+              >DEMO MODE / VERIFIED TESTNET REPLAY<br />NETWORK / EIP-155:10143</small
+            >
+          </div>
+        </header>
+
+        <div class="controls">
+          <button class="btn primary" id="run" type="button">
+            Run agent story <span class="key">SPACE</span>
+          </button>
+          <button class="btn" id="next" type="button">
+            Next scene <span class="key">N</span>
+          </button>
+          <button class="btn" id="reset" type="button">Reset</button>
+          <span class="run-state" id="run-state" aria-live="polite"
+            >WORKING / CHECKOUT RETRY TEST 2 OF 3</span
+          >
+        </div>
+
+        <section class="control-room" aria-label="AgentPay working agent story">
+          <div class="room-bar">
+            <strong>STORY RUN / KITE-07 / JOB #418</strong
+            ><span class="network">VERIFIED PAYMENT / MONAD TESTNET</span>
+          </div>
+          <div class="agent-story" id="agent-story" data-tone="working">
+            <div class="agent-identity">
+              <span class="agent-mark">K7</span>
+              <div>
+                <small>AUTONOMOUS MAINTAINER</small>
+                <strong>KITE-07</strong>
+                <span id="agent-status">WORKING</span>
+              </div>
+            </div>
+            <div class="fuel-panel">
+              <div class="story-label">
+                <span>INFERENCE FUEL</span><b id="fuel-count">capacity pressure detected</b>
+              </div>
+              <div class="fuel-track"><i id="fuel-bar"></i></div>
+              <span class="fuel-forecast" id="fuel-forecast"
+                >bounded refill available</span
+              >
+            </div>
+            <div class="mission-panel">
+              <div class="story-label"><span>ACTIVE JOB</span><b>#418</b></div>
+              <strong id="mission-title">Fix checkout retry loop</strong>
+              <span id="mission-progress">2 / 3 tests passing</span>
+            </div>
+            <pre class="runtime-log" id="runtime-log" aria-live="polite">$ npm test checkout-retry
+FAIL retry preserves idempotency
+agent: inspecting payment state...</pre>
+          </div>
+          <div class="room-grid">
+            <div class="network-pane">
+              <div class="network-head">
+                <div>
+                  <h2 id="frame-title">
+                    Kite-07 is already working when the story begins.
+                  </h2>
+                  <p id="frame-copy">
+                    The job is real to the agent: one failing test still blocks
+                    delivery.
+                  </p>
+                </div>
+                <span class="frame-badge" id="frame-badge"
+                  >SCENE 01 / WORK</span
+                >
+              </div>
+              <div class="canvas" id="canvas" data-experience="network">
+                <svg
+                  class="routes"
+                  viewBox="0 0 1000 610"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path id="route-work" class="route active" d="M125 300 C260 250 390 280 510 300" />
+                  <path id="route-alert" class="route" d="M510 300 C390 350 250 350 125 300" />
+                  <path id="route-discover" class="route" d="M125 300 C245 300 220 140 360 140 C450 140 425 300 510 300" />
+                  <path
+                    id="route-reserve"
+                    class="route"
+                    d="M510 300 C430 390 390 480 360 455"
+                  />
+                  <path
+                    id="route-authorize"
+                    class="route"
+                    d="M360 455 C500 455 560 300 720 140"
+                  />
+                  <path
+                    id="route-settle"
+                    class="route chain"
+                    d="M720 140 C820 210 750 410 850 455"
+                  />
+                  <path
+                    id="route-refuel"
+                    class="route"
+                    d="M720 140 C650 235 590 260 510 300"
+                  />
+                  <path
+                    id="route-resume"
+                    class="route"
+                    d="M850 455 C760 520 650 325 510 300 C360 275 245 280 125 300"
+                  />
+                  <circle
+                    class="packet core"
+                    id="packet-a"
+                    r="5"
+                    cx="0"
+                    cy="0"
+                  />
+                  <circle
+                    class="packet blue"
+                    id="packet-b"
+                    r="4"
+                    cx="0"
+                    cy="0"
+                  />
+                  <circle
+                    class="packet amber"
+                    id="packet-c"
+                    r="4"
+                    cx="0"
+                    cy="0"
+                  />
+                </svg>
+                <div class="node agent active" data-node="agent">
+                  <span class="tag">01</span>
+                  <h3>KITE-07</h3>
+                  <p>checkout retry<br />job in progress</p>
+                </div>
+                <div class="node market" data-node="market">
+                  <span class="tag">02</span>
+                  <h3>MARKET</h3>
+                  <p>aiplans.dev<br />+ toolkit.fun</p>
+                </div>
+                <div class="node policy" data-node="policy">
+                  <span class="tag">03</span>
+                  <h3>POLICY WALLET</h3>
+                  <p>owner-signed<br />spend boundary</p>
+                  <span class="amount">0.100000 ceiling</span>
+                </div>
+                <div class="node provider" data-node="provider">
+                  <span class="tag">04</span>
+                  <h3>API PROVIDER</h3>
+                  <p>GLM-4.7-Flash<br />machine route</p>
+                </div>
+                <div class="node chain" data-node="chain">
+                  <span class="tag">05</span>
+                  <h3>MONAD</h3>
+                  <p>Permit2 / upto<br />actual settlement</p>
+                  <span class="amount" id="chain-amount">0.000001 USDC</span>
+                </div>
+                <div class="story-core" id="story-core" data-tone="working">
+                  <small id="beat-kicker">JOB #418</small>
+                  <strong id="beat-metric">2 / 3</strong>
+                  <span id="beat-label">tests passing</span>
+                </div>
+                <span class="signal s1">model metadata</span
+                ><span class="signal s2">quote / digest</span
+                ><span class="signal s3">reservation</span
+                ><span class="signal s4">provider call</span
+                ><span class="signal s5">chain evidence</span>
+                <div
+                  class="experience-overlay"
+                  id="experience-overlay"
+                  data-state="idle"
+                  aria-hidden="true"
+                >
+                  <section
+                    class="market-browser"
+                    id="market-browser"
+                    aria-label="aiplans.dev market discovery and AgentPay decision layer"
+                    aria-hidden="true"
+                  >
+                    <div class="browser-chrome">
+                      <span class="browser-dots"><i></i><i></i><i></i></span>
+                      <code>aiplans.dev/en/api-pricing</code>
+                      <a
+                        href="https://aiplans.dev/en/api-pricing"
+                        target="_blank"
+                        rel="noopener"
+                        >OPEN LIVE ↗</a
+                      >
+                    </div>
+                    <figure class="source-capture aiplans-capture">
+                      <img
+                        src="./assets/aiplans-api-pricing.png"
+                        alt="aiplans.dev API Pricing Comparison page showing model, channel, provider, and China-access filters"
+                      />
+                      <figcaption>
+                        <span>LIVE SITE CAPTURE / SEP 2026</span>
+                        <strong>333 models · 476 API channels · 21 providers</strong>
+                      </figcaption>
+                      <div class="scan-reticle" aria-hidden="true">
+                        <i></i><span>READING MARKET CATALOG</span>
+                      </div>
+                    </figure>
+                    <div class="catalog-body agent-lens">
+                      <aside class="request-spec">
+                        <small>AGENTPAY DECISION LAYER</small>
+                        <strong>Finish job #418</strong>
+                        <dl>
+                          <div><dt>Input est.</dt><dd>1,024 tokens</dd></div>
+                          <div><dt>Output cap</dt><dd>256 tokens</dd></div>
+                          <div><dt>Mode</dt><dd>API / instant</dd></div>
+                          <div><dt>Ceiling</dt><dd>0.100000 USDC</dd></div>
+                        </dl>
+                      </aside>
+                      <div class="offer-results">
+                        <div class="result-head">
+                          <span>GLM-4.7-Flash channels + merchant route</span
+                          ><a
+                            href="https://aiplans.dev/en/models/glm-4.7-flash"
+                            target="_blank"
+                            rel="noopener"
+                            >PRICE SOURCE ↗</a
+                          >
+                        </div>
+                        <article class="offer rejected">
+                          <span class="offer-logo">Z</span>
+                          <div>
+                            <strong>Zhipu direct API</strong>
+                            <small>GLM-4.7-Flash / aiplans.dev</small>
+                          </div>
+                          <div class="offer-price">CNY 0 / 0<small>input / output per 1M</small></div>
+                          <span class="offer-status">ACCOUNT CHECKOUT</span>
+                        </article>
+                        <article class="offer muted-offer">
+                          <span class="offer-logo">O</span>
+                          <div>
+                            <strong>OpenRouter API</strong>
+                            <small>GLM-4.7-Flash / aiplans.dev</small>
+                          </div>
+                          <div class="offer-price">USD .06 / .40<small>input / output per 1M</small></div>
+                          <span class="offer-status">API CREDIT</span>
+                        </article>
+                        <article class="offer selected">
+                          <span class="offer-logo">T</span>
+                          <div>
+                            <strong>Toolkit metered API</strong>
+                            <small>GLM-4.7-Flash / testnet demo rate</small>
+                          </div>
+                          <div class="offer-price">2 / 8 ATOMIC<small>input / output per 1M</small></div>
+                          <span class="offer-status">AGENTPAY READY</span>
+                        </article>
+                        <div class="selection-reason">
+                          <span>KITE-07 SELECTED</span>
+                          <strong>Machine checkout + instant fulfillment</strong>
+                          <i>policy match</i>
+                        </div>
+                      </div>
+                    </div>
+                    <small class="capture-disclosure"
+                      >REAL AIPLANS PAGE + ILLUSTRATIVE AGENT DECISION OVERLAY</small
+                    >
+                  </section>
+
+                  <section
+                    class="api-console"
+                    id="api-console"
+                    aria-label="toolkit.fun API page and AgentPay provisioning layer"
+                    aria-hidden="true"
+                  >
+                    <div class="browser-chrome toolkit-chrome">
+                      <span class="browser-dots"><i></i><i></i><i></i></span>
+                      <code>toolkit.fun/app#api</code>
+                      <a
+                        href="https://toolkit.fun/app#api"
+                        target="_blank"
+                        rel="noopener"
+                        >OPEN LIVE ↗</a
+                      >
+                    </div>
+                    <figure class="source-capture toolkit-capture">
+                      <img
+                        src="./assets/toolkit-api.png"
+                        alt="toolkit.fun application with the API and MCP distribution section selected"
+                      />
+                      <figcaption>
+                        <span>LIVE SITE CAPTURE / SEP 2026</span>
+                        <strong>API / MCP distribution surface</strong>
+                      </figcaption>
+                      <div class="route-beacon" aria-hidden="true">
+                        <i></i><span>MACHINE ROUTE FOUND</span>
+                      </div>
+                    </figure>
+                    <div class="provisioning-layer">
+                      <div class="console-head">
+                        <div>
+                          <small>toolkit.fun / AGENT API SETUP</small>
+                          <strong>Provision machine capacity</strong>
+                        </div>
+                        <span id="api-stage-status">CONFIGURING</span>
+                      </div>
+                      <div class="console-grid">
+                        <div class="api-config">
+                          <div class="config-row">
+                            <span>endpoint</span><code>/api/agentpay/v1/models/zhipu/GLM-4.7-Flash/invoke</code>
+                          </div>
+                          <div class="config-row">
+                            <span>model</span><code>zhipu/GLM-4.7-Flash</code>
+                          </div>
+                          <div class="config-row">
+                            <span>authorization</span><code>Permit2 / upto</code>
+                          </div>
+                          <div class="config-row">
+                            <span>testnet rate</span><code>2 in / 8 out atomic USDC per 1M</code>
+                          </div>
+                          <div class="config-row">
+                            <span>Permit2 ceiling</span><code>100,000 atomic / 0.100000 USDC</code>
+                          </div>
+                          <div class="config-row">
+                            <span>credential</span><code>delegated / no copied key</code>
+                          </div>
+                        </div>
+                        <pre class="request-code"><span>BUY</span> agentpay.buy({
+  body: { prompt: "resume job #418" },
+  inputTokens: 1024,
+  outputCap: 256
+})</pre>
+                      </div>
+                      <div class="api-pipeline">
+                        <span>DISCOVERY<i></i></span>
+                        <span>POLICY<i></i></span>
+                        <span>PERMIT2<i></i></span>
+                        <span>API READY<i></i></span>
+                      </div>
+                      <div class="api-result">
+                        <span>200 OK</span>
+                        <strong>Model result attached to job #418</strong>
+                        <code>usage: 17 input / 256 output / 273 total</code>
+                      </div>
+                    </div>
+                    <small class="demo-disclosure"
+                      >REAL TOOLKIT PAGE + ILLUSTRATIVE PROVISIONING OVERLAY</small
+                    >
+                  </section>
+                </div>
+              </div>
+            </div>
+            <aside class="evidence">
+              <div class="evidence-head">
+                <h2>Evidence stream</h2>
+                <p>Every visible event maps to a protocol transition.</p>
+              </div>
+              <div class="event-list" id="event-list">
+                <div class="event visible active">
+                  <div></div>
+                  <div>
+                    <time>00:00.00</time><strong>Goal received</strong
+                    ><span>checkout retry patch in progress</span>
+                  </div>
+                </div>
+                <div class="event warn">
+                  <div></div>
+                  <div>
+                    <time>00:02.60</time><strong>Capacity threshold crossed</strong
+                    ><span>below finish threshold / checkpoint saved</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:05.60</time><strong>Machine offer selected</strong
+                    ><span>real prices compared / AgentPay route selected</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:11.10</time><strong>Budget reserved</strong
+                    ><span>ceiling bound to request digest</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:14.90</time><strong>Permit2 authorized</strong
+                    ><span>0.100000 USDC Permit2 ceiling</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:20.10</time><strong>Capacity restored</strong
+                    ><span>17 input + 256 output = 273 tokens</span>
+                  </div>
+                </div>
+                <div class="event warn">
+                  <div></div>
+                  <div>
+                    <time>00:23.90</time><strong>Settlement matched</strong
+                    ><span>1 atomic USDC paid on Monad</span>
+                  </div>
+                </div>
+                <div class="event">
+                  <div></div>
+                  <div>
+                    <time>00:28.10</time><strong>Job resumed</strong
+                    ><span>checkpoint restored / tests pass</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ledger">
+                <div class="ledger-title">Spend ledger</div>
+                <div class="ledger-row">
+                  <span>Permit2 ceiling</span
+                  ><span class="amber">0.100000 USDC</span>
+                </div>
+                <div class="ledger-row">
+                  <span>actual settlement</span
+                  ><span class="mint" id="ledger-actual">0.000001 USDC</span>
+                </div>
+                <div class="ledger-row">
+                  <span>unused under ceiling</span
+                  ><span class="mint" id="ledger-returned">0.099999 USDC</span>
+                </div>
+              </div>
+              <div class="proof-mini">
+                <label>proof id</label
+                ><code id="proof-id">waiting-for-receipt</code>
+              </div>
+            </aside>
+          </div>
+          <div class="timeline" id="timeline">
+            <button class="phase active" type="button">
+              <small>01</small><strong>WORK</strong></button
+            ><button class="phase" type="button">
+              <small>02</small><strong>LOW TOKEN</strong></button
+            ><button class="phase" type="button">
+              <small>03</small><strong>DISCOVER</strong></button
+            ><button class="phase" type="button">
+              <small>04</small><strong>RESERVE</strong></button
+            ><button class="phase" type="button">
+              <small>05</small><strong>AUTHORIZE</strong></button
+            ><button class="phase" type="button">
+              <small>06</small><strong>REFUEL</strong></button
+            ><button class="phase" type="button">
+              <small>07</small><strong>SETTLE</strong></button
+            ><button class="phase" type="button">
+              <small>08</small><strong>RESUME</strong>
+            </button>
+          </div>
+        </section>
+
+        <div class="below">
+          <section class="module">
+            <div class="module-head">
+              <div>
+                <h2>Verified trace economics</h2>
+                <p class="module-intro">
+                  Public market prices, bounded request, provider usage, and
+                  chain settlement from the same trace.
+                </p>
+              </div>
+              <span class="ceiling">PROOF / MATCHED</span>
+            </div>
+            <div class="economics">
+              <div class="economics-row">
+                <span>Market / Zhipu direct</span>
+                <strong>CNY 0 input / 0 output per 1M</strong>
+              </div>
+              <div class="economics-row">
+                <span>Market / OpenRouter</span>
+                <strong>USD 0.06 input / 0.40 output per 1M</strong>
+              </div>
+              <div class="economics-row accent">
+                <span>Toolkit testnet demo rate</span>
+                <strong>2 input / 8 output atomic USDC per 1M</strong>
+              </div>
+              <div class="economics-row">
+                <span>Bound request</span>
+                <strong>1,024 input estimate / 256 output cap</strong>
+              </div>
+              <div class="economics-row">
+                <span>Toolkit offer limits</span>
+                <strong>128,000 max input / 4,096 max output</strong>
+              </div>
+              <div class="economics-row good">
+                <span>Actual provider usage</span>
+                <strong>17 input + 256 output = 273 tokens</strong>
+              </div>
+              <div class="economics-formula">
+                <small>INTEGER METER</small>
+                <code>ceil((17 x 2 + 256 x 8) / 1,000,000) = 1 atomic</code>
+                <span>Preflight worst case is also 1 atomic for the bound request.</span>
+              </div>
+              <div class="economics-total">
+                <span>MONAD SETTLEMENT</span>
+                <strong>1 atomic = 0.000001 USDC</strong>
+                <small>rate toolkit-demo-2026-09 / Permit2 ceiling 0.100000 / unused 0.099999 USDC</small>
+              </div>
+            </div>
+          </section>
+          <section class="module">
+            <div class="module-head">
+              <div>
+                <h2>Proof explorer</h2>
+                <p class="module-intro">
+                  A receipt is useful only when a human can recover the same
+                  evidence.
+                </p>
+              </div>
+            </div>
+            <div class="receipt">
+              <div class="receipt-list">
+                <div class="receipt-line">
+                  <span>transaction</span
+                  ><a
+                    class="proof-link"
+                    id="tx-hash"
+                    href="https://testnet.monadexplorer.com/tx/0xc1b583605f251c6141597bbe896406491e9ab08b0e57f3d32eaeca43cf263ed2"
+                    target="_blank"
+                    rel="noopener"
+                    >0xc1b583...263ed2</a
+                  >
+                </div>
+                <div class="receipt-line">
+                  <span>provider usage</span
+                  ><b class="good">17 in / 256 out / 273 total</b>
+                </div>
+                <div class="receipt-line">
+                  <span>model result</span
+                  ><b class="good">GLM-4.7-Flash delivered</b>
+                </div>
+                <div class="receipt-line">
+                  <span>status</span
+                  ><b class="good" id="receipt-status">awaiting settlement</b>
+                </div>
+              </div>
+              <div class="receipt-actions">
+                <a
+                  class="link-btn"
+                  href="https://github.com/x2v-co/agentpay"
+                  target="_blank"
+                  rel="noopener"
+                  >source</a
+                ><a
+                  class="link-btn"
+                  href="https://testnet.monadexplorer.com/tx/0xc1b583605f251c6141597bbe896406491e9ab08b0e57f3d32eaeca43cf263ed2"
+                  target="_blank"
+                  rel="noopener"
+                  >transaction</a
+                ><a
+                  class="link-btn"
+                  href="https://staging.toolkit.fun/api/agentpay/v1/proofs/proof_97ae4853f5eb26ee"
+                  target="_blank"
+                  rel="noopener"
+                  >public proof</a
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+        <footer class="foot">
+          <span
+            >Open reference implementation / Apache-2.0 / verified testnet
+            replay</span
+          ><span
+            ><a
+              href="https://staging.toolkit.fun/api/agentpay/v1/discovery"
+              target="_blank"
+              rel="noopener"
+              >discovery JSON</a
+            >
+            &nbsp;·&nbsp;
+            <a href="https://toolkit.fun" target="_blank" rel="noopener"
+              >toolkit.fun</a
+            ></span
+          >
+        </footer>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

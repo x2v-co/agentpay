@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { readFile, stat } from "node:fs/promises";
 
 const [html, css, script] = await Promise.all([
-  readFile(new URL("../apps/demo/index.html", import.meta.url), "utf8"),
+  readFile(new URL("../apps/demo/replay.html", import.meta.url), "utf8"),
   readFile(new URL("../apps/demo/styles.css", import.meta.url), "utf8"),
   readFile(new URL("../apps/demo/app.js", import.meta.url), "utf8"),
 ]);
