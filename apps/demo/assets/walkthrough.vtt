@@ -1,0 +1,37 @@
+WEBVTT
+
+00:00:00.066 --> 00:00:04.117
+AgentPay: buy the next inference inside an owner-defined policy. Interactive simulation; no new payment.
+
+00:00:04.117 --> 00:00:09.502
+Set a 5 USDC task budget and require approval. The per-inference ceiling is separate: 0.1 USDC.
+
+00:00:09.502 --> 00:00:16.350
+The baseline reproduces a duplicate charge. Save the task before procurement. The capacity trigger is scripted.
+
+00:00:16.350 --> 00:00:22.857
+Compare real model channels on aiplans.dev. Toolkit is the configured machine-fulfillment route.
+
+00:00:22.857 --> 00:00:28.560
+The agent waits for your approval. A policy decision comes before a purchase.
+
+00:00:28.560 --> 00:00:34.105
+A Toolkit request binds the model and token bounds. This screen replays historical payment evidence.
+
+00:00:34.105 --> 00:00:46.259
+Recorded September 7 request: 17 input plus 256 output tokens. Monad settlement: 0.000001 USDC, not the full ceiling.
+
+00:00:46.259 --> 00:00:52.109
+Inspect the retry guard. This teaching fixture is separate from the historical model output.
+
+00:00:52.109 --> 00:00:58.468
+Three acceptance tests execute locally in the browser. The owner verifies the deliverable.
+
+00:00:58.468 --> 00:01:08.635
+The complete loop: commission, checkpoint, discovery, authorization, settlement, delivery.
+
+00:01:08.635 --> 00:01:14.476
+Inspect the historical proof and transaction. No new model call, signature or charge is created by this demo.
+
+00:01:14.476 --> 00:01:18.976
+Quick preview is available before starting. It grants no purchase permission and records no acceptance.

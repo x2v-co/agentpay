@@ -43,6 +43,9 @@ for (const route of [
   assert.match(html, new RegExp(`id="${route}"`), `missing animated ${route}`);
 }
 assert.doesNotMatch(html, /cdn\.jsdelivr\.net/);
+assert.doesNotMatch(html, /REAL RUN VERIFIED/);
+assert.match(html, /SCRIPTED STORY \+ HISTORICAL TESTNET PAYMENT/);
+assert.match(html, /recorded model output did not generate this repair/);
 assert.match(html, /Verified trace economics/);
 assert.match(html, /id="proof-id"/);
 for (const storyElement of [

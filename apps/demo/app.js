@@ -3,7 +3,7 @@
     {
       duration: 2600,
       title: "Kite-07 is already working when the story begins.",
-      copy: "One failing checkout retry test still blocks job #418.",
+      copy: "Teaching fixture: one failing checkout retry test blocks job #418. These notebook events are scripted.",
       badge: "SCENE 01 / WORK",
       state: "WORKING / CHECKOUT RETRY TEST 2 OF 3",
       node: "agent",
@@ -25,8 +25,8 @@
     },
     {
       duration: 3000,
-      title: "The agent predicts it will run out before the fix is safe.",
-      copy: "It checkpoints the job instead of producing a half-finished patch.",
+      title: "The scenario triggers a capacity checkpoint.",
+      copy: "The pause is scripted. Capacity indicators do not measure a real token balance.",
       badge: "SCENE 02 / LOW TOKEN",
       state: "SAFE PAUSE / CAPACITY CHECK REQUIRED",
       node: "agent",
@@ -95,7 +95,7 @@
     {
       duration: 5200,
       title: "Permit2 authorizes a ceiling, never a blank cheque.",
-      copy: "The real Toolkit API surface opens; AgentPay configures its machine route and a bounded model request.",
+      copy: "A real Toolkit page capture accompanies an illustrative configuration overlay. No new API key or payment permission is created.",
       badge: "SCENE 05 / AUTHORIZE",
       state: "PERMIT2 VERIFIED / PROVIDER EXECUTING",
       node: "provider",
@@ -163,8 +163,8 @@
     },
     {
       duration: 4500,
-      title: "Kite-07 resumes the same job and finishes the work.",
-      copy: "The patch continues from retry.ts:87, the final test passes, and the proof travels with the result.",
+      title: "The scripted task resumes at its checkpoint.",
+      copy: "The repair is a teaching fixture, not output from the historical model call. Run its acceptance tests in the interactive commission.",
       badge: "SCENE 08 / RESUME",
       state: "JOB #418 COMPLETE / 3 OF 3 TESTS PASSING",
       node: "agent",

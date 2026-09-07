@@ -4,6 +4,8 @@ AgentPay is an open reference implementation for autonomous agent procurement on
 
 Built for the [Monad Metropolis hackathon](https://www.monad.xyz/developers/hackathons/metropolis).
 
+[Interactive demo](https://x2v-co.github.io/agentpay/) | [Quick preview](https://x2v-co.github.io/agentpay/#preview) | [Video and architecture brief](https://x2v-co.github.io/agentpay/brief.html)
+
 ## Run the demo
 
 Requirements: Node.js 22 or newer.
@@ -16,7 +18,7 @@ npm run dev
 
 Open `http://127.0.0.1:4021/agentpay/`.
 
-The entry demo is a five-scene interactive commission: hire KITE-07 to fix a duplicate-charge teaching fixture, choose a task budget (0.500000, 5.000000, or 25.000000 USDC) and autonomy policy, execute the failing baseline, inspect model channels on aiplans.dev, follow the recorded Toolkit purchase, then run acceptance tests and download the runnable fix. The task budget is distinct from the 0.100000 USDC per-inference authorization ceiling. Hash URLs (`#hire`, `#work`, `#market`, `#connect`, `#delivery`) preserve browser navigation; local storage restores the commission. A counterfactual button applies a deliberately insufficient 0.010000 USDC budget to demonstrate a blocked purchase. The manual mode waits for approval; declining preserves the checkpoint.
+The entry demo is a six-scene interactive commission: hire KITE-07 to fix a duplicate-charge teaching fixture, choose a task budget (0.500000, 5.000000, or 25.000000 USDC) and autonomy policy, execute the failing baseline, inspect model channels on aiplans.dev, follow the recorded Toolkit purchase, then run acceptance tests and download the runnable fix. After acceptance, the overview maps the complete loop; a preview button exposes that map without claiming the task was run. The task budget is distinct from the 0.100000 USDC per-inference authorization ceiling. Hash URLs (`#hire`, `#work`, `#market`, `#connect`, `#delivery`, `#overview`) preserve browser navigation; local storage restores the commission. A counterfactual button applies a deliberately insufficient 0.010000 USDC budget to demonstrate a blocked purchase. The manual mode waits for approval; declining preserves the checkpoint.
 
 The investigation, capacity trigger, and repair are scripted. Tests execute in the browser against the local fixture, including a genuinely failing duplicate-charge case. The fixture is synchronous and process-local, not production payment code. The historical provider output did not generate this fixture. Changing the commission controls the simulation and never generates a new model call, transaction, or receipt. The evidence panel always identifies the September 7 trace as historical.
 
@@ -60,7 +62,7 @@ const purchase = await agentpay.buy({
 });
 ```
 
-`buy()` returns `status: "pending"` while Monad confirmation is unresolved and `status: "matched"` only after settlement and delivery evidence are durable.
+`buy()` returns `status: "pending"` while Monad confirmation is unresolved and `status: "matched"` after settlement and delivery evidence are recorded. The public reference store is process-local; production durability requires a different adapter.
 
 ## Repository layout
 
@@ -92,9 +94,24 @@ The reference server fails closed if readiness is incomplete. A production deplo
 - The owner policy binds wallet, merchant, model, budget, chain, asset, and expiry.
 - A reservation binds the complete provider request and token caps before execution.
 - Permit2 authorizes a ceiling; settlement passes only the actual metered amount.
-- Settlement retries reuse durable provider output and never invoke the provider twice.
+- Settlement retries reuse recorded provider output while the purchase state is retained; production crash recovery requires durable storage.
 - A Permit2 payer/nonce pair binds to one purchase.
 - Delayed chain visibility remains pending rather than being reported as success.
+
+## Submission Materials
+
+- [English submission write-up](docs/hackathon-submission.md)
+- [Readiness checklist and missing live-repair evidence](docs/submission-checklist.md)
+- [Walkthrough script and recording instructions](docs/video-script.md)
+- [Architecture and trust boundaries](docs/architecture.md)
+
+## Browser Wallet Operator
+
+Run `npm run operator`, then open `http://127.0.0.1:4022/` in a browser with an Ethereum wallet. This local companion uses the public SDK against Toolkit staging; the static judge demo never requests payment. It pins Monad Testnet, the documented USDC asset and Toolkit merchant, with a maximum of 0.1 test USDC for one purchase per server session. The optional allowance transaction authorizes exactly 0.1 USDC to Permit2, never an unlimited amount.
+
+Connect the wallet, check readiness and funds, run the failing baseline, consent to the maximum, and start. Confirm each typed-data signature in the wallet. The owner and agent are the same connected wallet in this operator-assisted run; it is not unattended delegation. The page recovers the model output, independently checks its onchain transfer, and tests the output in a network-disabled browser worker with a two-second timeout. Generated code is not executed in Node or the developer workspace. Worker test reports are operator-reported, not cryptographic attestations. Reject malformed output rather than substituting the teaching fixture.
+
+Keep the local server running while settlement is pending. Reconcile the same purchase instead of buying again. The downloadable evidence contains the public task, raw output, digest, usage, receipt and test result, but no private key, payment signature or progress token. This companion uses in-memory state and is for an attended testnet run only. Wallet confirmations and a funded account are still required; no successful live repair is claimed merely because the companion exists.
 
 ## Status
 

@@ -15,6 +15,7 @@ export function decision(s) {
   return 'allowed';
 }
 export function accessibleStep(step, s) {
+  if (step === 'preview') return step;
   if (!STEPS.includes(step)) return 'hire';
   if (step === 'hire') return step;
   if (!s.hired) return 'hire';

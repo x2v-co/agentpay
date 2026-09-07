@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(import.meta.dirname, '..');
 const forbidden = [/toolkit_new/i, /\/Users\//, /server\/src\/(?:config|db|routes|billing|auth)/];
-const ignored = new Set(['.git', 'node_modules']);
+const ignored = new Set(['.git', '.gstack', 'node_modules']);
 const failures = [];
 
 function visit(directory) {

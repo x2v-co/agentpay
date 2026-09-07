@@ -1,3 +1,5 @@
+.replay-disclosure { border-left: 3px solid #ffbd68; padding: 14px 18px; margin: 20px 0; color: #d5dfdf; background: #20251e; font: 12px/1.7 system-ui, sans-serif; }
+.replay-disclosure a { color: #52e4ca; }
 :root {
   --ink: #070b12;
   --panel: #0d141e;

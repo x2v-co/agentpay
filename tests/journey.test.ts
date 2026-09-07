@@ -2,7 +2,32 @@ import { describe, it, expect } from 'vitest';
 // Browser and tests share the policy and executable teaching fixture.
 // @ts-ignore JavaScript demo module
 import { freshState, decision, accessibleStep, restoreState, runCheckoutTests, FIX_SOURCE } from '../apps/demo/journey-model.mjs';
+// @ts-ignore JavaScript demo module
+import { overview, overviewStages } from '../apps/demo/overview.js';
 describe('interactive commission', () => {
+  it('previews without bypassing purchase or acceptance gates', () => {
+    const s = freshState();
+    expect(accessibleStep('preview', s)).toBe('preview');
+    expect(accessibleStep('overview', s)).toBe('hire');
+    const restored = restoreState(JSON.stringify({...s, step:'preview'}));
+    expect(restored).toEqual({...s, step:'preview'});
+    for (const step of ['work', 'market', 'connect', 'delivery', 'overview']) {
+      expect(accessibleStep(step, restored)).toBe('hire');
+    }
+    expect(overview(s, true)).toContain('Not run in preview');
+    expect(overview(s, true)).not.toContain('3 / 3 passing');
+    expect(JSON.stringify(overviewStages(s, true))).not.toMatch(/You approved procurement|You ran the three|ACCEPTED DELIVERABLE/);
+    expect(s).toEqual(freshState());
+  });
+  it('preserves blocked and accepted commissions when previewing', () => {
+    const blocked = {...freshState(), hired:true, checkpoint:true, mode:'ask', denied:true};
+    expect(accessibleStep('preview', blocked)).toBe('preview');
+    expect(accessibleStep('connect', blocked)).toBe('market');
+    const accepted = {...freshState(), hired:true, checkpoint:true, paymentDone:true, tested:true, accepted:true};
+    const restored = restoreState(JSON.stringify({...accepted, step:'preview'}));
+    expect(restored).toEqual({...accepted, step:'preview'});
+    expect(accessibleStep('overview', restored)).toBe('overview');
+  });
   it('enforces the required authorization ceiling, not the small final charge', () => {
     expect(decision({...freshState(),budget:10000})).toBe('budget-blocked');
     expect(decision({...freshState(),budget:0})).toBe('budget-blocked');
