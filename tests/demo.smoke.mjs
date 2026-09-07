@@ -55,18 +55,31 @@ for (const storyElement of [
   "mission-progress",
   "runtime-log",
   "story-core",
+  "experience-overlay",
+  "market-browser",
+  "api-console",
+  "api-stage-status",
 ]) {
   assert.match(html, new RegExp(`id="${storyElement}"`), `missing ${storyElement}`);
 }
 assert.match(html, /actual settlement/i);
 assert.match(html, /https:\/\/aiplans\.dev/);
 assert.match(html, /https:\/\/toolkit\.fun/);
+assert.match(html, /DEMO CATALOG VIEW/);
+assert.match(html, /HUMAN CHECKOUT/);
+assert.match(html, /AGENTPAY READY/);
+assert.match(html, /DEMO PROVISIONING VIEW/);
+assert.match(html, /delegated \/ no copied key/);
+assert.match(html, /\/api\/agentpay\/v1\/models\/zhipu\/GLM-4\.7-Flash\/invoke/);
+assert.match(html, /POST<\/span> selectedOffer\.route/);
 assert.match(script, /requestAnimationFrame/);
 assert.match(script, /getPointAtLength/);
 assert.match(script, /SETTLEMENT MATCHED/);
 assert.match(script, /3 \/ 3 tests passing/);
 assert.match(script, /checkpoint saved at retry\.ts:87/);
 assert.match(script, /if \(cursor === frames\.length - 1\) stop\(\)/);
+assert.match(script, /experienceState: "selected"/);
+assert.match(script, /experienceState: "delivered"/);
 assert.match(css, /@media\s*\(max-width:\s*700px\)/);
 assert.match(css, /prefers-reduced-motion:\s*reduce/);
 

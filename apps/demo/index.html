@@ -113,7 +113,7 @@ agent: inspecting payment state...</pre>
                   >SCENE 01 / WORK</span
                 >
               </div>
-              <div class="canvas" id="canvas">
+              <div class="canvas" id="canvas" data-experience="network">
                 <svg
                   class="routes"
                   viewBox="0 0 1000 610"
@@ -207,6 +207,125 @@ agent: inspecting payment state...</pre>
                 ><span class="signal s3">reservation</span
                 ><span class="signal s4">provider call</span
                 ><span class="signal s5">chain evidence</span>
+                <div
+                  class="experience-overlay"
+                  id="experience-overlay"
+                  data-state="idle"
+                  aria-hidden="true"
+                >
+                  <section
+                    class="market-browser"
+                    id="market-browser"
+                    aria-label="Demo aiplans catalog"
+                    aria-hidden="true"
+                  >
+                    <div class="browser-chrome">
+                      <span class="browser-dots"><i></i><i></i><i></i></span>
+                      <code>aiplans.dev/compare?model=glm-4.7-flash</code>
+                      <small>DEMO CATALOG VIEW</small>
+                    </div>
+                    <div class="catalog-body">
+                      <aside class="request-spec">
+                        <small>AGENT REQUIREMENT</small>
+                        <strong>Finish job #418</strong>
+                        <dl>
+                          <div><dt>Need</dt><dd>2,300 tokens</dd></div>
+                          <div><dt>Mode</dt><dd>API / instant</dd></div>
+                          <div><dt>Budget</dt><dd>&le; 0.10 USDC</dd></div>
+                          <div><dt>Human</dt><dd>unavailable</dd></div>
+                        </dl>
+                      </aside>
+                      <div class="offer-results">
+                        <div class="result-head">
+                          <span>3 plans found</span><b>AGENT-COMPATIBLE FIRST</b>
+                        </div>
+                        <article class="offer rejected">
+                          <span class="offer-logo">Z</span>
+                          <div>
+                            <strong>Zhipu Coding Plan</strong>
+                            <small>Monthly subscription / account login</small>
+                          </div>
+                          <div class="offer-price">CNY 49<small>/ month</small></div>
+                          <span class="offer-status">HUMAN CHECKOUT</span>
+                        </article>
+                        <article class="offer muted-offer">
+                          <span class="offer-logo">D</span>
+                          <div>
+                            <strong>Direct API balance</strong>
+                            <small>Prepaid console recharge</small>
+                          </div>
+                          <div class="offer-price">TOP UP<small>required</small></div>
+                          <span class="offer-status">ACCOUNT SETUP</span>
+                        </article>
+                        <article class="offer selected">
+                          <span class="offer-logo">T</span>
+                          <div>
+                            <strong>Toolkit metered API</strong>
+                            <small>GLM-4.7-Flash / per-call settlement</small>
+                          </div>
+                          <div class="offer-price">USDC<small>actual usage</small></div>
+                          <span class="offer-status">AGENTPAY READY</span>
+                        </article>
+                        <div class="selection-reason">
+                          <span>KITE-07 SELECTED</span>
+                          <strong>Machine checkout + instant fulfillment</strong>
+                          <i>policy match</i>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section
+                    class="api-console"
+                    id="api-console"
+                    aria-label="Demo Toolkit API provisioning"
+                    aria-hidden="true"
+                  >
+                    <div class="console-head">
+                      <div>
+                        <small>toolkit.fun / AGENT API SETUP</small>
+                        <strong>Provision machine capacity</strong>
+                      </div>
+                      <span id="api-stage-status">CONFIGURING</span>
+                    </div>
+                    <div class="console-grid">
+                      <div class="api-config">
+                        <div class="config-row">
+                          <span>endpoint</span><code>/api/agentpay/v1/models/zhipu/GLM-4.7-Flash/invoke</code>
+                        </div>
+                        <div class="config-row">
+                          <span>model</span><code>zhipu/GLM-4.7-Flash</code>
+                        </div>
+                        <div class="config-row">
+                          <span>authorization</span><code>Permit2 / upto</code>
+                        </div>
+                        <div class="config-row">
+                          <span>maximum</span><code>0.100000 USDC</code>
+                        </div>
+                        <div class="config-row">
+                          <span>credential</span><code>delegated / no copied key</code>
+                        </div>
+                      </div>
+                      <pre class="request-code"><span>POST</span> selectedOffer.route
+{
+  "prompt": "resume job #418",
+  "outputCap": 2300
+}</pre>
+                    </div>
+                    <div class="api-pipeline">
+                      <span>DISCOVERY<i></i></span>
+                      <span>POLICY<i></i></span>
+                      <span>PERMIT2<i></i></span>
+                      <span>API READY<i></i></span>
+                    </div>
+                    <div class="api-result">
+                      <span>200 OK</span>
+                      <strong>Model result attached to job #418</strong>
+                      <code>usage metered / checkpoint recoverable</code>
+                    </div>
+                    <small class="demo-disclosure">DEMO PROVISIONING VIEW</small>
+                  </section>
+                </div>
               </div>
             </div>
             <aside class="evidence">

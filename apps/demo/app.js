@@ -19,6 +19,8 @@
       beatMetric: "2 / 3",
       beatLabel: "tests passing",
       log: "$ npm test checkout-retry\nFAIL retry preserves idempotency\nagent: inspecting payment state...",
+      experience: "network",
+      experienceState: "idle",
     },
     {
       title: "The agent predicts it will run out before the fix is safe.",
@@ -39,6 +41,8 @@
       beatMetric: "-2,160",
       beatLabel: "token shortfall",
       log: "fuel forecast: 2,300 required\navailable: 140\nagent: checkpointing before context loss",
+      experience: "network",
+      experienceState: "idle",
     },
     {
       title: "Kite-07 shops for capacity it can buy by itself.",
@@ -56,9 +60,11 @@
       agentStatus: "SHOPPING",
       missionProgress: "job paused / state retained",
       beatKicker: "OFFER FILTER",
-      beatMetric: "1 / 4",
+      beatMetric: "1 / 3",
       beatLabel: "machine-eligible",
-      log: "aiplans.dev: 4 offers found\ncoding plan: human checkout [reject]\nToolkit GLM-4.7-Flash: machine route [select]",
+      log: "aiplans.dev: 3 offers found\ncoding plan: human checkout [reject]\nToolkit GLM-4.7-Flash: machine route [select]",
+      experience: "market",
+      experienceState: "scanning",
     },
     {
       title: "The owner policy turns money into a narrow permission.",
@@ -79,6 +85,8 @@
       beatMetric: "0.10",
       beatLabel: "USDC maximum",
       log: "policy: toolkit + zhipu allowed\nreserve: 0.100000 USDC\nrequest digest: locked",
+      experience: "market",
+      experienceState: "selected",
     },
     {
       title: "Permit2 authorizes a ceiling, never a blank cheque.",
@@ -99,6 +107,8 @@
       beatMetric: "SIGNED",
       beatLabel: "bounded authorization",
       log: "Permit2 ceiling: signed\nprovider: executing request\nagent: task state remains checkpointed",
+      experience: "api",
+      experienceState: "configuring",
     },
     {
       title: "The purchased result returns to the exact pause point.",
@@ -119,6 +129,8 @@
       beatMetric: "READY",
       beatLabel: "checkpoint restored",
       log: "model result: delivered\nagent context: restored\nresume token: checkout/retry.ts:87",
+      experience: "api",
+      experienceState: "delivered",
     },
     {
       title: "Monad charges only what the agent actually consumed.",
@@ -139,6 +151,8 @@
       beatMetric: "0.000001",
       beatLabel: "USDC settled",
       log: "Monad transfer: 0.000001 USDC\nunused ceiling: 0.099999 USDC\npublic proof: durable",
+      experience: "network",
+      experienceState: "idle",
     },
     {
       title: "Kite-07 resumes the same job and finishes the work.",
@@ -159,6 +173,8 @@
       beatMetric: "PASS",
       beatLabel: "work completed",
       log: "agent: resumed at retry.ts:87\nPASS retry preserves idempotency\njob #418: ready to ship",
+      experience: "network",
+      experienceState: "idle",
     },
   ];
   const byId = (id) => document.getElementById(id);
@@ -232,6 +248,23 @@
     byId(frame.route).classList.add("active");
     byId("agent-story").dataset.tone = frame.tone;
     byId("story-core").dataset.tone = frame.tone;
+    byId("canvas").dataset.experience = frame.experience;
+    const experienceOverlay = byId("experience-overlay");
+    experienceOverlay.dataset.state = frame.experienceState;
+    experienceOverlay.setAttribute(
+      "aria-hidden",
+      String(frame.experience === "network"),
+    );
+    byId("market-browser").setAttribute(
+      "aria-hidden",
+      String(frame.experience !== "market"),
+    );
+    byId("api-console").setAttribute(
+      "aria-hidden",
+      String(frame.experience !== "api"),
+    );
+    byId("api-stage-status").textContent =
+      frame.experienceState === "delivered" ? "CAPACITY READY" : "CONFIGURING";
     byId("agent-status").textContent = frame.agentStatus;
     byId("fuel-count").textContent = frame.fuelCount;
     byId("fuel-forecast").textContent = frame.forecast;
