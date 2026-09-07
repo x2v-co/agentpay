@@ -6,7 +6,7 @@ export const TRACE = Object.freeze({
 });
 export const STEPS = ['hire', 'work', 'market', 'connect', 'delivery'];
 export function freshState() {
-  return { version: 1, step: 'hire', budget: 100000, mode: 'auto', hired: false,
+  return { version: 1, step: 'hire', budget: 5000000, mode: 'auto', hired: false,
     checkpoint: false, approved: false, denied: false, paymentDone: false, tested: false, accepted: false, runId: null };
 }
 export function decision(s) {
@@ -28,7 +28,7 @@ export function accessibleStep(step, s) {
 export function restoreState(raw) {
   try {
     const s = JSON.parse(raw);
-    if (s?.version !== 1 || ![0, 10000, 100000].includes(s.budget) || !['auto', 'ask'].includes(s.mode)) return freshState();
+    if (s?.version !== 1 || ![10000, 500000, 5000000, 25000000].includes(s.budget) || !['auto', 'ask'].includes(s.mode)) return freshState();
     const clean = freshState();
     for (const k of ['hired','checkpoint','approved','denied','paymentDone','tested','accepted']) clean[k] = s[k] === true;
     clean.budget = s.budget; clean.mode = s.mode;
