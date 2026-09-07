@@ -1,0 +1,9 @@
+{
+  "name": "@toolkit-fun/agentpay-protocol",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "license": "Apache-2.0",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": { "viem": "2.56.3" }
+}

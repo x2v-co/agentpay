@@ -1,0 +1,30 @@
+{
+  "name": "agentpay",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": { "node": ">=22" },
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "dev": "tsx apps/reference-server/src/index.js",
+    "start": "node apps/reference-server/src/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck && vitest run && node tests/reference-server.smoke.mjs",
+    "check:private-imports": "node scripts/check-private-imports.mjs"
+  },
+  "dependencies": {
+    "@x402/core": "2.25.0",
+    "@x402/evm": "2.25.0",
+    "@x402/extensions": "2.25.0",
+    "@x402/fetch": "2.25.0",
+    "express": "5.1.0",
+    "viem": "2.56.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.1",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}
