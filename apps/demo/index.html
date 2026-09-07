@@ -81,11 +81,11 @@
             </div>
             <div class="fuel-panel">
               <div class="story-label">
-                <span>INFERENCE FUEL</span><b id="fuel-count">140 tokens left</b>
+                <span>INFERENCE FUEL</span><b id="fuel-count">capacity pressure detected</b>
               </div>
               <div class="fuel-track"><i id="fuel-bar"></i></div>
               <span class="fuel-forecast" id="fuel-forecast"
-                >needs 2,300 tokens to finish</span
+                >bounded refill available</span
               >
             </div>
             <div class="mission-panel">
@@ -184,7 +184,7 @@ agent: inspecting payment state...</pre>
                   <span class="tag">03</span>
                   <h3>POLICY WALLET</h3>
                   <p>owner-signed<br />spend boundary</p>
-                  <span class="amount">0.10 USDC</span>
+                  <span class="amount">0.100000 ceiling</span>
                 </div>
                 <div class="node provider" data-node="provider">
                   <span class="tag">04</span>
@@ -247,42 +247,47 @@ agent: inspecting payment state...</pre>
                         <small>AGENTPAY DECISION LAYER</small>
                         <strong>Finish job #418</strong>
                         <dl>
-                          <div><dt>Need</dt><dd>2,300 tokens</dd></div>
+                          <div><dt>Input est.</dt><dd>1,024 tokens</dd></div>
+                          <div><dt>Output cap</dt><dd>256 tokens</dd></div>
                           <div><dt>Mode</dt><dd>API / instant</dd></div>
-                          <div><dt>Budget</dt><dd>&le; 0.10 USDC</dd></div>
-                          <div><dt>Human</dt><dd>unavailable</dd></div>
+                          <div><dt>Ceiling</dt><dd>0.100000 USDC</dd></div>
                         </dl>
                       </aside>
                       <div class="offer-results">
                         <div class="result-head">
-                          <span>Offers normalized from catalog + merchant route</span
-                          ><b>AGENT-COMPATIBLE FIRST</b>
+                          <span>GLM-4.7-Flash channels + merchant route</span
+                          ><a
+                            href="https://aiplans.dev/en/models/glm-4.7-flash"
+                            target="_blank"
+                            rel="noopener"
+                            >PRICE SOURCE ↗</a
+                          >
                         </div>
                         <article class="offer rejected">
                           <span class="offer-logo">Z</span>
                           <div>
-                            <strong>Zhipu Coding Plan</strong>
-                            <small>Monthly subscription / account login</small>
+                            <strong>Zhipu direct API</strong>
+                            <small>GLM-4.7-Flash / aiplans.dev</small>
                           </div>
-                          <div class="offer-price">CNY 49<small>/ month</small></div>
-                          <span class="offer-status">HUMAN CHECKOUT</span>
+                          <div class="offer-price">CNY 0 / 0<small>input / output per 1M</small></div>
+                          <span class="offer-status">ACCOUNT CHECKOUT</span>
                         </article>
                         <article class="offer muted-offer">
-                          <span class="offer-logo">D</span>
+                          <span class="offer-logo">O</span>
                           <div>
-                            <strong>Direct API balance</strong>
-                            <small>Prepaid console recharge</small>
+                            <strong>OpenRouter API</strong>
+                            <small>GLM-4.7-Flash / aiplans.dev</small>
                           </div>
-                          <div class="offer-price">TOP UP<small>required</small></div>
-                          <span class="offer-status">ACCOUNT SETUP</span>
+                          <div class="offer-price">USD .06 / .40<small>input / output per 1M</small></div>
+                          <span class="offer-status">API CREDIT</span>
                         </article>
                         <article class="offer selected">
                           <span class="offer-logo">T</span>
                           <div>
                             <strong>Toolkit metered API</strong>
-                            <small>GLM-4.7-Flash / per-call settlement</small>
+                            <small>GLM-4.7-Flash / testnet demo rate</small>
                           </div>
-                          <div class="offer-price">USDC<small>actual usage</small></div>
+                          <div class="offer-price">2 / 8 ATOMIC<small>input / output per 1M</small></div>
                           <span class="offer-status">AGENTPAY READY</span>
                         </article>
                         <div class="selection-reason">
@@ -346,17 +351,20 @@ agent: inspecting payment state...</pre>
                             <span>authorization</span><code>Permit2 / upto</code>
                           </div>
                           <div class="config-row">
-                            <span>maximum</span><code>0.100000 USDC</code>
+                            <span>testnet rate</span><code>2 in / 8 out atomic USDC per 1M</code>
+                          </div>
+                          <div class="config-row">
+                            <span>Permit2 ceiling</span><code>100,000 atomic / 0.100000 USDC</code>
                           </div>
                           <div class="config-row">
                             <span>credential</span><code>delegated / no copied key</code>
                           </div>
                         </div>
-                        <pre class="request-code"><span>POST</span> selectedOffer.route
-{
-  "prompt": "resume job #418",
-  "outputCap": 2300
-}</pre>
+                        <pre class="request-code"><span>BUY</span> agentpay.buy({
+  body: { prompt: "resume job #418" },
+  inputTokens: 1024,
+  outputCap: 256
+})</pre>
                       </div>
                       <div class="api-pipeline">
                         <span>DISCOVERY<i></i></span>
@@ -367,7 +375,7 @@ agent: inspecting payment state...</pre>
                       <div class="api-result">
                         <span>200 OK</span>
                         <strong>Model result attached to job #418</strong>
-                        <code>usage metered / checkpoint recoverable</code>
+                        <code>usage: 17 input / 256 output / 273 total</code>
                       </div>
                     </div>
                     <small class="demo-disclosure"
@@ -393,49 +401,49 @@ agent: inspecting payment state...</pre>
                 <div class="event warn">
                   <div></div>
                   <div>
-                    <time>00:00.42</time><strong>Fuel forecast failed</strong
-                    ><span>140 available / 2,300 required</span>
+                    <time>00:02.60</time><strong>Capacity threshold crossed</strong
+                    ><span>below finish threshold / checkpoint saved</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:00.77</time><strong>Machine offer selected</strong
-                    ><span>human checkout plan rejected</span>
+                    <time>00:05.60</time><strong>Machine offer selected</strong
+                    ><span>real prices compared / AgentPay route selected</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:01.11</time><strong>Budget reserved</strong
+                    <time>00:11.10</time><strong>Budget reserved</strong
                     ><span>ceiling bound to request digest</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:01.44</time><strong>Permit2 authorized</strong
-                    ><span>0.100000 USDC maximum</span>
+                    <time>00:14.90</time><strong>Permit2 authorized</strong
+                    ><span>0.100000 USDC Permit2 ceiling</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:01.81</time><strong>Capacity restored</strong
-                    ><span>Zhipu result returns to checkpoint</span>
+                    <time>00:20.10</time><strong>Capacity restored</strong
+                    ><span>17 input + 256 output = 273 tokens</span>
                   </div>
                 </div>
                 <div class="event warn">
                   <div></div>
                   <div>
-                    <time>00:02.18</time><strong>Settlement matched</strong
+                    <time>00:23.90</time><strong>Settlement matched</strong
                     ><span>1 atomic USDC paid on Monad</span>
                   </div>
                 </div>
                 <div class="event">
                   <div></div>
                   <div>
-                    <time>00:02.55</time><strong>Job resumed</strong
+                    <time>00:28.10</time><strong>Job resumed</strong
                     ><span>checkpoint restored / tests pass</span>
                   </div>
                 </div>
@@ -443,8 +451,8 @@ agent: inspecting payment state...</pre>
               <div class="ledger">
                 <div class="ledger-title">Spend ledger</div>
                 <div class="ledger-row">
-                  <span>authorized ceiling</span
-                  ><span class="amber">0.100 USDC</span>
+                  <span>Permit2 ceiling</span
+                  ><span class="amber">0.100000 USDC</span>
                 </div>
                 <div class="ledger-row">
                   <span>actual settlement</span
@@ -486,39 +494,48 @@ agent: inspecting payment state...</pre>
           <section class="module">
             <div class="module-head">
               <div>
-                <h2>What-if policy lab</h2>
+                <h2>Verified trace economics</h2>
                 <p class="module-intro">
-                  Model another settlement under the same ceiling without
-                  changing the verified receipt above.
+                  Public market prices, bounded request, provider usage, and
+                  chain settlement from the same trace.
                 </p>
               </div>
-              <span class="ceiling">CEILING / 0.100 USDC</span>
+              <span class="ceiling">PROOF / MATCHED</span>
             </div>
-            <div class="meter">
-              <div>
-                <div class="meter-track">
-                  <div class="actual-bar" id="actual-bar"></div>
-                  <div class="actual-dot" id="actual-dot"></div>
-                </div>
-                <div class="meter-labels">
-                  <span>0.000</span><strong>actual usage</strong
-                  ><span>0.100</span>
-                </div>
-                <input
-                  id="usage"
-                  type="range"
-                  min="1"
-                  max="100000"
-                  value="1"
-                  aria-label="Hypothetical settlement in atomic USDC"
-                />
+            <div class="economics">
+              <div class="economics-row">
+                <span>Market / Zhipu direct</span>
+                <strong>CNY 0 input / 0 output per 1M</strong>
               </div>
-              <div class="charge">
-                <strong id="charge">0.000001</strong
-                ><span>USDC hypothetical charge</span
-                ><span class="under" id="under"
-                  >0.099999 USDC remains under ceiling</span
-                >
+              <div class="economics-row">
+                <span>Market / OpenRouter</span>
+                <strong>USD 0.06 input / 0.40 output per 1M</strong>
+              </div>
+              <div class="economics-row accent">
+                <span>Toolkit testnet demo rate</span>
+                <strong>2 input / 8 output atomic USDC per 1M</strong>
+              </div>
+              <div class="economics-row">
+                <span>Bound request</span>
+                <strong>1,024 input estimate / 256 output cap</strong>
+              </div>
+              <div class="economics-row">
+                <span>Toolkit offer limits</span>
+                <strong>128,000 max input / 4,096 max output</strong>
+              </div>
+              <div class="economics-row good">
+                <span>Actual provider usage</span>
+                <strong>17 input + 256 output = 273 tokens</strong>
+              </div>
+              <div class="economics-formula">
+                <small>INTEGER METER</small>
+                <code>ceil((17 x 2 + 256 x 8) / 1,000,000) = 1 atomic</code>
+                <span>Preflight worst case is also 1 atomic for the bound request.</span>
+              </div>
+              <div class="economics-total">
+                <span>MONAD SETTLEMENT</span>
+                <strong>1 atomic = 0.000001 USDC</strong>
+                <small>rate toolkit-demo-2026-09 / Permit2 ceiling 0.100000 / unused 0.099999 USDC</small>
               </div>
             </div>
           </section>
@@ -544,6 +561,10 @@ agent: inspecting payment state...</pre>
                     rel="noopener"
                     >0xc1b583...263ed2</a
                   >
+                </div>
+                <div class="receipt-line">
+                  <span>provider usage</span
+                  ><b class="good">17 in / 256 out / 273 total</b>
                 </div>
                 <div class="receipt-line">
                   <span>model result</span

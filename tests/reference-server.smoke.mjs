@@ -44,6 +44,11 @@ try {
   const proof = JSON.parse(paidText);
   assert.equal(proof.receipt.status, 'paid');
   assert.equal(proof.purchaseId, purchaseId);
+  const publicProof = await (await fetch(`${base}/api/agentpay/v1/proofs/${proof.proofId}`)).json();
+  assert.ok(publicProof.usage.inputTokens > 0);
+  assert.ok(publicProof.usage.outputTokens > 0);
+  assert.equal(publicProof.usage.totalTokens, publicProof.usage.inputTokens + publicProof.usage.outputTokens);
+  assert.equal(JSON.stringify(publicProof).includes(request.prompt), false);
 } finally {
   server.close();
 }

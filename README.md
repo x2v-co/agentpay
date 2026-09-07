@@ -20,7 +20,9 @@ The demo follows `KITE-07`, an autonomous maintainer that predicts it cannot fin
 
 ## Verified testnet evidence
 
-On September 7, 2026, the reference flow discovered `zhipu/GLM-4.7-Flash` through aiplans.dev, reserved a `0.100000 USDC` ceiling, executed the provider request, and settled `0.000001 USDC` on Monad Testnet.
+On September 7, 2026, the reference flow discovered `zhipu/GLM-4.7-Flash` through aiplans.dev, reserved a `0.100000 USDC` ceiling, bounded the request at a `1,024`-token input estimate and `256`-token output cap, then settled `0.000001 USDC` on Monad Testnet. The provider reported `17` input tokens and `256` output tokens, or `273` total.
+
+The market reference shown in the demo is the aiplans.dev listing for GLM-4.7-Flash: Zhipu direct at `CNY 0 / 0` and OpenRouter at `USD 0.06 / 0.40` per one million input/output tokens. The selected Toolkit route uses the explicitly labeled testnet demo rate `2 / 8 atomic USDC` per one million input/output tokens (`toolkit-demo-2026-09`). At integer precision, both the bounded preflight and actual metered request round up to `1` atomic USDC.
 
 - [Monad transaction](https://testnet.monadexplorer.com/tx/0xc1b583605f251c6141597bbe896406491e9ab08b0e57f3d32eaeca43cf263ed2)
 - [Redacted public proof](https://staging.toolkit.fun/api/agentpay/v1/proofs/proof_97ae4853f5eb26ee)
@@ -46,8 +48,8 @@ const agentpay = createAgentPay({
 const purchase = await agentpay.buy({
   policyId: policy.policyId,
   body: { prompt: 'Implement the next task' },
-  inputTokens: 1_000,
-  outputCap: 2_000,
+  inputTokens: 1_024,
+  outputCap: 256,
   signReservation,
   signPayment,
   waitForSettlement: true,

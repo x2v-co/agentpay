@@ -43,8 +43,7 @@ for (const route of [
   assert.match(html, new RegExp(`id="${route}"`), `missing animated ${route}`);
 }
 assert.doesNotMatch(html, /cdn\.jsdelivr\.net/);
-assert.match(html, /id="usage"/);
-assert.match(html, /type="range"/);
+assert.match(html, /Verified trace economics/);
 assert.match(html, /id="proof-id"/);
 for (const storyElement of [
   "agent-story",
@@ -71,11 +70,34 @@ assert.match(html, /LIVE SITE CAPTURE \/ SEP 2026/);
 assert.match(html, /OPEN LIVE/);
 assert.match(html, /REAL AIPLANS PAGE \+ ILLUSTRATIVE AGENT DECISION OVERLAY/);
 assert.match(html, /REAL TOOLKIT PAGE \+ ILLUSTRATIVE PROVISIONING OVERLAY/);
-assert.match(html, /HUMAN CHECKOUT/);
+assert.match(html, /ACCOUNT CHECKOUT/);
 assert.match(html, /AGENTPAY READY/);
 assert.match(html, /delegated \/ no copied key/);
 assert.match(html, /\/api\/agentpay\/v1\/models\/zhipu\/GLM-4\.7-Flash\/invoke/);
-assert.match(html, /POST<\/span> selectedOffer\.route/);
+assert.match(html, /BUY<\/span> agentpay\.buy/);
+for (const verifiedValue of [
+  "CNY 0 / 0",
+  "USD \.06 / \.40",
+  "2 / 8 ATOMIC",
+  "1,024 input estimate / 256 output cap",
+  "17 input + 256 output = 273 tokens",
+  "128,000 max input / 4,096 max output",
+  "toolkit-demo-2026-09",
+  "1 atomic = 0.000001 USDC",
+  "0.100000 USDC",
+  "0.099999 USDC",
+]) {
+  assert.ok(html.includes(verifiedValue), `missing verified value: ${verifiedValue}`);
+}
+for (const inventedValue of ["140 tokens", "2,300 tokens", "CNY 49", "outputCap\": 2300"]) {
+  assert.doesNotMatch(html, new RegExp(inventedValue), `invented value remains: ${inventedValue}`);
+  assert.doesNotMatch(script, new RegExp(inventedValue), `invented value remains: ${inventedValue}`);
+}
+assert.doesNotMatch(html, /hypothetical/i);
+assert.match(html, /https:\/\/aiplans\.dev\/en\/models\/glm-4\.7-flash/);
+for (const timestamp of ["00:00.00", "00:02.60", "00:05.60", "00:11.10", "00:14.90", "00:20.10", "00:23.90", "00:28.10"]) {
+  assert.ok(html.includes(timestamp), `missing real scene timestamp: ${timestamp}`);
+}
 assert.match(script, /requestAnimationFrame/);
 assert.match(script, /getPointAtLength/);
 assert.doesNotMatch(script, /setInterval/);

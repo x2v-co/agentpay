@@ -49,6 +49,12 @@ function safePurchase(p) {
     txHash: p.txHash || null, receipt: p.receipt || null, result: p.result || null,
   };
 }
+function publicUsage(p) {
+  const inputTokens = p?.usage?.inputTokens;
+  const outputTokens = p?.usage?.outputTokens;
+  if (!Number.isSafeInteger(inputTokens) || inputTokens < 0 || !Number.isSafeInteger(outputTokens) || outputTokens < 0) return null;
+  return { inputTokens, outputTokens, totalTokens: inputTokens + outputTokens };
+}
 async function canReadPurchase(req, purchase) {
   const token = String(req.get('authorization') || '').replace(/^Bearer\s+/i, '');
   const progressTokenValid = purchase?.progressTokenExpiresAt && new Date(purchase.progressTokenExpiresAt).getTime() > Date.now();
@@ -380,7 +386,7 @@ export function registerAgentPayRoutes(app) {
     const list = await purchaseService.list();
     const p = list.find((item) => item.receipt?.proofId === req.params.publicProofId);
     if (!p) return problem(res, 404, 'proof_not_found', 'access', 'stop', 'Proof not found');
-    return res.json({ proofId: p.receipt.proofId, purchaseId: p.purchaseId, offerId: p.offer.offerId, model: `${p.offer.providerSlug}/${p.offer.modelSlug}`, txHash: p.txHash || null, actualAtomic: p.actualAtomic || null, receiptDigest: p.receipt.digest, state: p.state });
+    return res.json({ proofId: p.receipt.proofId, purchaseId: p.purchaseId, offerId: p.offer.offerId, model: `${p.offer.providerSlug}/${p.offer.modelSlug}`, usage: publicUsage(p), txHash: p.txHash || null, actualAtomic: p.actualAtomic || null, receiptDigest: p.receipt.digest, state: p.state });
   });
 }
 
