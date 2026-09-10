@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.023 --> 00:00:08.025
+A real paid repair, completed September 10. This recording reviews saved evidence; it does not replay signatures or make another purchase.
+
+00:00:08.050 --> 00:00:16.052
+The owner authorized at most 0.1 test USDC. Actual settlement: 0.000033 test USDC for 131 input and 89 output tokens.
+
+00:00:16.071 --> 00:00:24.076
+The baseline charges twice when the same key is retried. First-request and distinct-key tests already pass.
+
+00:00:24.104 --> 00:00:34.107
+OpenRouter returned this exact JavaScript. The retry guard returns the original receipt before incrementing charges.
+
+00:00:34.130 --> 00:00:42.133
+The unchanged generated output passed all three tests in a network-blocked browser Worker. These are owner-reported tests, not cryptographic attestations.
+
+00:00:42.149 --> 00:00:52.154
+The same purchase matched a successful Monad transfer: expected payer, merchant, asset and 33 atomic USDC. Public proof and transaction links are retained.

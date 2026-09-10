@@ -38,7 +38,9 @@ The long-term opportunity is frequent, small machine purchases without a human c
 | The repair passes local tests | Browser-executed baseline and acceptance fixture | Scripted repair, not the output of the historical model request |
 | The SDK and reference merchant can be inspected | Public Apache-2.0 repository, unit and smoke tests | Developer Preview; process-local store, not audited custody infrastructure |
 
-**Not yet demonstrated:** a single new run in which a model generates this checkout repair, the generated repair passes isolated tests, and the same purchase is matched to a new onchain payment. Do not describe the current video as that run.
+**New paid-repair acceptance, September 10:** purchase `e69e6208-2429-4f48-b2f3-5efd725e3dab` used OpenRouter `z-ai/glm-5.3-flash` to generate the checkout fix. Its unchanged output passed all three isolated browser tests. The same purchase consumed 131 input + 89 output tokens and settled 33 atomic test USDC (0.000033 USDC) within the 0.1 USDC ceiling. The operator independently matched the successful Monad transfer's payer, merchant, asset and amount. See the [evidence page](https://x2v-co.github.io/agentpay/live-repair.html), [raw bundle](../apps/demo/assets/live-repair.json), [merchant proof](https://staging.toolkit.fun/api/agentpay/v1/proofs/proof_083f233adf91dfe6) and [transaction](https://testnet.monadexplorer.com/tx/0x16be7f05d7a7fb045372ab3c2ff285a34cb5ad9e75603183858de6e1d20e7db3).
+
+The new video reviews that completed run; it does not reenact signatures. This was operator-assisted, with owner-confirmed wallet signatures. Tests are owner-reported browser Worker results, not cryptographic execution attestations. The interactive simulation remains distinct from this real evidence.
 
 **Not implemented:** autonomous salary earning, mainnet fund management, buying arbitrary Coding Plans, or bypassing a vendor's human checkout. Coding Plan listings are not token balances and are not machine-fulfillable simply because they are listed in a catalog.
 
@@ -53,10 +55,10 @@ The long-term opportunity is frequent, small machine purchases without a human c
 
 ## Track and Originality
 
-Recommended primary track: **Trust, Identity & AI Infrastructure**, because bounded agent authority and verifiable procurement are the main technical contribution. Consumer Products & Payments is a plausible alternative; the final selection must match the registered project profile.
+Registered track: **Consumer Products & Payments**, verified in the owner's existing project account. Bounded agent authority and verifiable procurement are the technical contribution.
 
 Toolkit and aiplans.dev are existing products, not projects created from scratch for this hackathon. The submission should identify the AgentPay-specific work completed during the event using its public commit history. The public repository excludes Toolkit's private product infrastructure. Do not claim that all of Toolkit or aiplans.dev was built during the event.
 
 Official source checked September 7, 2026: [Metropolis](https://www.monad.xyz/developers/hackathons/metropolis). It requests a working product with a public profile, demo, short write-up and code link. It lists an October 13 deadline, October 14-27 judging and November 3 winners. The application platform's current rules and exact deadline timezone take precedence.
 
-Registration and final submission are **unverified** until confirmed in the owner's account on [the application platform](https://hackathon.monad.xyz/). A successful GitHub deployment is not a competition submission.
+Registration and the existing project were verified in the owner's account. The authenticated platform opens submission September 22, 2026 at 11:59 and closes October 14 at 11:59, Asia/Singapore. Final submission is still pending; a successful GitHub deployment is not a competition submission.
