@@ -27,7 +27,7 @@ and repository document the historical evidence if the staging host is unavailab
 - [ ] Inspect the final form's required video-host format when submission opens.
 - [ ] Confirm which commits qualify as work built during the event.
 - [ ] Review the public description and submit the project profile; keep its URL and confirmation.
-- [ ] Connect the existing authorized test wallet in the local browser operator, then approve the intended bounded testnet run. No private-key export is required.
+- [x] Complete the bounded testnet run with owner-confirmed wallet signatures and no private-key export: purchase `e69e6208-2429-4f48-b2f3-5efd725e3dab`.
 
 ## How to Capture the Missing Live Repair Evidence
 
@@ -65,7 +65,10 @@ Toolkit staging and production subsequently passed container-level OpenRouter
 probes using the Z.AI upstream for GLM-5.3-Flash. These probes prove provider
 availability at that time, not a wallet payment or successful repair.
 
-The existing v0.1.0 Developer Preview and video remain historical/simulated
-demonstrations. A final release and real evidence video require fresh wallet
-signatures, matched settlement and passing tests of the unchanged generated
-output. Final Metropolis submission remains gated by the platform opening date.
+The subsequent OpenRouter purchase `e69e6208-2429-4f48-b2f3-5efd725e3dab`
+completed: unchanged model output passed all three tests, 220 tokens were
+recorded, and the same purchase matched a 0.000033 test USDC transfer.
+The [evidence page](https://x2v-co.github.io/agentpay/live-repair.html) and
+raw bundle preserve that run. Its video is a retrospective evidence walkthrough,
+not a reenactment of wallet signing. The v0.1.0 video remains a distinct simulation.
+Final Metropolis submission remains gated by the platform opening date.

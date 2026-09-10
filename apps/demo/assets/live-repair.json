@@ -1,0 +1,47 @@
+{
+  "schema": "agentpay.live-repair.v1",
+  "purchaseId": "e69e6208-2429-4f48-b2f3-5efd725e3dab",
+  "checkedAt": "2026-09-10T08:30:37.019Z",
+  "wallet": "0x1af76be4377073756281f2d7d94363db21df0d8d",
+  "request": {
+    "prompt": "Fix this JavaScript checkout so retrying the same key returns the original receipt without a second charge. Different keys must still charge separately. Return ONLY plain JavaScript starting with function createCheckout(), no markdown, imports, exports, networking or explanations. Preserve the pay(key) and charges interface.\nfunction createCheckout() {\n  const receipts = new Map(); let charges = 0;\n  return {\n    pay(key) { const receipt = { id: 'receipt-' + (++charges), key }; receipts.set(key, receipt); return receipt; },\n    get charges() { return charges; }\n  };\n}",
+    "inputEstimate": 2048,
+    "outputCap": 1024
+  },
+  "baseline": "function createCheckout() {\n  const receipts = new Map(); let charges = 0;\n  return {\n    pay(key) { const receipt = { id: 'receipt-' + (++charges), key }; receipts.set(key, receipt); return receipt; },\n    get charges() { return charges; }\n  };\n}",
+  "rawOutput": "function createCheckout() {\n  const receipts = new Map();\n  let charges = 0;\n  return {\n    pay(key) {\n      if (receipts.has(key)) {\n        return receipts.get(key);\n      }\n      const receipt = { id: 'receipt-' + (++charges), key };\n      receipts.set(key, receipt);\n      return receipt;\n    },\n    get charges() {\n      return charges;\n    }\n  };\n}",
+  "outputSha256": "1c1ca23ec6c9bab0a4da7aa119434a300ae26eae1007b1c7678772b3dceb5879",
+  "proofUrl": "https://staging.toolkit.fun/api/agentpay/v1/proofs/proof_083f233adf91dfe6",
+  "proof": {
+    "proofId": "proof_083f233adf91dfe6",
+    "purchaseId": "e69e6208-2429-4f48-b2f3-5efd725e3dab",
+    "offerId": "toolkit-openrouter-glm-5-3-flash-v1",
+    "model": "openrouter/z-ai/glm-5.3-flash",
+    "usage": {
+      "inputTokens": 131,
+      "outputTokens": 89,
+      "totalTokens": 220
+    },
+    "txHash": "0x16be7f05d7a7fb045372ab3c2ff285a34cb5ad9e75603183858de6e1d20e7db3",
+    "actualAtomic": "33",
+    "receiptDigest": "sha256:1dd07ef4f77c4ca89f828cb643e6226889c45293f837100669a35661dfc78170",
+    "state": "matched"
+  },
+  "chainVerified": true,
+  "tests": [
+    {
+      "name": "First request",
+      "pass": true
+    },
+    {
+      "name": "Distinct keys",
+      "pass": true
+    },
+    {
+      "name": "Retry reuses receipt",
+      "pass": true
+    }
+  ],
+  "completed": true,
+  "testEnvironment": "Operator browser Web Worker with network blocked; owner-reported test results, not a cryptographic test attestation"
+}
