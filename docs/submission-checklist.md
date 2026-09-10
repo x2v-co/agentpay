@@ -22,8 +22,9 @@ and repository document the historical evidence if the staging host is unavailab
 
 ## Still Requires the Owner
 
-- [ ] Confirm registration, team identity and track in the application account.
-- [ ] Confirm exact deadline timezone and any required video-host format there.
+- [x] Registration, existing team and Consumer Products & Payments track verified in the application account on September 10, 2026.
+- [x] Authenticated platform dates verified: opens September 22 at 11:59, closes October 14 at 11:59, Asia/Singapore.
+- [ ] Inspect the final form's required video-host format when submission opens.
 - [ ] Confirm which commits qualify as work built during the event.
 - [ ] Review the public description and submit the project profile; keep its URL and confirmation.
 - [ ] Connect the existing authorized test wallet in the local browser operator, then approve the intended bounded testnet run. No private-key export is required.
@@ -42,6 +43,7 @@ in an extension-enabled browser. The page implements the attended capture flow
 below, including fixed testnet limits, signature confirmation, public proof
 matching and a downloadable evidence bundle. Connect your existing funded
 wallet; never import it into the page. The page never asks for a seed phrase.
+For OpenRouter, use the [explicit provider selection instructions](operator-providers.md).
 
 1. Record the checkout source, baseline failure and checkpoint before requesting a repair. Use only a public, non-sensitive task.
 2. Inspect the current discovery offer and readiness. Reject recorded mode, the wrong chain, a different merchant or a ceiling outside the approved policy.
@@ -55,9 +57,15 @@ body for you. Read `result.response.json()` on a completed response or use the
 purchase result endpoint after reconciliation. A `status: matched` alone does not
 prove a valid repair. A passing local fixture alone does not prove payment.
 
-**Current state:** the browser-wallet companion is implemented and its safety
-gates are tested; no new paid repair has yet been executed. Read-only
-checks found the staging service live-capable and the existing proof matched.
-The browser wallet path avoids the missing environment signing key. Completion
-still depends on the owner's wallet connection, funds, signatures, matched
-settlement and passing tests of the actual generated output.
+**Current state (September 10, 2026):** the browser-wallet companion supports
+explicit Zhipu/OpenRouter selection, same-purchase recovery and pre-reservation
+Policy timeout recovery. Two attended attempts returned provider HTTP 429 and
+reconciled to `failed_unsettled`; neither is a successful paid repair.
+Toolkit staging and production subsequently passed container-level OpenRouter
+probes using the Z.AI upstream for GLM-5.3-Flash. These probes prove provider
+availability at that time, not a wallet payment or successful repair.
+
+The existing v0.1.0 Developer Preview and video remain historical/simulated
+demonstrations. A final release and real evidence video require fresh wallet
+signatures, matched settlement and passing tests of the unchanged generated
+output. Final Metropolis submission remains gated by the platform opening date.

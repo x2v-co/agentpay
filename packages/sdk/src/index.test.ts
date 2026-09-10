@@ -12,6 +12,14 @@ const wallet = privateKeyToAccount('0x012345678901234567890123456789012345678901
 const policyForSigning: ProcurementPolicy = { schema: 'agentpay.policy.v1', policyId: '0x0000000000000000000000000000000000000000000000000000000000000001', owner: wallet.address, agentWallet: wallet.address, chainId: 10143, asset: '0x0000000000000000000000000000000000000004', maxTotalAtomic: '100', maxPerRequestAtomic: '100', allowedPayTo: [payTo], allowedModels: ['zhipu/GLM-4.7-Flash'], validUntil: 4_000_000_000 };
 
 describe('AgentPay discovery', () => {
+  it('joins the exact OpenRouter GLM route without conflating batch or other providers', () => {
+    const route = offer({providerSlug:'openrouter',modelSlug:'z-ai/glm-5.3-flash'});
+    const row = {providerSlug:'openrouter',modelSlug:'glm-5.3-flash',currency:'USD',unit:'per_1m_tokens'};
+    expect(joinDiscovery([row],[route]).recommended?.offerId).toBe(route.offerId);
+    expect(joinDiscovery([{...row,modelSlug:'glm-5.3-flash-(batch)'}],[route]).recommended).toBeUndefined();
+    expect(joinDiscovery([{...row,providerSlug:'zhipu-china'}],[route]).recommended).toBeUndefined();
+    expect(canonicalDiscoveryKey('zhipu-china','glm-5.3-flash')).toBe('zhipu/glm-5.3-flash');
+  });
   it('provides canonical policy and reservation signing helpers', async () => {
     const policySignature = await signProcurementPolicy(policyForSigning, wallet);
     expect(await verifyTypedData({ address: wallet.address, ...({ ...policyTypedData(policyForSigning) } as any), signature: policySignature })).toBe(true);
