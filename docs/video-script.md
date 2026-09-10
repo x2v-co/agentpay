@@ -10,6 +10,12 @@ with the evidence in [v0.2.0](https://github.com/x2v-co/agentpay/releases/tag/v0
 It is a retrospective evidence walkthrough, not original wallet-signing footage.
 Tests are owner-reported, not cryptographic execution attestations.
 
+The public player also offers `assets/live-repair.zh.vtt` as optional Simplified
+Chinese captions. The Chinese introduction selects that track by default. The
+original video includes English on-screen captions; its released bytes and
+English subtitle track remain unchanged. New Chinese subtitles are supplemental
+website material, not part of the pinned v0.2.0 evidence assets.
+
 To record a new walkthrough of the saved evidence, start `npm run dev`, then run
 the following in another terminal with a locally installed Playwright browser:
 

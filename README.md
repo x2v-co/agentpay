@@ -16,7 +16,7 @@ npm test
 npm run dev
 ```
 
-Open `http://127.0.0.1:4021/agentpay/`.
+Open `http://127.0.0.1:4021/agentpay/`. The English landing page leads with the completed paid repair, its evidence video and exact settlement. Select **Try the interactive simulation** to enter the six-scene experience at `#hire`. A [Chinese introduction](https://x2v-co.github.io/agentpay/zh.html) and optional Chinese video captions support community sharing; formal submission materials remain in English.
 
 The entry demo is a six-scene interactive commission: hire KITE-07 to fix a duplicate-charge teaching fixture, choose a task budget (0.500000, 5.000000, or 25.000000 USDC) and autonomy policy, execute the failing baseline, inspect model channels on aiplans.dev, follow the recorded Toolkit purchase, then run acceptance tests and download the runnable fix. After acceptance, the overview maps the complete loop; a preview button exposes that map without claiming the task was run. The task budget is distinct from the 0.100000 USDC per-inference authorization ceiling. Hash URLs (`#hire`, `#work`, `#market`, `#connect`, `#delivery`, `#overview`) preserve browser navigation; local storage restores the commission. A counterfactual button applies a deliberately insufficient 0.010000 USDC budget to demonstrate a blocked purchase. The manual mode waits for approval; declining preserves the checkpoint.
 

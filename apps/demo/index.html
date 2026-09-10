@@ -3,16 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Hire an agent. Set its spending rules. Inspect its purchase decision and test the delivered fix. An interactive AgentPay experience on Monad." />
-  <title>AgentPay — Hire. Trust. Verify.</title>
+  <meta name="description" content="Buy one AI inference within an owner's spending limit. Inspect the actual repair, three passing tests and verified Monad Testnet settlement." />
+  <title>AgentPay — One paid inference. One verified repair.</title>
   <link rel="icon" href="data:," />
   <link rel="stylesheet" href="./journey.css" />
   <link rel="stylesheet" href="./overview.css" />
+  <link rel="stylesheet" href="./welcome.css" />
 </head>
 <body>
-  <header class="topbar"><a class="wordmark" href="#hire">agentpay<span>↗</span></a><span class="edition">MONAD METROPOLIS / INTERACTIVE EDITION</span><nav><a href="./replay.html" target="_blank" rel="noopener">Payment film ↗</a><a href="https://github.com/x2v-co/agentpay" target="_blank" rel="noopener">Source ↗</a></nav></header>
-  <div class="mode-banner"><span class="status-dot"></span> INTERACTIVE SIMULATION <span>Local executable tests · historical testnet payment evidence · no new charge</span></div>
-  <main id="app"></main>
+  <header class="topbar"><a class="wordmark" href="#home">agentpay<span>↗</span></a><span class="edition">MONAD METROPOLIS / DEVELOPER PREVIEW</span><nav><a href="./brief.html">Video ↗</a><a href="https://github.com/x2v-co/agentpay" target="_blank" rel="noopener">Source ↗</a><a href="./zh.html" lang="zh-Hans">中文</a></nav></header>
+  <main id="welcome" class="welcome">
+    <p class="eyebrow">VERIFIED SEPTEMBER 10, 2026 · MONAD TESTNET</p>
+    <h1>One paid inference.<br><em>One verified repair.</em></h1>
+    <p class="welcome-lede">Let an agent buy the next AI response within your spending rules. Keep the result, pay for measured usage, and verify the settlement.</p>
+    <p>In our completed run, OpenRouter generated a checkout retry fix. Its unchanged output passed all three tests, and the same purchase settled on Monad Testnet.</p>
+    <div class="welcome-actions"><a class="btn primary" href="./live-repair.html">Inspect the real paid repair →</a><a class="btn" href="./brief.html#real-video">Watch the 54-second evidence video</a></div>
+    <dl class="welcome-facts"><div><dt>Actual settlement</dt><dd>0.000033 <small>test USDC</small></dd></div><div><dt>Authorized maximum</dt><dd>0.1 <small>test USDC</small></dd></div><div><dt>Model usage</dt><dd>220 <small>tokens</small></dd></div><div><dt>Unchanged model output</dt><dd>3 / 3 <small>tests passed</small></dd></div></dl>
+    <p class="welcome-boundary">An operator-assisted testnet purchase with owner-confirmed wallet signatures. Tests are owner-reported browser results, not cryptographic attestations. Viewing these pages creates no payment. The settlement amount excludes gas and is not OpenRouter's upstream dollar cost.</p>
+    <section><h2>Permission before purchase. Recovery after interruption.</h2><p>For developers building agents that need more inference mid-task: AgentPay binds the owner's spending policy to one request, records usage and settlement, and recovers the result using the same purchase. x402 and Permit2 provide the payment standards; Monad Testnet provides the verified settlement.</p><p><a href="https://github.com/x2v-co/agentpay/releases/tag/v0.2.0">Inspect the pinned v0.2.0 release</a> · <a href="https://github.com/x2v-co/agentpay/blob/main/docs/architecture.md">Read the architecture</a></p></section>
+    <section><h2>Try the decisions yourself.</h2><p>The interactive simulation lets you set a task budget, approve or refuse a purchase, and test a teaching fixture. It uses separate September 7 payment evidence; it does not make a new model call or spend funds.</p><div class="welcome-actions"><a class="btn" href="#hire">Try the interactive simulation →</a><a href="#preview">Preview the complete loop</a></div><p class="note">About 2 minutes · no wallet needed · the simulation's task budget is separate from the real purchase above.</p></section>
+    <p class="note">Developer Preview. No audited mainnet custody or unattended delegation is claimed. Toolkit and aiplans.dev are existing products; the public repository documents the AgentPay-specific integration.</p>
+  </main>
+  <div class="mode-banner" hidden><span class="status-dot"></span> INTERACTIVE SIMULATION <span>Local executable tests · historical testnet payment evidence · no new charge</span></div>
+  <main id="app" hidden></main>
   <footer><a href="https://aiplans.dev" target="_blank" rel="noopener">Discovery by aiplans.dev ↗</a><a href="https://toolkit.fun" target="_blank" rel="noopener">Fulfillment by toolkit.fun ↗</a><a href="./brief.html">Video &amp; architecture ↗</a><span>Settlement evidence on Monad Testnet</span></footer>
   <script type="module" src="./journey.js"></script>
 </body>
