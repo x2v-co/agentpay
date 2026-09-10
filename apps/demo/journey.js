@@ -65,6 +65,11 @@ pay(key) {
 function render() {
   disposeOverview?.(); disposeOverview = null;
   timers.forEach(clearTimeout); timers=[]; busy=false;
+  const showWelcome = !location.hash || location.hash === '#home';
+  document.querySelector('#welcome').hidden = !showWelcome;
+  document.querySelector('.mode-banner').hidden = showWelcome;
+  app.hidden = showWelcome;
+  if (showWelcome) { app.innerHTML = ''; return; }
   const current = accessibleStep(location.hash.slice(1)||state.step,state);
   state.step=current; save();
   if(location.hash!==`#${current}`) history.replaceState(null,'',`#${current}`);

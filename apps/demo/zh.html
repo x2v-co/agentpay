@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="AgentPay：在主人设定的预算内购买一次 AI 推理，恢复生成结果，并核验 Monad 测试网结算。"><title>AgentPay · 中文简介与真实支付验收</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./journey.css"><link rel="stylesheet" href="./welcome.css"></head>
+<body>
+<header class="topbar"><a class="wordmark" href="./">agentpay<span>↗</span></a><span class="edition">MONAD METROPOLIS / DEVELOPER PREVIEW</span><nav><a href="./" lang="en">English</a><a href="https://github.com/x2v-co/agentpay">源码 ↗</a></nav></header>
+<main class="welcome">
+<p class="eyebrow">2026 年 9 月 10 日 · MONAD 测试网验收</p>
+<h1>购买一次推理，<br><em>验证一次真实修复。</em></h1>
+<p class="welcome-lede">让 Agent 在你设定的支出规则内购买下一次 AI 回复，按实际用量结算，并在中断后恢复同一笔购买的结果。</p>
+<p>面向需要在任务中追加推理的 Agent 开发者。我们用一次结账重试修复验证了完整流程：OpenRouter 返回原始代码，代码未经修改通过三项测试，同一笔购买在 Monad 测试网上完成结算。</p>
+<dl class="welcome-facts"><div><dt>实际结算</dt><dd>0.000033 <small>测试 USDC</small></dd></div><div><dt>授权上限</dt><dd>0.1 <small>测试 USDC</small></dd></div><div><dt>模型用量</dt><dd>220 <small>131 输入 + 89 输出 token</small></dd></div><div><dt>原始模型输出</dt><dd>3 / 3 <small>测试通过</small></dd></div></dl>
+<div class="welcome-actions"><a class="btn primary" href="./live-repair.html">查看真实代码与支付凭证（英文） →</a><a href="https://github.com/x2v-co/agentpay/releases/tag/v0.2.0">固定版本 v0.2.0</a></div>
+<p class="welcome-boundary">这是主人确认钱包签名、操作员协助完成的一次测试网购买，并非无人值守运行。测试结果来自浏览器 Worker 报告，不是密码学执行证明。页面和视频展示已完成的证据，不会再次付款。测试网结算额不包含 gas，也不等同于 OpenRouter 上游美元成本。</p>
+<section><h2>54 秒看懂已完成的验收</h2><video controls preload="metadata" playsinline aria-label="真实支付修复验收视频，提供中文字幕"><source src="./assets/live-repair.webm" type="video/webm"><track kind="captions" src="./assets/live-repair.zh.vtt" srclang="zh-Hans" label="简体中文" default><track kind="captions" src="./assets/live-repair.vtt" srclang="en" label="English"><a href="./assets/live-repair.webm">下载视频</a></video><p>这是对真实完成记录的回顾，不是钱包签名现场录像。原视频含英文画面字幕，播放器另提供可切换的中文字幕。</p></section>
+<section><h2>AgentPay 增加了什么？</h2><p>主人策略限制钱包、商户、模型、资产、网络、期限和金额；请求预留将具体任务绑定到一次购买；出现中断时，恢复同一笔购买的结果并核对结算，避免盲目重复购买。x402 和 Permit2 提供现有支付标准，Monad 测试网提供本次验证的链上结算。</p><p>这是开发者预览，不承诺主网资金托管安全，也没有证明相对其他链的速度或成本优势。Toolkit 与 aiplans.dev 是已有产品，公开仓库记录 AgentPay 的专项集成工作。</p></section>
+<section><h2>也可以亲自体验决策流程</h2><p>互动模拟允许你设置任务预算、批准或拒绝购买，并运行教学示例的测试。它使用独立的 9 月 7 日历史支付记录，与上述真实模型修复分开；不会发起新推理或支付。</p><a class="btn" href="./#hire">进入英文互动模拟 →</a><p class="note">约 2 分钟 · 无需钱包。本页用于中文介绍，正式评审资料以英文版本为准。</p></section>
+</main><footer><a href="./">英文首页</a><a href="./brief.html">英文视频与架构</a><a href="https://github.com/x2v-co/agentpay/blob/main/docs/hackathon-submission.md">参赛说明（英文）</a></footer>
+</body></html>
