@@ -8,6 +8,9 @@
 - [x] [English submission copy](hackathon-submission.md), technical differentiation and limitations.
 - [x] [Architecture](architecture.md) and public [judge brief](../apps/demo/brief.html).
 - [x] [Captioned walkthrough script](video-script.md) and reproducible recording script.
+- [x] Real OpenRouter repair, unchanged output passing three tests and matched Monad settlement.
+- [x] [v0.2.0](https://github.com/x2v-co/agentpay/releases/tag/v0.2.0) pinned to `15025fa6f9538b0e33530ae35e127ea1b89842ec`, with evidence JSON, video, subtitles and checksums.
+- [x] Metropolis project description saved with the real evidence and v0.2.0 links.
 
 ## Release Verification
 
@@ -20,16 +23,19 @@ The demo's public proof is hosted on staging. Link checks establish reachability
 at a point in time, not guaranteed availability through judging. The public video
 and repository document the historical evidence if the staging host is unavailable.
 
-## Still Requires the Owner
+## Registration and final submission
 
 - [x] Registration, existing team and Consumer Products & Payments track verified in the application account on September 10, 2026.
 - [x] Authenticated platform dates verified: opens September 22 at 11:59, closes October 14 at 11:59, Asia/Singapore.
 - [ ] Inspect the final form's required video-host format when submission opens.
 - [ ] Confirm which commits qualify as work built during the event.
-- [ ] Review the public description and submit the project profile; keep its URL and confirmation.
+- [x] Save and read back the public description with current evidence links in the project workspace.
+- [ ] Submit the final form when the window opens; retain its confirmation and project URL.
 - [x] Complete the bounded testnet run with owner-confirmed wallet signatures and no private-key export: purchase `e69e6208-2429-4f48-b2f3-5efd725e3dab`.
 
-## How to Capture the Missing Live Repair Evidence
+## How to Capture a New Live Repair Run
+
+The September 10 acceptance is already complete. The following procedure is for an intentionally authorized future run; reviewing the existing release or preparing the final submission does not require another payment.
 
 Prerequisites: a live-capable Toolkit merchant, an authorized Monad Testnet agent
 wallet with test USDC and gas, a bounded signed policy, and any required Permit2
