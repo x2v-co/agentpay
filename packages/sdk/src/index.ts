@@ -31,7 +31,12 @@ function isRegionalProviderAlias(value: string) {
 
 /** Return the auditable provider/model identity used to join aiplans and offers. */
 export function canonicalDiscoveryKey(providerSlug: string, modelSlug: string) {
-  return `${canonicalDiscoveryPart(providerSlug, AIPLANS_CANONICAL_ALIASES.providers)}/${canonicalDiscoveryPart(modelSlug, AIPLANS_CANONICAL_ALIASES.models)}`;
+  const provider = canonicalDiscoveryPart(providerSlug, AIPLANS_CANONICAL_ALIASES.providers);
+  const model = canonicalDiscoveryPart(modelSlug, AIPLANS_CANONICAL_ALIASES.models);
+  // aiplans uses the product slug; OpenRouter's invocation ID includes its publisher.
+  // Keep this alias provider-specific and exact so batch/other routes never join.
+  if (provider === 'openrouter' && model === 'glm-5.3-flash') return 'openrouter/z-ai/glm-5.3-flash';
+  return `${provider}/${model}`;
 }
 
 function policyAllowsModel(policy: ProcurementPolicy, key: string) {

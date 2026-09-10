@@ -1,6 +1,7 @@
 const byId = id => document.getElementById(id);
 const wallets = [];
 let provider, wallet, config, current, funding, baselineFailed = false, busy = false;
+let lastPendingId;
 const request = async (route, body) => {
   const response = await fetch(`/api/${route}`, body ? { method: 'POST', headers: { 'content-type': 'application/json', 'x-operator-token': config.token }, body: JSON.stringify(body) } : {});
   const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Request failed'); return result;
@@ -43,10 +44,19 @@ function buttons() {
 async function status() {
   current = await request('state');
   byId('run-status').textContent = current.status;
+  byId('signature-help').textContent = current.status === 'signature-timeout'
+    ? 'Policy signature timed out before any reservation or payment. Reconnect the same wallet if needed, then Retry wallet signature. Your purchase ID stays the same.'
+    : current.pending ? `Confirm ${current.pending.typedData?.primaryType || 'recovery'} in MetaMask. Request expires in ${Math.max(0, Math.ceil((current.pending.expiresAt - Date.now()) / 1000))} seconds. If no popup appears, click Confirm in wallet.`
+      : current.status === 'running' ? 'Preparing your wallet request…' : '';
   byId('events').textContent = current.events.map(e => `${e.at} ${e.message}`).join('\n');
   byId('signing').hidden = !current.pending;
-  if (current.pending) { byId('signature-title').textContent = current.pending.typedData.primaryType; byId('typed-data').textContent = JSON.stringify(current.pending.typedData, null, 2); }
-  byId('reconcile').disabled = busy || current.status !== 'pending';
+  if (current.pending) { byId('signature-title').textContent = current.pending.typedData?.primaryType || 'Recovery message'; byId('typed-data').textContent = current.pending.typedData ? JSON.stringify(current.pending.typedData, null, 2) : current.pending.message; }
+  if (current.pending && current.pending.id !== lastPendingId) { lastPendingId = current.pending.id; byId('signing').scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  byId('reconcile').disabled = busy || !['pending','blocked-before-payment','reserved-no-payment','execution-unknown'].includes(current.status);
+  byId('retry-signature').disabled = busy || current.status !== 'signature-timeout';
+  byId('retry-signature').hidden = current.status !== 'signature-timeout';
+  byId('sign').disabled = busy;
+  byId('recover').disabled = busy || !['recovery-required','recovery-blocked'].includes(current.status);
   byId('test-output').disabled = busy || !current.evidence;
   byId('download').disabled = !current.evidence;
   if (current.evidence) {
@@ -74,17 +84,32 @@ action('approve', async () => {
   funding = null;
 });
 action('baseline-run', async () => { const tests = await isolatedTests(config.baseline); renderTests('baseline-tests', tests); baselineFailed = tests[0].pass && tests[1].pass && !tests[2].pass; });
-action('start', async () => { await assertWallet(); await request('start', { wallet, consent: byId('consent').checked, baselinePassed: !baselineFailed }); });
-action('sign', async () => {
+async function signCurrentRequest() {
   await assertWallet();
   const pending = current.pending; if (!pending) return;
   try {
-    const signature = await provider.request({ method: 'eth_signTypedData_v4', params: [wallet, JSON.stringify(pending.typedData)] });
+    const signature = pending.message ? await provider.request({ method: 'personal_sign', params: [pending.message, wallet] }) : await provider.request({ method: 'eth_signTypedData_v4', params: [wallet, JSON.stringify(pending.typedData)] });
     await request('signature', { id: pending.id, signature });
   } catch (error) { await request('signature', { id: pending.id, error: true }); throw error; }
-});
+}
+// Keep the click-to-wallet flow together; do not require the user to discover
+// a second button after a background server request. Later signatures remain explicit.
+async function openPreparedSignature() {
+  const deadline = Date.now() + 60000;
+  do {
+    await status();
+    if (current.pending) { await signCurrentRequest(); return; }
+    if (!['running', 'recovering'].includes(current.status)) return;
+    await new Promise(resolve => setTimeout(resolve, 400));
+  } while (Date.now() < deadline);
+  byId('signature-help').textContent = 'Still preparing. When ready, click Confirm in wallet below.';
+}
+action('start', async () => { await assertWallet(); await request('start', { wallet, consent: byId('consent').checked, baselinePassed: !baselineFailed }); await openPreparedSignature(); });
+action('sign', signCurrentRequest);
 action('decline', async () => { if (current.pending) await request('signature', { id: current.pending.id, error: true }); });
 action('reconcile', async () => { await request('reconcile', {}); });
+action('retry-signature', async () => { await assertWallet(); await request('retry-signature', { wallet }); await openPreparedSignature(); });
+action('recover', async () => { await assertWallet(); await request('recover', { wallet }); });
 action('test-output', async () => {
   let tests;
   try { tests = await isolatedTests(current.evidence.rawOutput); }
@@ -93,4 +118,4 @@ action('test-output', async () => {
 });
 action('download', async () => { const url = URL.createObjectURL(new Blob([JSON.stringify(current.evidence, null, 2)], { type: 'application/json' })); const a = document.createElement('a'); a.href = url; a.download = `agentpay-${current.evidence.purchaseId}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); });
 byId('consent').onchange = buttons;
-(async () => { config = await request('session'); byId('baseline').textContent = config.baseline; await status(); const poll = async () => { try { if (!busy) await status(); } catch { byId('run-status').textContent = 'Local server disconnected. Do not create another purchase.'; } setTimeout(poll, 1200); }; setTimeout(poll, 1200); })().catch(error => { byId('run-status').textContent = error.message; });
+(async () => { config = await request('session'); byId('selected-provider').textContent = `Selected route: ${config.selectedProvider.provider} / ${config.selectedProvider.model}. No automatic provider fallback.`; byId('baseline').textContent = config.baseline; await status(); const poll = async () => { try { if (!busy) await status(); } catch { byId('run-status').textContent = 'Local server disconnected. Do not create another purchase.'; } setTimeout(poll, 1200); }; setTimeout(poll, 1200); })().catch(error => { byId('run-status').textContent = error.message; });
