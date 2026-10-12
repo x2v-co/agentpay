@@ -2,7 +2,7 @@ import express from 'express';
 import { randomBytes, randomUUID, createHash } from 'node:crypto';
 import { createPublicClient, http, erc20Abi, encodeFunctionData, parseEventLogs } from 'viem';
 import { monadTestnet } from 'viem/chains';
-import { createAgentPay, createAiplansDiscovery, createX402PaymentSigner, signProcurementPolicy, signReservationIntent } from '@toolkit-fun/agentpay-sdk';
+import { createAgentPay, createAiplansDiscovery, createX402PaymentSigner, signProcurementPolicy, signReservationIntent } from '@toolkitfun/agentpay-sdk';
 import { fileURLToPath } from 'node:url';
 import { createSIWxPayload, encodeSIWxHeader } from '@x402/extensions/sign-in-with-x';
 

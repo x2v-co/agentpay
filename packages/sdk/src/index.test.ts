@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { decodePaymentSignatureHeader } from '@x402/core/http';
 import { privateKeyToAccount } from 'viem/accounts';
 import { canonicalDiscoveryKey, createAgentPay, createAiplansDiscovery, createX402PaymentSigner, joinDiscovery, signProcurementPolicy, signReservationIntent } from './index.js';
-import { policyTypedData, reservationTypedData } from '@toolkit-fun/agentpay-protocol';
+import { policyTypedData, reservationTypedData } from '@toolkitfun/agentpay-protocol';
 import { verifyTypedData } from 'viem';
-import type { ProcurementPolicy, ToolkitMachineOffer } from '@toolkit-fun/agentpay-protocol';
+import type { ProcurementPolicy, ToolkitMachineOffer } from '@toolkitfun/agentpay-protocol';
 
 const payTo = '0x000000000000000000000000000000000000000a' as `0x${string}`;
 const offer = (overrides: Partial<ToolkitMachineOffer> = {}): ToolkitMachineOffer => ({ offerId: 'o1', providerSlug: 'zhipu', modelSlug: 'GLM-4.7-Flash', route: '/api/agentpay/v1/models/zhipu/GLM-4.7-Flash/invoke', payTo, maxInputTokens: 1000, maxOutputTokens: 1000, inputAtomicPerMillion: '2', outputAtomicPerMillion: '8', x402MaxAtomic: '100', rateVersion: 'v1', manifestDigest: 'sha256:x', validUntil: 4_000_000_000, fulfillment: 'machine', ...overrides });

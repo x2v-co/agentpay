@@ -45,7 +45,7 @@ The chain receipt contains a USDC `Transfer` of exactly `1` atomic unit from the
 ## Agent loop
 
 ```ts
-import { createAgentPay, createAiplansDiscovery } from '@toolkit-fun/agentpay-sdk';
+import { createAgentPay, createAiplansDiscovery } from '@toolkitfun/agentpay-sdk';
 
 const agentpay = createAgentPay({
   policy,
