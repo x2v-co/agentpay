@@ -4,6 +4,17 @@ AgentPay is an open reference implementation for autonomous agent procurement on
 
 Built for the [Monad Metropolis hackathon](https://www.monad.xyz/developers/hackathons/metropolis).
 
+## Solana fixed-price report preview
+
+An independent Solana devnet `exact` integration is under development in this branch.
+`npm run dev:solana:offline` opens a local, explicitly labeled **offline simulation**
+of one paid procurement-budget report. It uses unsigned fixtures and mock
+facilitator/RPC results; it is **not a devnet payment demonstration**. The existing
+Monad commands and historical evidence below are unchanged.
+
+See [Solana setup, architecture, test coverage and live-validation checklist](docs/solana-report.md).
+Requires Node.js 22.18+ for the new SQLite-backed path.
+
 [Real paid repair](https://x2v-co.github.io/agentpay/live-repair.html) | [v0.2.0 Release](https://github.com/x2v-co/agentpay/releases/tag/v0.2.0) | [Videos and architecture](https://x2v-co.github.io/agentpay/brief.html) | [Interactive simulation](https://x2v-co.github.io/agentpay/) | [Quick preview](https://x2v-co.github.io/agentpay/#preview)
 
 ## Run the demo

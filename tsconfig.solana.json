@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "packages/solana-report/**/*.ts",
+    "packages/sdk/src/solana.ts",
+    "apps/solana-demo/**/*.ts",
+    "tests/solana-report.test.ts"
+  ]
+}
