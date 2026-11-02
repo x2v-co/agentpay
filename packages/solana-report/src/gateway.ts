@@ -4,6 +4,7 @@ import { ExactSvmScheme } from '@x402/svm/exact/server';
 import { getCompiledTransactionMessageDecoder, getSignatureFromTransaction } from '@solana/kit';
 import { decodeTransactionFromPayload, getTokenPayerFromTransaction, transactionMessageHash } from '@x402/svm';
 import { NETWORK, MINT, PRICE, invariant, svmAddress, type Order } from './model.js';
+import { GENESIS } from './constants.js';
 
 export type ChainResult = { status: 'pending' | 'confirmed' | 'rejected'; reason?: string };
 export interface ChainReader { check(order: Order, transaction: string): Promise<ChainResult> }
@@ -46,7 +47,7 @@ export class SolanaChainReader implements ChainReader {
   constructor(private rpc: (method: string, params: unknown[]) => Promise<unknown>) {}
   async check(order: Order, transaction: string): Promise<ChainResult> {
     const genesis = await this.rpc('getGenesisHash', []);
-    if (typeof genesis !== 'string' || genesis.slice(0, 32) !== NETWORK.split(':')[1]) return { status: 'rejected', reason: 'wrong_rpc_network' };
+    if (genesis !== GENESIS) return { status: 'rejected', reason: 'wrong_rpc_network' };
     const response = await this.rpc('getTransaction', [transaction, { commitment: 'confirmed', encoding: 'base64', maxSupportedTransactionVersion: 0 }]) as {
       transaction: [string, string]; meta: { err: unknown; preTokenBalances: TokenBalance[]; postTokenBalances: TokenBalance[] };
     } | null;

@@ -15,6 +15,10 @@ Monad commands and historical evidence below are unchanged.
 See [Solana setup, architecture, test coverage and live-validation checklist](docs/solana-report.md).
 Requires Node.js 22.18+ for the new SQLite-backed path.
 
+The separate user-operated devnet wallet handoff runs with `npm run dev:solana:handoff`
+at http://localhost:4031. Connection, signing and submission are separate user
+actions. Public readiness checks do not establish a completed payment.
+
 [Real paid repair](https://x2v-co.github.io/agentpay/live-repair.html) | [v0.2.0 Release](https://github.com/x2v-co/agentpay/releases/tag/v0.2.0) | [Videos and architecture](https://x2v-co.github.io/agentpay/brief.html) | [Interactive simulation](https://x2v-co.github.io/agentpay/) | [Quick preview](https://x2v-co.github.io/agentpay/#preview)
 
 ## Run the demo

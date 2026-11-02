@@ -2,9 +2,7 @@ import { createHash } from 'node:crypto';
 import { address } from '@solana/kit';
 import type { PaymentRequirements, SettleResponse } from '@x402/core/types';
 
-export const NETWORK = 'solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1' as const;
-export const MINT = '4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU';
-export const PRICE = '1000'; // 0.001 devnet USDC, six decimals.
+export { NETWORK, MINT, PRICE } from './constants.js';
 export type Mode = 'offline' | 'devnet';
 export type ReportInput = { budgetAtomic: string; spentAtomic: string; quoteAtomic: string; quantity: number };
 export type Report = ReportInput & { costAtomic: string; remainingAtomic: string; affordable: boolean; reason: 'within_budget' | 'budget_exceeded' };

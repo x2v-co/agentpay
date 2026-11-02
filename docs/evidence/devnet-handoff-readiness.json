@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "checkedAt": "2026-11-02T12:25:13.402Z",
+  "network": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+  "genesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+  "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+  "decimals": 6,
+  "amountAtomic": "1000",
+  "feePayer": "CKPKJWNdJEqa81x7CkZ14BVPiY6y16Sxs7owznqtWYp5",
+  "feePayerLamports": 4358411409,
+  "facilitator": "https://x402.org/facilitator",
+  "rpc": "https://api.devnet.solana.com",
+  "limitations": "Advertised capability and public accounts checked; signature acceptance, memo enforcement and settlement are not yet live-tested."
+}

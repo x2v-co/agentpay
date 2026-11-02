@@ -8,6 +8,7 @@ import { OrderStore, ReportService, SvmGateway, SolanaChainReader, NETWORK, MINT
 import { OfflineRail, OFFLINE_PAYER, OFFLINE_MERCHANT, fixtureHeader, unsignedFixture, mockAddress } from '../packages/solana-report/src/offline.js';
 import { createReportHttpServer } from '../apps/solana-demo/server.js';
 import { BudgetReportClient } from '../packages/sdk/src/solana.js';
+import { GENESIS } from '../packages/solana-report/src/constants.js';
 
 const INPUT = { budgetAtomic: '5000000', spentAtomic: '1000000', quoteAtomic: '250000', quantity: 3 };
 const cleanups: Array<() => void | Promise<void>> = [];
@@ -196,12 +197,12 @@ describe('independent Solana RPC evidence checks (injected RPC fixture)', () => 
     const txid = getBase58Decoder().decode(signatureBytes);
     const wire = getBase64Decoder().decode(getTransactionEncoder().encode({ ...decoded, signatures: { ...decoded.signatures, [first]: signatureBytes } } as typeof decoded));
     const response = { transaction: [wire, 'base64'], meta: { err: null, preTokenBalances: [balance(order.payer, '2000'), balance(OFFLINE_MERCHANT, '0')], postTokenBalances: [balance(order.payer, '1000'), balance(OFFLINE_MERCHANT, '1000')] } };
-    let genesis = NETWORK.split(':')[1]; let data: unknown = response;
+    let genesis = GENESIS; let data: unknown = response;
     const reader = new SolanaChainReader(async method => method === 'getGenesisHash' ? genesis : data);
     expect((await reader.check(order, txid)).status).toBe('confirmed');
     expect((await reader.check(order, 'wrong-signature')).reason).toBe('transaction_signature_mismatch');
     data = null; expect((await reader.check(order, txid)).status).toBe('pending'); data = response;
-    genesis = 'mainnet'; expect((await reader.check(order, txid)).reason).toBe('wrong_rpc_network'); genesis = NETWORK.split(':')[1];
+    genesis = 'mainnet'; expect((await reader.check(order, txid)).reason).toBe('wrong_rpc_network'); genesis = GENESIS;
     for (const mutate of [
       (r: any) => { r.meta.err = { InstructionError: [0, 'failed'] }; },
       (r: any) => { r.meta.postTokenBalances[1].mint = mockAddress(9); },

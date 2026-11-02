@@ -6,9 +6,10 @@ spend, and returns affordability and remaining budget using integer token units.
 It does not call a model, claim to repair code, or reuse historical output as a new
 result. Existing Monad routes, SDK exports and recorded demos remain available.
 
-**Current evidence: offline tests only.** No wallet was connected, no transaction
-was signed or submitted, and no external facilitator or Solana RPC was called in
-the test suite. The local UI uses unsigned serialized fixtures accepted by an
+**Payment evidence: offline tests only.** Public read-only capability, genesis,
+mint and fee-payer checks have now been performed separately. No wallet was connected,
+no transaction was signed or submitted, and no external facilitator or Solana RPC
+was called in the test suite. The offline UI uses unsigned serialized fixtures accepted by an
 explicit mock facilitator. Its transaction names start with `offline-only-`.
 
 ## Install and run locally
@@ -99,8 +100,9 @@ is pinned to **5.5.1**: this satisfies that version's transitive token/compute-b
 packages, unlike Kit 6.9.0. No installation lifecycle scripts are required.
 
 The SDK subpath `@toolkit-fun/agentpay-sdk/solana` exports `BudgetReportClient` and
-`createSvmPayloadFactory`. This first client is Node/TypeScript and attended. A
-browser wallet adapter is not implemented. Its in-memory attempt map prevents
+`createSvmPayloadFactory`. This first client is Node/TypeScript and attended. A separate Wallet Standard browser handoff is now available at
+`npm run dev:solana:handoff` (http://localhost:4031). Connect, sign-only and submit
+are three explicit user actions. The offline UI never connects a wallet. Its in-memory attempt map prevents
 re-signing the same order during the process; server-side budgets/claims persist.
 After a client restart, retrieve/reconcile the persisted order before signing anything.
 
@@ -168,7 +170,7 @@ run, separately authorize network/payment operations and:
    accounts and obtain test tokens/SOL only with explicit permission. Confirm the
    merchant token account and fee/rent funding; a sponsored fee is not account rent.
 3. Connect an explicitly approved wallet/signing adapter. Do not export wallet keys
-   to chat or commit them. The current UI intentionally does not connect a wallet.
+   to chat or commit them. Only the separate handoff UI can request a wallet connection through a user click.
 4. After authorization, use `createDevnetGateway` with explicit HTTPS endpoints,
    call `initialize()`, and wire it to `ReportService`/`OrderStore` in `devnet` mode
    with a separate database and `offline=false` HTTP server. The factory has no
@@ -186,3 +188,53 @@ run, separately authorize network/payment operations and:
 
 References checked during implementation: [Solana x402 V2 guide](https://solana.com/docs/payments/agentic-payments/x402)
 and [x402 seller quickstart](https://docs.x402.org/getting-started/quickstart-for-sellers).
+
+## Browser wallet handoff (devnet only)
+
+```sh
+npm run dev:solana:handoff
+# After building, the server can also be started directly:
+node dist/solana/apps/solana-demo/handoff.js
+```
+
+Open http://localhost:4031 in a browser with an existing trusted Wallet Standard
+wallet supporting `solana:devnet`, v0 and `solana:signTransaction`. Phantom or
+Solflare may provide these features; the page checks actual advertised support.
+The project does not install an extension or generate a wallet.
+
+1. Enable devnet/test networks in the wallet yourself. Click the connection button
+   and authorize only the intended disposable test account. There is no automatic
+   reconnect. Never provide a seed phrase, private key or password.
+2. Enter a separate merchant public address. Both parties must already have
+   initialized, unfrozen associated token accounts for the pinned devnet USDC
+   mint. The payer needs at least 1,000 atomic units (0.001 test USDC). This page
+   neither creates accounts nor obtains test tokens.
+3. Run the account/balance check. It verifies the full devnet genesis, mint, V2
+   exact/v0 capability, funded facilitator fee payer, both ATAs and payer balance.
+   The merchant locks for this server session. The facilitator fee payer pays the
+   settlement transaction fee; this does not imply account creation or rent funding.
+4. Generate the quote, check the payer, recipient, network, mint and 0.001 amount,
+   then tick the confirmation box. Click the sign-only button and inspect/approve
+   the wallet transaction yourself. Only a fixed TransferChecked, bounded compute
+   budget and order memo are allowed. Returned message bytes must be unchanged,
+   and the payer's Ed25519 signature must verify.
+5. Signing does not submit. Click the separate submit button yourself to send the
+   signed payload to the local merchant/facilitator. No sign-and-send wallet API
+   is used. After an unknown response, reconcile the same order; do not create a
+   replacement payment. A restored pending order disables creation of another quote.
+6. After independent chain confirmation, download the public evidence JSON. It
+   includes checks, order/request/result digests, amount and transaction, but no
+   signed payload or key. If the facilitator response was lost, provide only the
+   original public transaction signature to reconciliation; this cannot send funds.
+
+The browser SDK uses a local token-scoped read-only proxy pinned to
+`https://api.devnet.solana.com`. Broadcast, faucet and simulation methods are
+rejected. No RPC credential is requested or persisted. The local session token
+is ephemeral; only the order ID is saved in sessionStorage. User submission still
+calls facilitator settlement, as x402 requires. The read-only RPC restriction
+does not mean that clicking Submit is read-only.
+
+`docs/evidence/devnet-public-readiness.json` records public read-only observations.
+Capability advertisement does not prove signature acceptance, memo enforcement
+or successful settlement. Those await a user-operated devnet transaction. There
+is no mainnet path and no fallback to real assets or a mock payment in this UI.

@@ -1,0 +1,177 @@
+{
+  "checkedAt": "2026-11-02T12:04:15.140Z",
+  "facilitator": "https://x402.org/facilitator",
+  "rpc": "https://api.devnet.solana.com",
+  "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+  "checks": [
+    {
+      "check": "supported",
+      "status": "fulfilled",
+      "value": {
+        "kinds": [
+          {
+            "x402Version": 2,
+            "scheme": "exact",
+            "network": "eip155:84532"
+          },
+          {
+            "x402Version": 2,
+            "scheme": "upto",
+            "network": "eip155:84532",
+            "extra": {
+              "facilitatorAddress": "0xd407e409E34E0b9afb99EcCeb609bDbcD5e7f1bf"
+            }
+          },
+          {
+            "x402Version": 2,
+            "scheme": "batch-settlement",
+            "network": "eip155:84532"
+          },
+          {
+            "x402Version": 2,
+            "scheme": "exact",
+            "network": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+            "extra": {
+              "feePayer": "CKPKJWNdJEqa81x7CkZ14BVPiY6y16Sxs7owznqtWYp5",
+              "transactionVersions": [
+                0,
+                1
+              ],
+              "features": {
+                "smartWalletSupported": true
+              }
+            }
+          },
+          {
+            "x402Version": 2,
+            "scheme": "exact",
+            "network": "algorand:SGO1GKSzyE7IEPItTxCByw9x8FmnrCDe",
+            "extra": {
+              "feePayer": "G7QWRIJODICBDG6JAVXNKHNTCKTBJZBXTSCGQLSMXSCIKEJ5SNFPEJSFQQ"
+            }
+          },
+          {
+            "x402Version": 2,
+            "scheme": "exact",
+            "network": "aptos:2",
+            "extra": {
+              "feePayer": "0x1be1a717b48c46c83a2a6a53205aff6123610961560b2b08968a344c4da24b1e"
+            }
+          },
+          {
+            "x402Version": 2,
+            "scheme": "exact",
+            "network": "stellar:testnet",
+            "extra": {
+              "areFeesSponsored": true
+            }
+          },
+          {
+            "x402Version": 2,
+            "scheme": "exact",
+            "network": "hedera:testnet",
+            "extra": {
+              "feePayer": "0.0.9185802"
+            }
+          },
+          {
+            "x402Version": 2,
+            "scheme": "exact",
+            "network": "xrpl:1",
+            "extra": {
+              "areFeesSponsored": false
+            }
+          },
+          {
+            "x402Version": 1,
+            "scheme": "exact",
+            "network": "base-sepolia"
+          },
+          {
+            "x402Version": 1,
+            "scheme": "exact",
+            "network": "solana-devnet",
+            "extra": {
+              "feePayer": "CKPKJWNdJEqa81x7CkZ14BVPiY6y16Sxs7owznqtWYp5",
+              "transactionVersions": [
+                0,
+                1
+              ]
+            }
+          }
+        ],
+        "extensions": [
+          "builder-code",
+          "eip2612GasSponsoring",
+          "erc20ApprovalGasSponsoring"
+        ],
+        "signers": {
+          "eip155:*": [
+            "0xd407e409E34E0b9afb99EcCeb609bDbcD5e7f1bf"
+          ],
+          "solana:*": [
+            "CKPKJWNdJEqa81x7CkZ14BVPiY6y16Sxs7owznqtWYp5"
+          ],
+          "algorand:*": [
+            "G7QWRIJODICBDG6JAVXNKHNTCKTBJZBXTSCGQLSMXSCIKEJ5SNFPEJSFQQ"
+          ],
+          "aptos:*": [
+            "0x1be1a717b48c46c83a2a6a53205aff6123610961560b2b08968a344c4da24b1e"
+          ],
+          "stellar:*": [
+            "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K",
+            "GC5OLUZ4WANPN6VT7YGTK2SRMZG762KOVKJXHWIO4K57UBASO2FMNRET"
+          ],
+          "hedera:*": [
+            "0.0.9185802"
+          ],
+          "xrpl:*": []
+        }
+      }
+    },
+    {
+      "check": "genesis",
+      "status": "fulfilled",
+      "value": {
+        "jsonrpc": "2.0",
+        "result": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+        "id": 1
+      }
+    },
+    {
+      "check": "mint",
+      "status": "fulfilled",
+      "value": {
+        "jsonrpc": "2.0",
+        "result": {
+          "context": {
+            "apiVersion": "4.4.0-beta.1",
+            "slot": 517848921
+          },
+          "value": {
+            "data": {
+              "parsed": {
+                "info": {
+                  "decimals": 6,
+                  "freezeAuthority": "CJtyoKSLrktozQzjERTiK3btQtiTK3nN4QrqGHLidyCT",
+                  "isInitialized": true,
+                  "mintAuthority": "GrNg1XM2ctzeE2mXxXCfhcTUbejM8Z4z4wNVTy2FjMEz",
+                  "supply": "16286767415453462677"
+                },
+                "type": "mint"
+              },
+              "program": "spl-token",
+              "space": 82
+            },
+            "executable": false,
+            "lamports": 474525905289,
+            "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "rentEpoch": 18446744073709552000,
+            "space": 82
+          }
+        },
+        "id": 1
+      }
+    }
+  ]
+}

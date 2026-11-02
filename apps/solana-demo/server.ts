@@ -7,8 +7,8 @@ import { encodePaymentRequiredHeader, encodePaymentResponseHeader } from '@x402/
 import { OrderStore, ReportService, SvmGateway, Problem, invariant, digest, reportInput, type Order } from '../../packages/solana-report/src/index.js';
 import { OfflineRail, OFFLINE_PAYER, OFFLINE_MERCHANT, fixtureHeader } from '../../packages/solana-report/src/offline.js';
 
-export function createReportHttpServer(service: ReportService, origin: () => string, offline = false) {
-  const token = randomBytes(32).toString('hex');
+export function createReportHttpServer(service: ReportService, origin: () => string, offline = false, sharedToken?: string) {
+  const token = sharedToken || randomBytes(32).toString('hex');
   const json = (res: ServerResponse, status: number, value: unknown, headers = {}) => {
     res.writeHead(status, { 'content-type': 'application/json', 'cache-control': 'no-store', ...headers }); res.end(JSON.stringify(value));
   };
@@ -66,7 +66,7 @@ export function createReportHttpServer(service: ReportService, origin: () => str
   });
   return { server, token };
 }
-async function readBody(req: IncomingMessage): Promise<any> {
+export async function readBody(req: IncomingMessage): Promise<any> {
   let bytes = 0; const chunks: Buffer[] = [];
   for await (const chunk of req) { bytes += chunk.length; invariant(bytes <= 16384, 'body_too_large', 413); chunks.push(chunk); }
   const body = JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
