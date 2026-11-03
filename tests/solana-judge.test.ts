@@ -112,7 +112,7 @@ describe('judge isolation (mock facilitator/RPC, no wallet)',()=>{
   for(const path of ['/','/zh','/demo','/zh/demo','/developers','/zh/developers','/history/monad','/zh/history/monad','/concepts/multichain','/zh/concepts/multichain']) {
    const r=await s.req(path,undefined,undefined,nav);expect(r.status).toBe(200);expect(r.headers.get('set-cookie')).toBeNull();
    expect(r.headers.get('content-security-policy')).toContain("frame-ancestors 'none'");
-   const html=await r.text();expect(html).toContain('https://agentpay.toolkit.fun'+path);expect(html).toContain('hreflang="zh-CN"');expect(html).toContain('id="main"');
+   const html=await r.text();expect(html).toContain('https://agentpay.toolkit.fun'+path);expect(html).toContain('hreflang="zh-CN"');expect(html).toContain('id="main"');expect(html).toContain('data-exhibit');expect(html).toContain('/exhibit-player.js');expect(html).toContain('data-pause-all');
    expect(html).not.toContain('wallet.bundle.js');expect(html).not.toContain('unsafe-inline');
   }
   expect((await s.req('/developers',undefined,undefined,{...nav,'sec-fetch-mode':'cors'})).status).toBe(403);

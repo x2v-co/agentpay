@@ -62,7 +62,7 @@ export function createJudgeServer(options: JudgeOptions) {
         if (path === '/robots.txt') { res.setHeader('content-type','text/plain'); return res.end('User-agent: *\nDisallow: /api/\nDisallow: /wallet\nSitemap: https://agentpay.toolkit.fun/sitemap.xml\n'); }
       }
       if (path === '/wallet' || path.startsWith('/api/')) res.setHeader('X-Robots-Tag','noindex, nofollow');
-      if (req.method === 'GET' && ['/wallet','/wallet.bundle.js','/judge.js','/style.css','/site.css','/site-interactions.js'].includes(path)) {
+      if (req.method === 'GET' && ['/wallet','/wallet.bundle.js','/judge.js','/style.css','/site.css','/site-interactions.js','/exhibit-player.js'].includes(path)) {
         const file = path === '/' ? 'judge.html' : path === '/wallet' ? 'wallet.html' : path === '/judge.js' ? 'judge-public.js' : path.slice(1);
         res.setHeader('content-type',file.endsWith('.html')?'text/html':file.endsWith('.js')?'text/javascript':'text/css');
         return res.end(readFileSync(new URL(file,import.meta.url)));

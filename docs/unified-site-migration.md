@@ -53,3 +53,7 @@ Remaining risks: current prototype is not independently audited; global quotas a
 ### Concept animation
 
 The overview and concept pages include a local-only narrative animation (three outcomes; one automatic playthrough on page entry, plus Pause/Next/Reset). It illustrates the planned ecosystem and an exact-payment branch, not actual model procurement or a newly recorded transaction. Reduced-motion preference disables automatic playback; hidden-page and pagehide events pause timers. No new script origin, API, dependency or production configuration is required. The independent saved Solana evidence stays linked separately.
+
+### Whole-site visual release
+
+All five public routes now have a distinct bilingual exhibit using the approved v5 palette. `exhibits.ts` renders authored static scenes and `exhibit-player.js` controls finite visibility-triggered playback; `/exhibit-player.js` is an explicit same-origin static route. No payment API, Host/Origin rule, DB schema, cookie or security header was relaxed. The existing wallet remains operationally unchanged. The release must include the new asset in the built image; built smoke checks it. Do not copy the preview server into the production entrypoint: it deliberately has no payment/session capability.

@@ -54,3 +54,24 @@ Per user request, overview and concept stories automatically play once on page e
 
 Validation: Solana TypeScript compilation/build and built judge smoke passed on this revision (real rail settlement calls zero). Browser checked Chinese load starts with Pause and advances without input; running branch switch continues, keyboard Pause and branch switch preserve paused state. Reload with emulated reduced motion stays on 01/07 with Play disabled, while Enter on Next advances. English concept page starts automatically at mobile 390×844. Media/viewport emulation is restored after checking. The previous 95/95 full regression belongs to the preceding animation revision; this small autoplay change did not rerun the full suite.
 Final browser observation: English mobile autoplay reached 07/07 Delivered with one illustrative attempt, restored the Play label and disabled Next. Reset returned to 01/07 paused. No horizontal overflow (scroll width 375, viewport 390).
+
+## Whole-site visual redesign — latest validation
+
+The five public product routes (ten EN/ZH pages) now use the approved v5 film's deep-ink background, mint pathways and amber scope labels. The v5 source and final contact sheet were inspected as references; no video, GSAP runtime, external font, image payload or analytics dependency was imported.
+
+Each page has a distinct first-screen animated exhibit:
+- Overview: task → discovery/offer → policy ceiling → recovery concept.
+- Solana: saved 0.001 test USDC quote → historical balance delta → finalized slot → computed report. Explicitly a replay of saved evidence, never a new payment.
+- Developers: authored request → HTTP 402 terms → signature/verification boundary → HTTP 200/recovery contract. No request is executed.
+- Monad history: archive discovery → upto/Permit2 example cap → durable usage receipt.
+- Multichain concept: Monad implementation, Base concept and independently verified Solana report, without claiming integrated model procurement.
+
+Autoplay starts once when a panel first enters the viewport, so below-fold content does not finish unseen. Panels pause when offscreen or hidden. Each has Pause/Next/Restart and direct chapter buttons; global Pause motion also suppresses autoplay of unseen panels. Reduced motion disables automatic playback and CSS transitions/animations. Manual changes announce the scene title; automatic playback does not continuously interrupt assistive technology. Existing wallet controls and payment routes remain unchanged.
+
+Final automated run: **100/100 tests across nine files** (five new deterministic playback lifecycle tests), general TypeScript, Solana TypeScript/build, reference-server smoke, demo smoke, and built judge smoke all passed. Real rail settlement calls zero. Playback tests cover first visibility, single completion, pause, manual chapters/reset, reduced motion, background pause and global pause before first view. Private-import check passed before the final test-only/typography additions. `git diff --check` passed.
+
+Browser QA: screenshots inspected for all five desktop pages and all five Chinese mobile panels; all five English pages checked at 390×844, with scroll width 375 and no horizontal overflow. Chapter controls work across routes. Reduced-motion mode disables Play on every English page, Enter on Next still works. English developer exhibit was observed autoplaying after media reset. No captured console errors. Browser emulation was reset afterward. This is visual/functional QA, not a full screen-reader or independent accessibility audit.
+
+Final local HTTP crawl: all ten pages and sixteen distinct local links/assets returned 200; preview session/order/RPC endpoints returned 403. Preview banner is present on all ten pages. Max HTML payload 15,488 bytes; stylesheet 21,903 bytes (gzip estimate 5,686), exhibit player 2,938 (gzip 1,161), existing interaction script 4,366 (gzip 1,807). Gzip figures are estimates from local compression, not a claim about deployed compression or Core Web Vitals.
+
+Tests used Node 26.12.1 and the hydrated temporary copy with exact implementation files; Node 22 was not rerun. No new chain transaction, production readiness check, deployment, push, DNS or old-site change occurred. Preview runs only on localhost and cannot pay. The wallet handoff is intentionally excluded from the public-site animation redesign.
