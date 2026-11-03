@@ -32,6 +32,18 @@ and submission are separate user actions. No keys are required by the server.
 preview. Never use it as chain evidence. The report's sample procurement inputs
 are illustrative; the arithmetic and devnet transfer above are real.
 
+### Isolated judge service (local implementation, not deployed)
+
+The separate `start:solana:judge` entry point adds fixed merchant configuration,
+per-browser secure sessions, durable order access control and rate limits. Its
+public landing page shows the saved real receipt and executes isolated mock
+failure/retry examples. It does not share the original handoff database.
+
+Read [threat model, required environment and deployment contract](docs/solana-judge-security.md)
+before provisioning. No session secret is included or generated. Current offline
+regression: **93 tests**, plus the two existing smoke checks and a built judge
+assets/evidence/example smoke check. No new real payment or deployment was run.
+
 ### Historical Monad project
 
 The links and sections below describe the earlier Monad project. They are retained

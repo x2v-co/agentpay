@@ -22,7 +22,8 @@
     "test:solana": "vitest run tests/solana-report.test.ts",
     "build:solana": "node scripts/build-solana.mjs",
     "test:offline": "NODE_OPTIONS=\"--import=./scripts/offline-network-guard.mjs\" npm test",
-    "dev:solana:handoff": "npm run build:solana && node dist/solana/apps/solana-demo/handoff.js"
+    "dev:solana:handoff": "npm run build:solana && node dist/solana/apps/solana-demo/handoff.js",
+    "start:solana:judge": "node dist/solana/apps/solana-demo/judge.js"
   },
   "dependencies": {
     "@solana/kit": "5.5.1",

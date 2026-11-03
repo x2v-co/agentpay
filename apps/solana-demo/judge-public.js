@@ -1,0 +1,2 @@
+const button=document.getElementById('examples');
+button.onclick=async()=>{button.disabled=true;const result=document.getElementById('result');result.textContent='Running isolated offline simulation…';try{const response=await fetch('/api/examples');const data=await response.json();result.textContent=JSON.stringify(data,null,2);}catch{result.textContent='Example unavailable. No payment was attempted.';}finally{button.disabled=false;}};

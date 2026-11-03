@@ -7,8 +7,9 @@ import type { Order } from '../../packages/solana-report/src/model.js';
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const button = (id: string) => $<HTMLButtonElement>(id);
 const input = (id: string) => $<HTMLInputElement>(id);
-let session: { token: string; merchant?: string }; let wallet: StandardWallet | undefined; let account: WalletAccount | undefined;
+let session: { token: string; merchant?: string; rpcPath?: string; merchantLocked?: boolean }; let wallet: StandardWallet | undefined; let account: WalletAccount | undefined;
 let wallets: StandardWallet[] = []; let order: Order | undefined; let required: PaymentRequired | undefined; let preview: Preview | undefined; let signed: PaymentPayload | undefined;
+let recoveryBlocked = false;
 let capability: any; let accounts: any; let busy = false; let submitted = false;
 const registry = getWallets(); // Discovery only: no connection request.
 const status = (text: string) => { $('status').textContent = text; };
@@ -17,7 +18,7 @@ const format = (value: string) => { const n = BigInt(value), a = n < 0n ? -n : n
 function sync() {
   button('connect').disabled = busy || !wallets.length;
   button('configure').disabled = busy || !account;
-  button('create').disabled = busy || !accounts || !!(order && ['settling', 'pending', 'paid'].includes(order.state));
+  button('create').disabled = busy || !accounts || recoveryBlocked || !!(order && ['settling', 'pending', 'paid'].includes(order.state));
   button('sign').disabled = busy || !preview || !required || !input('confirm').checked || !!signed || submitted;
   button('submit').disabled = busy || !signed || submitted || !input('confirm').checked;
   button('recover').disabled = busy || !accounts || !sessionStorage.getItem('agentpay-devnet-order');
@@ -50,7 +51,7 @@ button('connect').onclick = () => run(async () => {
 });
 input('merchant').oninput = () => { accounts = undefined; resetPayment(); sync(); };
 button('readiness').onclick = () => run(async () => { capability = (await request('/api/readiness', {})).data; evidence(capability); status('公开能力、devnet 和 mint 检查通过；签名／结算仍未实测。'); });
-button('configure').onclick = () => run(async () => { check(account, '请先连接钱包。'); const result = (await request('/api/configure', { payer: account.address, payTo: input('merchant').value.trim() })).data; capability = result.readiness; accounts = result.accounts; evidence(result); resetPayment(); status('双方关联账户和测试余额检查通过；收款人已锁定本次服务会话。'); const previous = sessionStorage.getItem('agentpay-devnet-order'); if (previous) { const restored = (await request(`/api/orders/${previous}`)).data as Order; showOrder(restored); submitted = restored.state !== 'quoted'; } });
+button('configure').onclick = () => run(async () => { check(account, '请先连接钱包。'); const result = (await request('/api/configure', { payer: account.address, payTo: input('merchant').value.trim() })).data; capability = result.readiness; accounts = result.accounts; evidence(result); resetPayment(); status('双方关联账户和测试余额检查通过；收款人已锁定本次服务会话。'); const previous = sessionStorage.getItem('agentpay-devnet-order'); if (previous) { const restored = (await request(`/api/orders/${previous}`)).data as Order; showOrder(restored); recoveryBlocked = false; submitted = restored.state !== 'quoted'; } });
 function atomic(text: string) { check(/^\d+(\.\d{1,6})?$/.test(text), '金额须为非负数，最多六位小数。'); const [a,b=''] = text.split('.'); return String(BigInt(a) * 1000000n + BigInt(b.padEnd(6, '0'))); }
 $('form').onsubmit = event => { event.preventDefault(); void run(async () => {
   check(account && accounts, '请先检查钱包账户。'); resetPayment();
@@ -65,7 +66,7 @@ $('form').onsubmit = event => { event.preventDefault(); void run(async () => {
   showOrder(order); status('HTTP 402 已收到。核对预览后，可由你请求钱包签名。');
 }); };
 input('confirm').onchange = sync;
-button('sign').onclick = () => run(async () => { check(wallet && account && required && preview && input('confirm').checked, '请先核对报价。'); signed = await signWithWallet(wallet, account, required, preview, `${location.origin}/api/rpc/${session.token}`); status('付款方签名已验证，尚未提交。只有点击“提交已签名付款”才会请求结算。'); });
+button('sign').onclick = () => run(async () => { check(wallet && account && required && preview && input('confirm').checked, '请先核对报价。'); signed = await signWithWallet(wallet, account, required, preview, `${location.origin}${session.rpcPath || `/api/rpc/${session.token}`}`); status('付款方签名已验证，尚未提交。只有点击“提交已签名付款”才会请求结算。'); });
 button('submit').onclick = () => run(async () => {
   check(signed && preview && order && account && account.address === preview.payer && wallet?.accounts.some(a => a.address === preview!.payer) && input('confirm').checked, '签名、账户或确认已失效。');
   check(Date.now() < preview.expiresAt, '报价已过期；旧签名不会提交。');
@@ -74,7 +75,7 @@ button('submit').onclick = () => run(async () => {
   const response = await fetch(`/api/orders/${order.id}/report`, { method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${session.token}`, 'PAYMENT-SIGNATURE': encodePaymentSignatureHeader(payload) }, body: JSON.stringify(order.request) });
   const data = await response.json(); check(response.ok, `${data.error || '提交响应失败'}；请对账同一订单。`); showOrder(data);
 });
-button('recover').onclick = () => run(async () => { const id = sessionStorage.getItem('agentpay-devnet-order'); check(id, '当前页面没有保存的订单编号。'); const observed = input('observed').value.trim(); showOrder((await request(`/api/orders/${id}/reconcile`, observed ? { transaction: observed } : {})).data); });
+button('recover').onclick = () => run(async () => { const id = sessionStorage.getItem('agentpay-devnet-order'); check(id, '当前页面没有保存的订单编号。'); const observed = input('observed').value.trim(); showOrder((await request(`/api/orders/${id}/reconcile`, observed ? { transaction: observed } : {})).data); recoveryBlocked = false; });
 button('download').onclick = () => { if (!order || order.state !== 'delivered') return; const url = URL.createObjectURL(new Blob([JSON.stringify({ evidenceType: 'devnet-confirmed-order', capability, accounts, order }, null, 2)], { type: 'application/json' })); const link = document.createElement('a'); link.href = url; link.download = `agentpay-devnet-${order.id}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
 registry.on('register', refresh); registry.on('unregister', () => { account = undefined; accounts = undefined; resetPayment(); refresh(); });
-fetch('/api/session').then(r => r.json()).then(value => { session = value; if (value.merchant) input('merchant').value = value.merchant; refresh(); }).catch(error => status(error.message));
+fetch('/api/session').then(r => r.json()).then(value => { session = value; recoveryBlocked = !!value.merchantLocked && !!sessionStorage.getItem('agentpay-devnet-order'); if (value.merchant) input('merchant').value = value.merchant; input('merchant').readOnly = !!value.merchantLocked; refresh(); }).catch(error => status(error.message));

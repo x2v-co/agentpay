@@ -44,7 +44,7 @@ second payment or portray old Monad recordings as Solana evidence.
 ## Reproduction and limitations
 
 Follow [setup](solana-report.md). Node 22.18+; `npm ci --ignore-scripts`,
-`npm run test:offline`, `npm run dev:solana:handoff`. The offline suite has 79
+`npm run test:offline`, `npm run dev:solana:handoff`. The offline suite has 93
 passing tests, with no external payment requests. One live successful purchase
 is verified; live failure and distributed deployment coverage are not claimed.
 SQLite is single-host. No production custody or unattended-autonomy claim.
@@ -122,7 +122,8 @@ Solana purchase. No mainnet or production-readiness claim is made.
   [release review](solana-release-review.md) for precise scope and publication plan.
 - Approve exact destinations for code, video, deck and live demo publication.
   No public upload, push or deployment is authorized by local preparation alone.
-- Review deployed operation before exposing the local handoff server: its local
-  session-token trust model is not a public multi-user authentication design.
+- Use the separate judge entry point, not the local handoff server. Local isolation
+  tests pass; HTTPS/cookie/persistence and access controls still need deployed
+  verification. See [deployment contract](solana-judge-security.md).
 - Verify all four links as a judge would access them; then fill the form, select
   the agreed track and obtain explicit final submission approval.

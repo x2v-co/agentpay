@@ -8,6 +8,7 @@
     "packages/sdk/src/solana.ts",
     "apps/solana-demo/**/*.ts",
     "tests/solana-report.test.ts",
-    "tests/solana-handoff.test.ts"
+    "tests/solana-handoff.test.ts",
+    "tests/solana-judge.test.ts"
   ]
 }
