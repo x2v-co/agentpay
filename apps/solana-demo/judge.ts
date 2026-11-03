@@ -11,6 +11,7 @@ import { publicRpc, publicReadiness, walletReadiness, assertReadMethod, type Rpc
 import { NETWORK, MINT, PRICE, FACILITATOR_URL, RPC_URL } from '../../packages/solana-report/src/constants.js';
 import { judgeExamples } from './judge-examples.js';
 import { readBody } from './server.js';
+import { renderSite, SITE_DOCUMENTS, sitemap } from './site.js';
 
 export const JUDGE_MERCHANT = 's6gS82AnfUCib9emQjVVJPmxD6GwUQJF3hYeter2FR9';
 const COOKIE = '__Host-agentpay';
@@ -47,14 +48,21 @@ export function createJudgeServer(options: JudgeOptions) {
       const requestPath = new URL(req.url || '/', options.origin).pathname;
       // Permit links/bookmarks to public documents, never cross-site API reads or
       // mutations. Cookies remain SameSite=Strict; private API access is unchanged.
-      const publicNavigation = req.method === 'GET' && ['/', '/wallet'].includes(requestPath)
+      const publicNavigation = req.method === 'GET' && [...SITE_DOCUMENTS, '/wallet'].includes(requestPath)
         && req.headers['sec-fetch-mode'] === 'navigate' && req.headers['sec-fetch-dest'] === 'document';
       invariant(publicNavigation || !['cross-site','same-site'].includes(String(req.headers['sec-fetch-site'])), 'foreign_site',403);
       if (req.method !== 'GET') invariant(req.headers.origin === options.origin, 'origin_required',403);
       res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
       res.setHeader('X-Content-Type-Options','nosniff'); res.setHeader('Referrer-Policy','no-referrer'); res.setHeader('Cache-Control','no-store');
       const path = new URL(req.url || '/', options.origin).pathname;
-      if (req.method === 'GET' && ['/','/wallet','/wallet.bundle.js','/judge.js','/style.css'].includes(path)) {
+      if (req.method === 'GET') {
+        const page = renderSite(path);
+        if (page) { res.setHeader('content-type','text/html; charset=utf-8'); return res.end(page); }
+        if (path === '/sitemap.xml') { res.setHeader('content-type','application/xml'); return res.end(sitemap()); }
+        if (path === '/robots.txt') { res.setHeader('content-type','text/plain'); return res.end('User-agent: *\nDisallow: /api/\nDisallow: /wallet\nSitemap: https://agentpay.toolkit.fun/sitemap.xml\n'); }
+      }
+      if (path === '/wallet' || path.startsWith('/api/')) res.setHeader('X-Robots-Tag','noindex, nofollow');
+      if (req.method === 'GET' && ['/wallet','/wallet.bundle.js','/judge.js','/style.css','/site.css','/site-interactions.js'].includes(path)) {
         const file = path === '/' ? 'judge.html' : path === '/wallet' ? 'wallet.html' : path === '/judge.js' ? 'judge-public.js' : path.slice(1);
         res.setHeader('content-type',file.endsWith('.html')?'text/html':file.endsWith('.js')?'text/javascript':'text/css');
         return res.end(readFileSync(new URL(file,import.meta.url)));

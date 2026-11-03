@@ -107,6 +107,18 @@ describe('judge isolation (mock facilitator/RPC, no wallet)',()=>{
   expect((await s.req('/',undefined,undefined,{...navigation,'sec-fetch-mode':'cors'})).status).toBe(403);
   expect(s.rail.calls.settle).toBe(0);
  });
+ it('serves bilingual public documents without issuing sessions or widening API navigation',async()=>{
+  const s=await setup();const nav={'sec-fetch-site':'same-site','sec-fetch-mode':'navigate','sec-fetch-dest':'document',origin:''};
+  for(const path of ['/','/zh','/demo','/zh/demo','/developers','/zh/developers','/history/monad','/zh/history/monad','/concepts/multichain','/zh/concepts/multichain']) {
+   const r=await s.req(path,undefined,undefined,nav);expect(r.status).toBe(200);expect(r.headers.get('set-cookie')).toBeNull();
+   expect(r.headers.get('content-security-policy')).toContain("frame-ancestors 'none'");
+   const html=await r.text();expect(html).toContain('https://agentpay.toolkit.fun'+path);expect(html).toContain('hreflang="zh-CN"');expect(html).toContain('id="main"');
+   expect(html).not.toContain('wallet.bundle.js');expect(html).not.toContain('unsafe-inline');
+  }
+  expect((await s.req('/developers',undefined,undefined,{...nav,'sec-fetch-mode':'cors'})).status).toBe(403);
+  for(const path of ['/api/session','/api/rpc','/api/orders','/evidence.json'])expect((await s.req(path,undefined,undefined,nav)).status).toBe(403);
+  expect(s.rail.calls.settle).toBe(0);
+ });
  it('runs public offline examples without touching the real rail',async()=>{
   const s=await setup();const r=await s.req('/api/examples');expect(r.status).toBe(200);const data=await r.json();expect(data.mode).toBe('offline-simulation');expect(data.failure).toMatchObject({reportReleased:false,settleCalls:0});expect(data.retry).toMatchObject({sameResult:true,settleCalls:1});expect(s.rail.calls.settle).toBe(0);
  });
