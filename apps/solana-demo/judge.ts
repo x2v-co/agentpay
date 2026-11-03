@@ -44,7 +44,12 @@ export function createJudgeServer(options: JudgeOptions) {
     try {
       invariant(req.headers.host === url.host, 'foreign_host',403);
       invariant(!req.headers.origin || req.headers.origin === options.origin, 'foreign_origin',403);
-      invariant(!['cross-site','same-site'].includes(String(req.headers['sec-fetch-site'])), 'foreign_site',403);
+      const requestPath = new URL(req.url || '/', options.origin).pathname;
+      // Permit links/bookmarks to public documents, never cross-site API reads or
+      // mutations. Cookies remain SameSite=Strict; private API access is unchanged.
+      const publicNavigation = req.method === 'GET' && ['/', '/wallet'].includes(requestPath)
+        && req.headers['sec-fetch-mode'] === 'navigate' && req.headers['sec-fetch-dest'] === 'document';
+      invariant(publicNavigation || !['cross-site','same-site'].includes(String(req.headers['sec-fetch-site'])), 'foreign_site',403);
       if (req.method !== 'GET') invariant(req.headers.origin === options.origin, 'origin_required',403);
       res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
       res.setHeader('X-Content-Type-Options','nosniff'); res.setHeader('Referrer-Policy','no-referrer'); res.setHeader('Cache-Control','no-store');

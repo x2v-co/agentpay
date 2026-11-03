@@ -31,7 +31,7 @@ solved by this prototype.
   reconciliation POST. Foreign and absent IDs return the same 404. Guessing a payer
   address is not sufficient to access its orders. The owner is a browser session,
   not proof of a real-world identity or wallet ownership.
-- Exact Host, exact Origin for all POSTs, cross-site Fetch Metadata rejection, CSP,
+- Exact Host, exact Origin for all POSTs, cross-site Fetch Metadata rejection for APIs and non-navigation requests, CSP,
   no-referrer, no-store and nosniff. The SDK RPC uses the same-origin secure cookie
   plus exact Origin because its client does not attach custom CSRF headers.
 - RPC method/parameter allowlist; no broadcast, faucet, simulate or arbitrary target.
@@ -88,7 +88,7 @@ Do not run startup against live services merely to reproduce the offline tests.
 
 ## Tests and limits of evidence
 
-Final local run: **93/93 tests in 8 files**, including 14 judge tests; both existing
+Final local run: **94/94 tests in 8 files**, including 15 judge tests; both existing
 smoke checks, full and Solana type checks, build and compiled judge smoke passed.
 Trusted hydrated dependency snapshot was used to avoid macOS placeholder I/O; all
 changed inputs were copied before this run. No new dependencies were added.
@@ -146,3 +146,8 @@ is unsuitable for this payment ledger. Account, destination, cost cap and retent
 must be approved before creating resources. Official: https://render.com/docs/disks
 and https://render.com/docs/web-services . No pricing or free-tier availability
 beyond those documented constraints is assumed.
+
+Public top-level GET navigation to `/` and `/wallet` is allowed from other sites;
+all API paths retain the same-site/cross-site rejection. This permits a Toolkit
+link without exposing private data or weakening POST Origin checks. See
+the separately delivered private deployment plan for pending host verification.

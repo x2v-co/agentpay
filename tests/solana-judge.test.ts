@@ -98,6 +98,15 @@ describe('judge isolation (mock facilitator/RPC, no wallet)',()=>{
   expect((await s.req('/api/session',a,undefined,{'x-forwarded-for':'spoofed-host'})).status).toBe(429);
   s.advance(60001);expect((await s.req('/api/session',a)).status).toBe(200);
  });
+ it('allows only public document navigation from another site',async()=>{
+  const s=await setup();const a=await s.session();const o=await s.quote(a);
+  const navigation={'sec-fetch-site':'same-site','sec-fetch-mode':'navigate','sec-fetch-dest':'document',origin:''};
+  const page=await s.req('/',undefined,undefined,navigation);expect(page.status).toBe(200);
+  for(const path of ['/api/session','/api/orders/'+o.id,'/api/examples','/evidence.json']) expect((await s.req(path,a,undefined,navigation)).status).toBe(403);
+  expect((await s.req('/api/orders',a,{input:INPUT,payer:OFFLINE_PAYER},navigation)).status).toBe(403);
+  expect((await s.req('/',undefined,undefined,{...navigation,'sec-fetch-mode':'cors'})).status).toBe(403);
+  expect(s.rail.calls.settle).toBe(0);
+ });
  it('runs public offline examples without touching the real rail',async()=>{
   const s=await setup();const r=await s.req('/api/examples');expect(r.status).toBe(200);const data=await r.json();expect(data.mode).toBe('offline-simulation');expect(data.failure).toMatchObject({reportReleased:false,settleCalls:0});expect(data.retry).toMatchObject({sameResult:true,settleCalls:1});expect(s.rail.calls.settle).toBe(0);
  });

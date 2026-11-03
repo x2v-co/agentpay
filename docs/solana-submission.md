@@ -44,7 +44,7 @@ second payment or portray old Monad recordings as Solana evidence.
 ## Reproduction and limitations
 
 Follow [setup](solana-report.md). Node 22.18+; `npm ci --ignore-scripts`,
-`npm run test:offline`, `npm run dev:solana:handoff`. The offline suite has 93
+`npm run test:offline`, `npm run dev:solana:handoff`. The offline suite has 94
 passing tests, with no external payment requests. One live successful purchase
 is verified; live failure and distributed deployment coverage are not claimed.
 SQLite is single-host. No production custody or unattended-autonomy claim.
