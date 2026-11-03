@@ -54,20 +54,74 @@ SQLite is single-host. No production custody or unattended-autonomy claim.
 Requested programme: https://www.encodeclub.com/my-programmes/solana-hackathon-2026
 Official public page: https://www.encodeclub.com/programmes/solana-hackathon-2026
 
-On November 3 the authenticated programme URL rendered a blank page in the
-available browser; the public-page navigation timed out and web extraction had
-no readable body. Therefore the current form's exact fields, required URL types,
-deadline, track options and eligibility/reuse rules have NOT been independently
-reconfirmed in this preparation pass. No option was selected and no form saved.
-Earlier project context identifies an x402 track and a 2–4-minute demonstration;
-these are preparation targets, not a substitute for current form verification.
+On November 3, 2026 the existing logged-in browser successfully displayed the
+AgentPay project and opened the Final Submissions form. The form was inspected
+and cancelled without editing, selecting a challenge, or submitting.
 
-Before external submission:
+Verified track: **Best Use of x402 on Solana**. The page requires an end-to-end
+HTTP payment request, Solana verification/settlement, and resource delivery;
+devnet is sufficient. README/setup, a 2–4-minute demo and an explanation of
+Solana's role are required. Judging includes reliability, meaningful integration,
+a compelling use case and handling failed payments. The listed prize is
+accelerator places (non-cash).
 
-- Reopen the authenticated form and verify exact track labels and required fields.
-- Verify rules on pre-existing projects and disclose the historical Monad code.
-- Review and authorize publishing the local branch and demo; public links must
-  point to the Solana revision, not an unchanged default branch.
-- Confirm the video and code are accessible to judges. localhost is not public.
-- Fill the final URLs and team fields, review the completed form, then obtain
-  explicit approval for final submission. No completed submission is claimed.
+Verified deadline: **November 9, 2026, 19:59 Asia/Singapore (UTC+8)**.
+
+## Form-ready fields
+
+These are drafts, not values saved on the platform.
+
+| Field shown by form | Prepared content / remaining action |
+| --- | --- |
+| Project Name | AgentPay (existing) |
+| Team Members | Existing project membership; do not alter |
+| Project Description | Use Project summary above |
+| Project Image | Optional status not stated; choose existing approved branding if requested |
+| Project Challenges & Tracks | Recommend Best Use of x402 on Solana; not selected |
+| Submission Details — Required | Use the text below |
+| Link to Code — Required | Publish approved Solana branch/revision; default historical branch is insufficient |
+| Link to Presentation — Required | Local deck: `solana-presentation.html`; needs approved hosting |
+| Live Demo Link — Required | Localhost is not acceptable as an external deployed URL; hosting destination/approval needed |
+| Link to Demo Video — Required | Confirm exact user-selected v5; needs judge-accessible approved URL |
+
+### Submission Details
+
+AgentPay implements an attended, agent-facing pay-per-request procurement-budget
+report API using x402 V2 exact on Solana devnet. A client receives an HTTP 402
+quote for 0.001 test USDC, signs through a wallet, and explicitly submits the
+payment. The server binds the payment to the order and request, records a durable
+settlement claim, checks the facilitator response and independently validates the
+Solana transaction before delivering a report calculated with integer arithmetic.
+
+One completed devnet purchase is independently verified as finalized with no
+execution error. The evidence bundle includes the transaction, memo, exact token
+balance changes, request/result digests and the delivered report. For the sample
+procurement inputs (budget 5, spent 1, unit price 0.25, quantity 3), the report
+calculates cost 0.75 and remaining budget 3.25. These inputs are sample data;
+the API payment and report calculation are real.
+
+The offline regression suite demonstrates rejection without delivery, identical
+retry and concurrent requests settling once, and ambiguous settlement remaining
+pending across restart without another settlement attempt. These negative and
+retry cases use a mock facilitator/RPC and are explicitly not claimed as live
+failure transactions. See docs/evidence/solana-acceptance.md for reproduction.
+
+This is an extension of a pre-existing Monad project, whose historical code and
+animations are disclosed separately. New work is the independent Solana exact
+service, persistent order lifecycle, SVM validation, wallet handoff, compact memo
+fix and verified devnet report delivery. AIPlans/Toolkit discovery and unattended
+agent procurement are broader product concepts, not part of this demonstrated
+Solana purchase. No mainnet or production-readiness claim is made.
+
+## Remaining before final submission
+
+- Confirm pre-existing-project eligibility under the official rules; the viewed
+  track/form did not resolve this point. Disclose prior Monad work as above.
+- Resolve exact v5 identity and review against the scope above. Do not reuse the
+  older storyboard as proof of v5 review.
+- Approve exact destinations for code, video, deck and live demo publication.
+  No public upload, push or deployment is authorized by local preparation alone.
+- Review deployed operation before exposing the local handoff server: its local
+  session-token trust model is not a public multi-user authentication design.
+- Verify all four links as a judge would access them; then fill the form, select
+  the agreed track and obtain explicit final submission approval.

@@ -62,6 +62,9 @@ describe('fixed-price report and durable purchase lifecycle (mock facilitator/RP
     const { service, rail, order } = await setup(); rail.invalidReason = reason;
     await expect(service.purchase(order.id, INPUT, fixtureHeader(order))).rejects.toThrow('payment_invalid');
     expect(rail.calls.settle).toBe(0);
+    expect(service.store.get(order.id).state).toBe('quoted');
+    expect(service.store.get(order.id).report).toBeUndefined();
+    expect(service.store.get(order.id).transaction).toBeUndefined();
   });
   it.each(['network', 'asset', 'payTo', 'amount', 'scheme'])('rejects modified %s before verification', async field => {
     const { service, order, rail } = await setup();

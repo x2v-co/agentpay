@@ -1,8 +1,8 @@
 # AgentPay
 
-AgentPay is an open reference implementation for autonomous agent procurement on Monad. An agent discovers model prices through [aiplans.dev](https://aiplans.dev), selects a machine-fulfillable offer from [toolkit.fun](https://toolkit.fun), spends under an owner-signed policy, pays actual metered usage through x402 `upto` + Permit2, and receives a recoverable proof.
-
-Built for the [Monad Metropolis hackathon](https://www.monad.xyz/developers/hackathons/metropolis).
+AgentPay provides payment controls and recoverable delivery for agent-facing services.
+This branch's Solana demo sells a procurement-budget report through x402 V2 exact;
+the historical Monad implementation is preserved and described separately below.
 
 ## Solana x402: verified devnet report purchase
 
@@ -16,6 +16,7 @@ persisted `delivered`; this is not an offline fixture or a Monad transaction.
 - [Public transaction](https://explorer.solana.com/tx/4hfFGWzFuF9mmHakGa5HdzGZEE8xey89ibkgWZ4R2bJHr7J9yqLRZQh6KjKr6neDveo6Vtfnd9c2agVDt6uC8sNt?cluster=devnet)
 - [Verified evidence](docs/evidence/devnet-delivery-20261103.json)
 - [Setup, architecture and limits](docs/solana-report.md)
+- [Failure and retry acceptance evidence](docs/evidence/solana-acceptance.md)
 - [Solana submission draft](docs/solana-submission.md) · [BGM demo storyboard](docs/solana-demo-script.md)
 
 ```sh
