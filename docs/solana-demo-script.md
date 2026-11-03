@@ -1,3 +1,6 @@
+> Historical storyboard for the earlier formal film. The selected final video is
+> ecosystem v5; see [selected-video review](solana-release-review.md).
+
 # Solana demo — 3:04, original BGM, no TTS
 
 Deliverable: `AgentPay-Solana-Verified-Demo-1080p.mp4` (local output).

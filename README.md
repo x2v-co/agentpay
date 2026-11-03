@@ -17,7 +17,7 @@ persisted `delivered`; this is not an offline fixture or a Monad transaction.
 - [Verified evidence](docs/evidence/devnet-delivery-20261103.json)
 - [Setup, architecture and limits](docs/solana-report.md)
 - [Failure and retry acceptance evidence](docs/evidence/solana-acceptance.md)
-- [Solana submission draft](docs/solana-submission.md) · [BGM demo storyboard](docs/solana-demo-script.md)
+- [Solana submission draft](docs/solana-submission.md) · [Selected v5 and publication review](docs/solana-release-review.md)
 
 ```sh
 npm ci --ignore-scripts

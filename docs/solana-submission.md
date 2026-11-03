@@ -82,7 +82,7 @@ These are drafts, not values saved on the platform.
 | Link to Code — Required | Publish approved Solana branch/revision; default historical branch is insufficient |
 | Link to Presentation — Required | Local deck: `solana-presentation.html`; needs approved hosting |
 | Live Demo Link — Required | Localhost is not acceptable as an external deployed URL; hosting destination/approval needed |
-| Link to Demo Video — Required | Confirm exact user-selected v5; needs judge-accessible approved URL |
+| Link to Demo Video — Required | English ecosystem v5 verified; needs judge-accessible approved URL |
 
 ### Submission Details
 
@@ -115,10 +115,11 @@ Solana purchase. No mainnet or production-readiness claim is made.
 
 ## Remaining before final submission
 
-- Confirm pre-existing-project eligibility under the official rules; the viewed
-  track/form did not resolve this point. Disclose prior Monad work as above.
-- Resolve exact v5 identity and review against the scope above. Do not reuse the
-  older storyboard as proof of v5 review.
+- Existing-work FAQ verified: prior work may be a starting point; judged work must
+  be built during the four weeks and prior work disclosed. Keep that disclosure.
+- Selected ecosystem v5 is verified against both storyboards, final-frame contact
+  sheets, file hashes and matching transaction evidence. See
+  [release review](solana-release-review.md) for precise scope and publication plan.
 - Approve exact destinations for code, video, deck and live demo publication.
   No public upload, push or deployment is authorized by local preparation alone.
 - Review deployed operation before exposing the local handoff server: its local
