@@ -52,4 +52,4 @@ Remaining risks: current prototype is not independently audited; global quotas a
 
 ### Concept animation
 
-The overview and concept pages include a local-only narrative animation (three outcomes; user-started Play/Pause/Next/Reset). It illustrates the planned ecosystem and an exact-payment branch, not actual model procurement or a newly recorded transaction. Reduced-motion preference disables automatic playback; hidden-page and pagehide events pause timers. No new script origin, API, dependency or production configuration is required. The independent saved Solana evidence stays linked separately.
+The overview and concept pages include a local-only narrative animation (three outcomes; one automatic playthrough on page entry, plus Pause/Next/Reset). It illustrates the planned ecosystem and an exact-payment branch, not actual model procurement or a newly recorded transaction. Reduced-motion preference disables automatic playback; hidden-page and pagehide events pause timers. No new script origin, API, dependency or production configuration is required. The independent saved Solana evidence stays linked separately.

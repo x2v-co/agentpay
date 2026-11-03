@@ -1,4 +1,4 @@
-// Manual illustration only. No fetch, wallet discovery, timers or stored state.
+// Historical replay stays manual; the conceptual story below has finite autoplay.
 const tabs = [...document.querySelectorAll('[data-frame]')];
 const scenes = [...document.querySelectorAll('[data-scene]')];
 let active = 0;
@@ -31,16 +31,16 @@ for (const story of document.querySelectorAll('[data-story]')) {
   next.disabled=cursor===sequence.length-1;
  }
  function tick(){ cursor++;render();if(cursor===sequences[outcome].length-1)pause();else timer=setTimeout(tick,3400); }
- play.addEventListener('click',()=>{
-  if(reduced.matches)return;
-  if(timer!==null){pause();return;}
+ function start(){
+  if(reduced.matches || document.hidden || timer!==null)return;
   if(cursor===sequences[outcome].length-1){cursor=0;render();}
   play.textContent=play.dataset.pauseLabel;play.setAttribute('aria-pressed','true');timer=setTimeout(tick,3400);
- });
+ }
+ play.addEventListener('click',()=>{if(timer!==null)pause();else start();});
  next.addEventListener('click',()=>{pause();if(cursor<sequences[outcome].length-1){cursor++;render();}});
  story.querySelector('[data-story-reset]').addEventListener('click',()=>{pause();cursor=0;render();});
- scenarios.forEach(button=>button.addEventListener('click',()=>{pause();outcome=button.dataset.outcome;cursor=0;scenarios.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));render();}));
- function motion(){pause();play.disabled=reduced.matches;story.querySelector('[data-motion-note]').textContent=reduced.matches?(zh?'已遵循减少动态效果设置。请使用“下一步”查看，无自动播放。':'Reduced motion is enabled. Use Next step; automatic playback is disabled.'):(zh?'点击播放才开始，播放一轮即停止；切换浏览器标签页会暂停。所有流程数值均为示意。':'Starts only when you press Play. Runs once; changing tabs pauses it. All values are illustrative.');}
+ scenarios.forEach(button=>button.addEventListener('click',()=>{const running=timer!==null;pause();outcome=button.dataset.outcome;cursor=0;scenarios.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));render();if(running)start();}));
+ function motion(){pause();play.disabled=reduced.matches;story.querySelector('[data-motion-note]').textContent=reduced.matches?(zh?'已遵循减少动态效果设置。请使用“下一步”查看，无自动播放。':'Reduced motion is enabled. Use Next step; automatic playback is disabled.'):(zh?'进入页面自动播放一轮；可随时暂停或逐步查看。切换浏览器标签页会暂停，所有流程数值均为示意。':'Plays once on page entry. Pause or step through at any time. Changing tabs pauses it; all values are illustrative.');}
  reduced.addEventListener('change',motion);document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});window.addEventListener('pagehide',pause);
- motion();render();
+ motion();render();start();
 }
