@@ -4,20 +4,39 @@ AgentPay is an open reference implementation for autonomous agent procurement on
 
 Built for the [Monad Metropolis hackathon](https://www.monad.xyz/developers/hackathons/metropolis).
 
-## Solana fixed-price report preview
+## Solana x402: verified devnet report purchase
 
-An independent Solana devnet `exact` integration is under development in this branch.
-`npm run dev:solana:offline` opens a local, explicitly labeled **offline simulation**
-of one paid procurement-budget report. It uses unsigned fixtures and mock
-facilitator/RPC results; it is **not a devnet payment demonstration**. The existing
-Monad commands and historical evidence below are unchanged.
+This branch adds an independent Solana **x402 V2 exact** API for one procurement
+budget report. On **November 3, 2026**, a user-operated Phantom test account paid
+**0.001 test USDC** on devnet. Independent RPC verification found the transaction
+**finalized**, with no execution error, the correct mint/owners/amount, and a memo
+binding the order to its request. The API returned the real computed report and
+persisted `delivered`; this is not an offline fixture or a Monad transaction.
 
-See [Solana setup, architecture, test coverage and live-validation checklist](docs/solana-report.md).
-Requires Node.js 22.18+ for the new SQLite-backed path.
+- [Public transaction](https://explorer.solana.com/tx/4hfFGWzFuF9mmHakGa5HdzGZEE8xey89ibkgWZ4R2bJHr7J9yqLRZQh6KjKr6neDveo6Vtfnd9c2agVDt6uC8sNt?cluster=devnet)
+- [Verified evidence](docs/evidence/devnet-delivery-20261103.json)
+- [Setup, architecture and limits](docs/solana-report.md)
+- [Solana submission draft](docs/solana-submission.md) · [BGM demo storyboard](docs/solana-demo-script.md)
 
-The separate user-operated devnet wallet handoff runs with `npm run dev:solana:handoff`
-at http://localhost:4031. Connection, signing and submission are separate user
-actions. Public readiness checks do not establish a completed payment.
+```sh
+npm ci --ignore-scripts
+npm run test:offline
+npm run dev:solana:handoff
+```
+
+Requires Node.js 22.18+ (tested on 26.12.1). Open http://localhost:4031.
+Use dedicated devnet accounts with existing USDC ATAs. Wallet connection, signing
+and submission are separate user actions. No keys are required by the server.
+`npm run dev:solana:offline` at localhost:4030 remains an explicitly simulated
+preview. Never use it as chain evidence. The report's sample procurement inputs
+are illustrative; the arithmetic and devnet transfer above are real.
+
+### Historical Monad project
+
+The links and sections below describe the earlier Monad project. They are retained
+for provenance, not presented as evidence of the new Solana transaction. The
+Solana implementation and current local submission package have not been pushed
+or deployed by this preparation task.
 
 [Real paid repair](https://x2v-co.github.io/agentpay/live-repair.html) | [v0.2.0 Release](https://github.com/x2v-co/agentpay/releases/tag/v0.2.0) | [Videos and architecture](https://x2v-co.github.io/agentpay/brief.html) | [Interactive simulation](https://x2v-co.github.io/agentpay/) | [Quick preview](https://x2v-co.github.io/agentpay/#preview)
 

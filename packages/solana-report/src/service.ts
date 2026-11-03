@@ -1,3 +1,4 @@
+import { orderMemo } from './memo.js';
 import { randomUUID } from 'node:crypto';
 import { decodePaymentSignatureHeader } from '@x402/core/http';
 import type { PaymentRequired } from '@x402/core/types';
@@ -15,7 +16,7 @@ export class ReportService {
     const now = this.clock();
     return this.store.create({ id, mode: this.mode, request, payer: wallet, requestDigest: digest(request),
       createdAt: now, expiresAt: now + 120000, state: 'quoted',
-      resource: `${this.origin}/api/orders/${id}/report`, requirements: await this.gateway.requirements(`agentpay:${id}:${digest(request)}`) });
+      resource: `${this.origin}/api/orders/${id}/report`, requirements: await this.gateway.requirements(await orderMemo(id, digest(request))) });
   }
   required(order: Order): PaymentRequired {
     return { x402Version: 2, resource: { url: order.resource, description: 'AgentPay procurement budget report', mimeType: 'application/json' }, accepts: [order.requirements] };

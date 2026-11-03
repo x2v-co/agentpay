@@ -1,0 +1,22 @@
+{
+  "video": "AgentPay-Solana-Verified-Demo-1080p.mp4",
+  "durationSeconds": 184,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "soundtrack": "Checkpoint / 120 (existing project original BGM)",
+  "tts": false,
+  "sha256": "aa35e8b644276c4ab270d286f3447dabeceb8653708fb1b7d5c94f4576d37c0c",
+  "sizeBytes": 13277765,
+  "validation": {
+    "fullDecode": "passed",
+    "contactSheet": "reviewed",
+    "maxVolumeDb": -5.4,
+    "meanVolumeDb": -20.3,
+    "offlineTests": "79/79"
+  },
+  "publication": "local only; not uploaded",
+  "description": "Approved historical 64-second intro + 120-second review of finalized devnet evidence; no staged new transaction"
+}

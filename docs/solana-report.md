@@ -6,11 +6,13 @@ spend, and returns affordability and remaining budget using integer token units.
 It does not call a model, claim to repair code, or reuse historical output as a new
 result. Existing Monad routes, SDK exports and recorded demos remain available.
 
-**Payment evidence: offline tests only.** Public read-only capability, genesis,
-mint and fee-payer checks have now been performed separately. No wallet was connected,
-no transaction was signed or submitted, and no external facilitator or Solana RPC
-was called in the test suite. The offline UI uses unsigned serialized fixtures accepted by an
-explicit mock facilitator. Its transaction names start with `offline-only-`.
+**Live evidence verified, November 3, 2026:** a user-operated Phantom payment of
+0.001 devnet USDC finalized and the report was delivered. See
+[the independent verification record](evidence/devnet-delivery-20261103.json).
+The record verifies the transaction signature/message, full devnet genesis, mint,
+owner balance deltas, memo, HTTP report retrieval, and request/result digests.
+The sample budget inputs are synthetic; calculation and settlement are real.
+Offline tests still use only mocks and do not perform new payments.
 
 ## Install and run locally
 
@@ -53,7 +55,8 @@ database to bypass a budget or unknown settlement.
 - Report price: **1,000 atomic units / 0.001 test USDC**, six decimals.
 - Scheme: x402 V2 `exact`. No Permit2, EIP-712 or variable token metering.
 - Each order fixes the request digest, payer, price, merchant, expiry and resource.
-  The transaction memo contains `agentpay:<orderId>:<requestDigest>`. It is checked
+  The transaction memo contains `ap:` plus base64url of the full SHA-256 hash of
+  `agentpay:<orderId>:<requestDigest>` (46 bytes, no hash truncation). It is checked
   against the transaction message as well as the HTTP envelope.
 - Addresses retain their base58 case. Integers cross HTTP/SQLite as decimal strings.
 
@@ -87,7 +90,7 @@ It fabricates **unsigned** payloads; it is not a live payment endpoint.
 | `gateway.ts` | Official x402 SVM server adapter and injected independent chain reader |
 | `service.ts` | Quote → verify → durable claim → settle → confirm → deliver |
 | `offline.ts` | Explicit unsigned fixtures, mock facilitator and chain reader |
-| `devnet.ts` | Opt-in future HTTP facilitator/RPC factory; never imported by offline runner |
+| `devnet.ts` | Opt-in HTTP facilitator/RPC factory; never imported by offline runner |
 | `packages/sdk/src/solana.ts` | Validated quote, signer interface, per-request/total limits, reconciliation |
 | `apps/solana-demo/` | Local HTTP server and minimal KITE-07-inspired UI |
 | `tests/solana-report.test.ts` | Offline state, RPC fixture, client and HTTP tests |
@@ -159,10 +162,11 @@ wallet, RPC or chain interoperability.
 There is no repository lint command. TypeScript checks and existing private-import
 checks are the available static checks. The build emits JS plus static UI files.
 
-## Separate authorization required for devnet validation
+## Additional devnet validation (not performed by offline tests)
 
-Do not treat the offline preview as submission-ready devnet evidence. Before a real
-run, separately authorize network/payment operations and:
+The verified successful purchase is recorded above. Additional real failure tests
+remain distinct from mocked coverage. For any further transaction, obtain explicit
+user authorization and:
 
 1. Confirm facilitator `/supported` advertises V2 `exact` on the devnet identifier,
    the fee payer and the required memo semantics. Confirm supported SDK versions.
@@ -236,5 +240,20 @@ does not mean that clicking Submit is read-only.
 
 `docs/evidence/devnet-public-readiness.json` records public read-only observations.
 Capability advertisement does not prove signature acceptance, memo enforcement
-or successful settlement. Those await a user-operated devnet transaction. There
+or successful settlement. The later finalized payment is recorded in `devnet-delivery-20261103.json`;
+the readiness snapshot itself remains a pre-payment observation. There
 is no mainnet path and no fallback to real assets or a mock payment in this UI.
+
+## Memo simulation fix and verified limits
+
+The original 110-byte memo exhausted the x402 SDK's 20,000-unit default. The
+46-byte full-hash binding used 18,496 units both in unsigned devnet simulation
+and the finalized transaction. See [diagnostic evidence](evidence/memo-simulation-fix.md).
+No unsafe wallet confirmation was needed for the successful fixed transaction.
+
+The successful run proves one attended payment and delivery, not unattended
+autonomy, production readiness, or live coverage of every recovery branch.
+The full offline suite passes 79 tests; real timeout/concurrency/refusal cases
+remain separately unverified. The quote lasts 120 seconds; user signing and
+submission must finish within it. Signing alone does not pay. Once a payment
+is pending, reconcile the existing order instead of creating another purchase.

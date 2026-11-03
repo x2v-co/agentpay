@@ -1,3 +1,4 @@
+import { orderMemo } from '../packages/solana-report/src/memo.js';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -67,18 +68,18 @@ describe('browser wallet boundary without any signature operation', () => {
   }
   it('checks the exact preview and rejects amount, network, recipient, memo or fee payer changes', async () => {
     const { required, preview } = await setup();
-    expect(() => validateQuote(required, preview)).not.toThrow();
+    await expect(validateQuote(required, preview)).resolves.toBeUndefined();
     for (const change of [{ amount: '1001' }, { network: 'solana:mainnet' }, { payTo: mockAddress(7) }, { extra: { ...required.accepts[0].extra, memo: 'changed' } }, { extra: { ...required.accepts[0].extra, feePayer: preview.payer } }]) {
       const altered = structuredClone(required); Object.assign(altered.accepts[0], change);
-      expect(() => validateQuote(altered, preview)).toThrow();
+      await expect(validateQuote(altered, preview)).rejects.toThrow();
     }
-    expect(() => validateQuote(required, { ...preview, expiresAt: 0 })).toThrow();
+    await expect(validateQuote(required, { ...preview, expiresAt: 0 })).rejects.toThrow();
   });
   it('inspects the actual unsigned transaction before any wallet interaction', async () => {
     const { tx, preview } = await setup();
-    expect(() => validatePreparedTransaction(tx, preview)).not.toThrow();
+    await expect(validatePreparedTransaction(tx, preview)).resolves.toBeUndefined();
     for (const change of [{ payer: mockAddress(9) }, { merchantAta: mockAddress(9) }, { feePayer: preview.payer }, { requestDigest: 'wrong' }]) {
-      expect(() => validatePreparedTransaction(tx, { ...preview, ...change })).toThrow();
+      await expect(validatePreparedTransaction(tx, { ...preview, ...change })).rejects.toThrow();
     }
   });
   it('rejects unsigned wallet output and a wallet-modified transaction', async () => {
@@ -111,5 +112,19 @@ describe('local handoff server; all external services mocked', () => {
     expect((await fetch(origin + '/api/session', { headers: { origin: 'https://evil.example' } })).status).toBe(403);
     expect((await post('/api/readiness', {}, false)).status).toBe(401);
     expect((await fetch(origin + '/')).status).toBe(200);
+  });
+});
+
+// Regression for the real SDK's 20,000 CU limit: the former 110-byte memo exhausted it.
+describe('compact order memo', () => {
+  it('keeps all 256 hash bits, fits 46 bytes and binds both order and request', async () => {
+    const id = '2aa3140c-c529-452e-9bc9-7b7c744c0583';
+    const digest = '535811329224289115595e06380039ba287e59e622b158a86013fd4531acc784';
+    const memo = await orderMemo(id, digest);
+    expect(memo).toBe('ap:RdArdbz5JkYXYGdc3BNmRx8cNpmW2v1D4R6ssLG0Lls');
+    expect(new TextEncoder().encode(memo)).toHaveLength(46);
+    expect(Buffer.from(memo.slice(3), 'base64url')).toHaveLength(32);
+    expect(await orderMemo(id + 'x', digest)).not.toBe(memo);
+    expect(await orderMemo(id, digest + 'x')).not.toBe(memo);
   });
 });
