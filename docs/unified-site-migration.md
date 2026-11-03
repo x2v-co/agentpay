@@ -49,3 +49,7 @@ Keep the historical replay readily linked from the new homepage; old `/agentpay`
 7. Rollback: restore previous AgentPay image and/or Toolkit redirects independently. **Do not restore an older order DB, rotate the session secret or change origin** as a content rollback. No paid order should be replayed.
 
 Remaining risks: current prototype is not independently audited; global quotas and single-instance SQLite restrictions remain. Host/Origin isolation survives, but product pages now share the payment origin: keep their scripts dependency-free and do not add third-party analytics. A claim that the whole ecosystem is autonomous or multi-chain live would be inaccurate.
+
+### Concept animation
+
+The overview and concept pages include a local-only narrative animation (three outcomes; user-started Play/Pause/Next/Reset). It illustrates the planned ecosystem and an exact-payment branch, not actual model procurement or a newly recorded transaction. Reduced-motion preference disables automatic playback; hidden-page and pagehide events pause timers. No new script origin, API, dependency or production configuration is required. The independent saved Solana evidence stays linked separately.
