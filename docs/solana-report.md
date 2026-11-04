@@ -102,7 +102,7 @@ uses the official HTTP utilities. `@x402/*` remain pinned to **2.25.0**. Solana 
 is pinned to **5.5.1**: this satisfies that version's transitive token/compute-budget
 packages, unlike Kit 6.9.0. No installation lifecycle scripts are required.
 
-The SDK subpath `@toolkit-fun/agentpay-sdk/solana` exports `BudgetReportClient` and
+The SDK subpath `@toolkitfun/agentpay-sdk/solana` exports `BudgetReportClient` and
 `createSvmPayloadFactory`. This first client is Node/TypeScript and attended. A separate Wallet Standard browser handoff is now available at
 `npm run dev:solana:handoff` (http://localhost:4031). Connect, sign-only and submit
 are three explicit user actions. The offline UI never connects a wallet. Its in-memory attempt map prevents

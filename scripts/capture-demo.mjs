@@ -44,7 +44,7 @@ try {
   await click('market');
   await page.locator('.product-window img').waitFor();
   await page.locator('.step-grid').scrollIntoViewIfNeeded();
-  caption('Compare real model channels on aiplans.dev. Toolkit is the configured machine-fulfillment route.');
+  caption('Compare real model channels on aiplans.dev. ToolkitFun is the configured machine-fulfillment route.');
   await hold(6500);
   assert.match(await page.locator('.decision').innerText(), /ask first/i);
   caption('The agent waits for your approval. A policy decision comes before a purchase.');
@@ -53,7 +53,7 @@ try {
   await click('connect');
   await page.locator('.api-layout').scrollIntoViewIfNeeded();
   await page.getByText('Inspect the SDK request', { exact: true }).click();
-  caption('A Toolkit request binds the model and token bounds. This screen replays historical payment evidence.');
+  caption('A ToolkitFun request binds the model and token bounds. This screen replays historical payment evidence.');
   await hold(5500);
   await click('replay');
   await page.locator('.receipt').scrollIntoViewIfNeeded();

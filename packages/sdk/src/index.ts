@@ -3,7 +3,7 @@ import { createSIWxPayload, encodeSIWxHeader } from '@x402/extensions/sign-in-wi
 import {
   agentPayActionFor, calculateChargeAtomic, digest, digestToBytes32, normalizePolicy, policyTypedData, problem,
   reservationTypedData, uuidToBytes, AgentPayProblemError, type AgentPayProblem, type ProcurementPolicy, type ReservationIntent, type ToolkitMachineOffer,
-} from '@toolkit-fun/agentpay-protocol';
+} from '@toolkitfun/agentpay-protocol';
 
 export type AiplansRecord = { providerSlug: string; modelSlug: string; productId?: string | number; inputPrice?: string | number; outputPrice?: string | number; currency?: string; unit?: string; fulfillment?: string; freshness?: 'fresh' | 'stale' | 'unavailable' };
 export type DiscoverySource = { listModels(): Promise<AiplansRecord[]>; listOffers(): Promise<ToolkitMachineOffer[]> };

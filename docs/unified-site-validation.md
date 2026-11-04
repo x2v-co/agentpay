@@ -75,3 +75,10 @@ Browser QA: screenshots inspected for all five desktop pages and all five Chines
 Final local HTTP crawl: all ten pages and sixteen distinct local links/assets returned 200; preview session/order/RPC endpoints returned 403. Preview banner is present on all ten pages. Max HTML payload 15,488 bytes; stylesheet 21,903 bytes (gzip estimate 5,686), exhibit player 2,938 (gzip 1,161), existing interaction script 4,366 (gzip 1,807). Gzip figures are estimates from local compression, not a claim about deployed compression or Core Web Vitals.
 
 Tests used Node 26.12.1 and the hydrated temporary copy with exact implementation files; Node 22 was not rerun. No new chain transaction, production readiness check, deployment, push, DNS or old-site change occurred. Preview runs only on localhost and cannot pay. The wallet handoff is intentionally excluded from the public-site animation redesign.
+
+
+## Main integration validation — 2026-11-04
+
+Merged the existing main branding and dependency changes into the feature branch before PR merge. Preserved `@toolkitfun` workspace names, zod 3.25.76 override and `npm ci --ignore-scripts`; regenerated the combined lockfile. Corrected the Solana SDK documentation namespace and pointed the website source links at the intended main destination. CI now runs the offline suite, Solana typecheck/build and built judge smoke in addition to the private-import check.
+
+A fresh `npm ci --ignore-scripts --no-audit --no-fund` installation passed all 100 tests, general/Solana typechecks, Solana build, reference/demo smoke, built judge smoke and private-import checks on Node 26.12.1. External network was blocked during tests and real rail settlement calls were zero. GitHub's Node 22 PR check must pass before merging. This is not a deployment or a new payment.

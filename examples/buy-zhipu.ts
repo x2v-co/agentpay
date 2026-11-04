@@ -5,8 +5,8 @@ import {
   createX402PaymentSigner,
   signProcurementPolicy,
   signReservationIntent,
-} from '@toolkit-fun/agentpay-sdk';
-import type { ProcurementPolicy } from '@toolkit-fun/agentpay-protocol';
+} from '@toolkitfun/agentpay-sdk';
+import type { ProcurementPolicy } from '@toolkitfun/agentpay-protocol';
 
 const privateKey = process.env.AGENT_PRIVATE_KEY as `0x${string}` | undefined;
 if (!privateKey) throw new Error('AGENT_PRIVATE_KEY is required');

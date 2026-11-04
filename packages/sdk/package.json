@@ -1,5 +1,5 @@
 {
-  "name": "@toolkit-fun/agentpay-sdk",
+  "name": "@toolkitfun/agentpay-sdk",
   "version": "0.1.0",
   "private": false,
   "type": "module",
@@ -9,13 +9,13 @@
     "./solana": "./src/solana.ts"
   },
   "dependencies": {
-    "@toolkit-fun/agentpay-protocol": "0.1.0",
+    "@toolkitfun/agentpay-protocol": "0.1.0",
     "@x402/core": "2.25.0",
     "@x402/evm": "2.25.0",
     "@x402/extensions": "2.25.0",
     "@x402/fetch": "2.25.0",
     "@solana/kit": "5.5.1",
     "@x402/svm": "2.25.0",
-    "@toolkit-fun/agentpay-solana-report": "0.1.0"
+    "@toolkitfun/agentpay-solana-report": "0.1.0"
   }
 }

@@ -3,7 +3,7 @@ import { renderExhibit } from './exhibits.js';
 export const SITE_ORIGIN = 'https://agentpay.toolkit.fun';
 export const SITE_PATHS = ['/', '/demo', '/developers', '/history/monad', '/concepts/multichain'] as const;
 export const SITE_DOCUMENTS = SITE_PATHS.flatMap(p => [p, p === '/' ? '/zh' : '/zh' + p]);
-export const SOURCE = 'https://github.com/x2v-co/agentpay/tree/feat/judge-demo-isolation';
+export const SOURCE = 'https://github.com/x2v-co/agentpay/tree/main';
 const TX = 'https://explorer.solana.com/tx/4hfFGWzFuF9mmHakGa5HdzGZEE8xey89ibkgWZ4R2bJHr7J9yqLRZQh6KjKr6neDveo6Vtfnd9c2agVDt6uC8sNt?cluster=devnet';
 export function renderSite(path: string): string | undefined {
  if (!SITE_DOCUMENTS.includes(path)) return;
