@@ -25,12 +25,12 @@ afterEach(()=>vi.useRealTimers());
 describe('authored exhibit playback without network or wallets',()=>{
  it('waits until visible, plays once and stops on the last scene',()=>{
   const f=fixture();vi.advanceTimersByTime(20000);expect(f.count.textContent).toBe('01 / 04');
-  f.show();expect(f.play.textContent).toBe('Pause');vi.advanceTimersByTime(13800);
+  f.show();expect(f.play.textContent).toBe('Pause');vi.advanceTimersByTime(8400);
   expect(f.count.textContent).toBe('04 / 04');expect(f.next.disabled).toBe(true);expect(f.play.textContent).toBe('Play');
   vi.advanceTimersByTime(30000);f.hide();f.show();expect(f.count.textContent).toBe('04 / 04');expect(f.play.textContent).toBe('Play');
  });
  it('respects pause, chapter selection, restart and manual accessibility status',()=>{
-  const f=fixture();f.show();vi.advanceTimersByTime(4600);f.play.fire('click');vi.advanceTimersByTime(20000);expect(f.count.textContent).toBe('02 / 04');
+  const f=fixture();f.show();vi.advanceTimersByTime(2800);f.play.fire('click');vi.advanceTimersByTime(20000);expect(f.count.textContent).toBe('02 / 04');
   f.chapters[2].fire('click');expect(f.status.textContent).toBe('Scene 2');expect(f.chapters[2].attrs['aria-pressed']).toBe('true');expect(f.play.textContent).toBe('Play');
   f.reset.fire('click');expect(f.count.textContent).toBe('01 / 04');expect(f.next.disabled).toBe(false);expect(f.play.textContent).toBe('Play');
  });

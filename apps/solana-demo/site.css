@@ -11,3 +11,18 @@ body.product-cinema{background:radial-gradient(ellipse at 85% 10%,#12334270,tran
 @media(prefers-reduced-motion:reduce){.product-cinema *, .product-cinema *:before,.product-cinema *:after{animation:none!important;transition:none!important}.button:hover{transform:none}}
 /* Readable protocol text and touch controls on small screens. */
 .terminal-line{font-size:11px}.exhibit-controls button{min-height:44px}.pause-all{min-height:44px}@media(max-width:760px){.terminal-line{font-size:11px;padding:8px 10px}.exhibit-art .terminal{max-width:100%}.exhibit-controls small{line-height:1.6}}
+
+/* Keep motion legible immediately, without speeding up the text reveal. */
+@media(prefers-reduced-motion:no-preference){
+.exhibit-screen{position:relative}
+.is-playing [data-exhibit-frame]:not([hidden]) .exhibit-art:after{content:'';position:absolute;left:0;top:0;width:100%;height:3px;background:var(--lime);transform-origin:left;animation:chapter-progress 2.8s linear both;pointer-events:none}
+.is-playing .exhibit-dot{animation:play-indicator 1.2s ease-in-out infinite}
+.is-playing [data-exhibit-frame]:not([hidden]) .transfer-wire{animation:transfer-value 1.2s ease infinite}
+.is-playing [data-exhibit-frame]:not([hidden]) .orbit-ring{animation:orbit-travel 5s linear infinite}
+.is-playing [data-exhibit-frame]:not([hidden]) .orbit-ring:before{content:'';position:absolute;top:-4px;left:calc(50% - 4px);width:8px;height:8px;border-radius:50%;background:var(--lime)}
+.transaction-story.is-playing .story-node.is-active .node-icon{animation:play-indicator 1.2s ease-in-out infinite}
+.story-packet{transition-duration:.4s}
+@keyframes chapter-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes play-indicator{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes orbit-travel{to{transform:rotate(360deg)}}
+}

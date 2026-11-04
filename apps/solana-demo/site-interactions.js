@@ -18,7 +18,7 @@ for (const story of document.querySelectorAll('[data-story]')) {
  const next = story.querySelector('[data-story-next]');
  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
  let outcome='success', cursor=0, timer=null;
- function pause(){ if(timer!==null)clearTimeout(timer);timer=null;play.textContent=play.dataset.playLabel;play.setAttribute('aria-pressed','false'); }
+ function pause(){ story.classList.remove('is-playing');if(timer!==null)clearTimeout(timer);timer=null;play.textContent=play.dataset.playLabel;play.setAttribute('aria-pressed','false'); }
  function render(){
   const sequence=sequences[outcome], id=sequence[cursor];
   steps.forEach((step,i)=>step.hidden=i!==id);
@@ -30,11 +30,11 @@ for (const story of document.querySelectorAll('[data-story]')) {
   story.querySelector('[data-release]').textContent=id===8?(zh?'已交付':'Delivered'):id===9?(zh?'已停止':'Stopped'):id===6||id===7?'Pending':(zh?'未放行':'Locked');
   next.disabled=cursor===sequence.length-1;
  }
- function tick(){ cursor++;render();if(cursor===sequences[outcome].length-1)pause();else timer=setTimeout(tick,3400); }
+ function tick(){ cursor++;render();if(cursor===sequences[outcome].length-1)pause();else timer=setTimeout(tick,2400); }
  function start(){
   if(reduced.matches || document.hidden || timer!==null)return;
   if(cursor===sequences[outcome].length-1){cursor=0;render();}
-  play.textContent=play.dataset.pauseLabel;play.setAttribute('aria-pressed','true');timer=setTimeout(tick,3400);
+  story.classList.add('is-playing');play.textContent=play.dataset.pauseLabel;play.setAttribute('aria-pressed','true');timer=setTimeout(tick,2400);
  }
  play.addEventListener('click',()=>{if(timer!==null)pause();else start();});
  next.addEventListener('click',()=>{pause();if(cursor<sequences[outcome].length-1){cursor++;render();}});
