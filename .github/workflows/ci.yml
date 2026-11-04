@@ -18,5 +18,10 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: npm test
+      - run: npm run test:offline
+      - run: npm run typecheck:solana
+      - run: npm run build:solana
+      - run: node tests/solana-judge-build.smoke.mjs
+        env:
+          NODE_OPTIONS: --import=./scripts/offline-network-guard.mjs
       - run: npm run check:private-imports

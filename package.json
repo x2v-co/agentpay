@@ -16,13 +16,23 @@
     "start": "node apps/reference-server/src/index.js",
     "typecheck": "tsc --noEmit",
     "test": "npm run typecheck && vitest run && node tests/reference-server.smoke.mjs && node tests/demo.smoke.mjs",
-    "check:private-imports": "node scripts/check-private-imports.mjs"
+    "check:private-imports": "node scripts/check-private-imports.mjs",
+    "dev:solana:offline": "tsx apps/solana-demo/server.ts",
+    "typecheck:solana": "tsc -p tsconfig.solana.json",
+    "test:solana": "vitest run tests/solana-report.test.ts",
+    "build:solana": "node scripts/build-solana.mjs",
+    "test:offline": "NODE_OPTIONS=\"--import=./scripts/offline-network-guard.mjs\" npm test",
+    "dev:solana:handoff": "npm run build:solana && node dist/solana/apps/solana-demo/handoff.js",
+    "start:solana:judge": "node dist/solana/apps/solana-demo/judge.js"
   },
   "dependencies": {
+    "@solana/kit": "5.5.1",
+    "@wallet-standard/app": "1.1.1",
     "@x402/core": "2.25.0",
     "@x402/evm": "2.25.0",
     "@x402/extensions": "2.25.0",
     "@x402/fetch": "2.25.0",
+    "@x402/svm": "2.25.0",
     "express": "5.1.0",
     "viem": "2.56.3"
   },
@@ -30,7 +40,8 @@
     "@types/node": "22.18.1",
     "tsx": "4.20.5",
     "typescript": "5.9.2",
-    "vitest": "3.2.4"
+    "vitest": "3.2.4",
+    "esbuild": "0.25.12"
   },
   "overrides": {
     "zod": "3.25.76"

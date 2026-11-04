@@ -1,8 +1,55 @@
 # AgentPay
 
-AgentPay is an open reference implementation for autonomous agent procurement on Monad. An agent discovers model prices through [aiplans.dev](https://aiplans.dev), selects a machine-fulfillable offer from [toolkit.fun](https://toolkit.fun), spends under an owner-signed policy, pays actual metered usage through x402 `upto` + Permit2, and receives a recoverable proof.
+AgentPay provides payment controls and recoverable delivery for agent-facing services.
+This branch's Solana demo sells a procurement-budget report through x402 V2 exact;
+the historical Monad implementation is preserved and described separately below.
 
-Built for the [Monad Metropolis hackathon](https://www.monad.xyz/developers/hackathons/metropolis).
+## Solana x402: verified devnet report purchase
+
+This branch adds an independent Solana **x402 V2 exact** API for one procurement
+budget report. On **November 3, 2026**, a user-operated Phantom test account paid
+**0.001 test USDC** on devnet. Independent RPC verification found the transaction
+**finalized**, with no execution error, the correct mint/owners/amount, and a memo
+binding the order to its request. The API returned the real computed report and
+persisted `delivered`; this is not an offline fixture or a Monad transaction.
+
+- [Public transaction](https://explorer.solana.com/tx/4hfFGWzFuF9mmHakGa5HdzGZEE8xey89ibkgWZ4R2bJHr7J9yqLRZQh6KjKr6neDveo6Vtfnd9c2agVDt6uC8sNt?cluster=devnet)
+- [Verified evidence](docs/evidence/devnet-delivery-20261103.json)
+- [Setup, architecture and limits](docs/solana-report.md)
+- [Failure and retry acceptance evidence](docs/evidence/solana-acceptance.md)
+- [Solana submission draft](docs/solana-submission.md) · [Selected v5 and publication review](docs/solana-release-review.md)
+
+```sh
+npm ci --ignore-scripts
+npm run test:offline
+npm run dev:solana:handoff
+```
+
+Requires Node.js 22.18+ (tested on 26.12.1). Open http://localhost:4031.
+Use dedicated devnet accounts with existing USDC ATAs. Wallet connection, signing
+and submission are separate user actions. No keys are required by the server.
+`npm run dev:solana:offline` at localhost:4030 remains an explicitly simulated
+preview. Never use it as chain evidence. The report's sample procurement inputs
+are illustrative; the arithmetic and devnet transfer above are real.
+
+### Isolated judge service (local implementation, not deployed)
+
+The separate `start:solana:judge` entry point adds fixed merchant configuration,
+per-browser secure sessions, durable order access control and rate limits. Its
+public landing page shows the saved real receipt and executes isolated mock
+failure/retry examples. It does not share the original handoff database.
+
+Read [threat model, required environment and deployment contract](docs/solana-judge-security.md)
+before provisioning. No session secret is included or generated. Current offline
+regression: **94 tests**, plus the two existing smoke checks and a built judge
+assets/evidence/example smoke check. No new real payment or deployment was run.
+
+### Historical Monad project
+
+The links and sections below describe the earlier Monad project. They are retained
+for provenance, not presented as evidence of the new Solana transaction. The
+Solana implementation and current local submission package have not been pushed
+or deployed by this preparation task.
 
 [Real paid repair](https://x2v-co.github.io/agentpay/live-repair.html) | [v0.2.0 Release](https://github.com/x2v-co/agentpay/releases/tag/v0.2.0) | [Videos and architecture](https://x2v-co.github.io/agentpay/brief.html) | [Interactive simulation](https://x2v-co.github.io/agentpay/) | [Quick preview](https://x2v-co.github.io/agentpay/#preview)
 
